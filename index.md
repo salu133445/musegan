@@ -1,14 +1,14 @@
 # MuseGAN
 
-MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks
-arxiv link: https://arxiv.org/abs/xxxx.xxxx
+**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**
+arxiv link: https://arxiv.org/abs/XXXX.XXXX
 
 # Audio Samples
 
-**Best Samples**
+## Best Samples
 {% include player.html id="342139222" token="s-ucrbd" %}
 
-**Generation From Scratch**
+## Generation From Scratch
 - the jamming model
 {% include player.html id="342139219" token="s-AtsSW" %}
 
@@ -18,7 +18,7 @@ arxiv link: https://arxiv.org/abs/xxxx.xxxx
 - the hybrid model
 {% include player.html id="342139220" token="s-XH64Z"%}
 
-**Track-conditional Generation**
+## Track-conditional Generation
 - the jamming model
 {% include player.html id="342139215" token="s-414n1" %}
 
