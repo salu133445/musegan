@@ -2,7 +2,7 @@
 ---
 **MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**  
 [arxiv] https://arxiv.org/abs/XXXX.XXXX
-  
+<br><br>  
 # Audio Samples
 ---
 ## Best Samples
