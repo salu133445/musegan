@@ -3,6 +3,10 @@
 **MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**  
 [arxiv] https://arxiv.org/abs/XXXX.XXXX
 <br><br>  
+
+# Introduction
+![musegan](https://github.com/salu133445/musegan/master/fig/musegan.png "musegan")
+
 # Audio Samples
 ---
 ## Best Samples
