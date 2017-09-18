@@ -17,7 +17,7 @@ Generating music has a few notable differences from generating images and videos
 <p align="center">Evolution of the generated piano-rolls as a function of update steps.</p>
 
 ![hybrid](https://github.com/salu133445/musegan/raw/master/fig/hybrid.png "hybrid")
-<p align="center">Randomly-picked generation result (piano-rolls) of MuseGAN, generating from scratch.</p>
+<p align="center">Randomly-picked generation result (piano-rolls), generating from scratch.</p>
 
 
 # Audio Samples
