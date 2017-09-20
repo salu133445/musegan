@@ -1,6 +1,6 @@
 # MuseGAN
 **MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**  
-[arxiv] https://arxiv.org/abs/XXXX.XXXX
+[arxiv] http://arxiv.org/abs/1709.06298
 <br><br>  
 
 # Introduction
