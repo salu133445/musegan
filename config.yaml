@@ -1,0 +1,12 @@
+# local path
+dataset_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/lmd_matched/' # lmd_full, lmd_aligned
+result_path: '/home/salu133445/NAS/salu133445/midinet/lmd_parsed/'
+score_file_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/match_scores.json'
+
+# parameters
+confidence_threshold: 0.5
+beat_resolution: 24
+filetype: 'npz' # 'npy', 'csv'
+default_tempo: 120.0
+velocity: 'bool' # 'int'
+
