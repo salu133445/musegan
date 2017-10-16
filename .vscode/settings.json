@@ -1,7 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-    "python.linting.lintOnSave": true,
-    "python.linting.pylintArgs": ["--max-line-length=120"],
-    "editor.rulers": [120],
-    "files.trimTrailingWhitespace": true
-}
