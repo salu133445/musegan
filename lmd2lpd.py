@@ -75,12 +75,14 @@ def save_piano_rolls(piano_rolls, dir_path, instrument_info, postfix=''):
 
 def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
     """Get the statistics of a piano-roll, onset_array and midi_data should be given."""
+    # get the binarized version of piano_roll
+    piano_roll_bool = (piano_roll > 0)
     # occurrence beat ratio
-    sum_rhythm_bool = piano_roll.sum(dtype=bool, axis=1)
+    sum_rhythm_bool = piano_roll_bool.sum(dtype=bool, axis=1)
     occ_beats = sum_rhythm_bool.reshape((settings['beat_resolution'], -1)).sum(dtype=bool, axis=0)
     occurrence_beat_ratio = occ_beats / float(midi_data['num_beats'])
     # occurrence bar ratio
-    sum_rhythm_bool = piano_roll.sum(dtype=bool, axis=1)
+    sum_rhythm_bool = piano_roll_bool.sum(dtype=bool, axis=1)
     if midi_data['time_signature'] is not None:
         num_step_bar = settings['beat_resolution'] * int(midi_data['time_signature'][0])
         occ_bars = sum_rhythm_bool.reshape((num_step_bar, -1)).sum(dtype=bool, axis=0)
@@ -88,7 +90,7 @@ def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
     else:
         occurrence_bar_ratio = None
     # average notes simultaneously
-    sum_rhythm_int = piano_roll.sum(axis=1)
+    sum_rhythm_int = piano_roll_bool.sum(axis=1)
     avg_notes_simultaneously = sum_rhythm_int.sum() / float(sum_rhythm_int.sum()) if sum_rhythm_int.sum() > 0 else 0.0
     # max notes simultaneously
     max_notes_simultaneously = max(sum_rhythm_int)
@@ -96,7 +98,7 @@ def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
     rhythm_complexity = float(np.sum(onset_array)) / float(occ_bars) if occ_bars > 0 else 0.0
     # pitch complexity
     if midi_data['time_signature'] is not None:
-        sum_pitch_bar = piano_roll.reshape(-1, settings['beat_resolution']*midi_data['time_signature'][-1], 128) \
+        sum_pitch_bar = piano_roll_bool.reshape(-1, settings['beat_resolution']*midi_data['time_signature'][-1], 128) \
                                   .sum(axis=1)
         pitch_complexity_bar = (sum_pitch_bar > 0).sum(axis=1)
         pitch_complexity = np.sum(pitch_complexity_bar) / float(occ_bars) if occ_bars > 0 else 0.0

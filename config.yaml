@@ -8,4 +8,4 @@ confidence_threshold: 0.5
 beat_resolution: 24
 filetype: 'npz' # 'npy', 'csv'
 default_tempo: 120.0
-velocity: 'bool' # 'int'
+velocity: 'int' # 'bool'
