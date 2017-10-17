@@ -1,13 +1,8 @@
 from __future__ import print_function
 import os
-import shutil
-import json
 import numpy as np
 import pretty_midi
 from config import settings
-
-if settings['filetype'] == 'npz':
-    import scipy.sparse
 
 
 def merge_dicts(*dict_args):
@@ -18,19 +13,7 @@ def merge_dicts(*dict_args):
         result.update(dictionary)
     return result
 
-def msd_id_to_dirs(msd_id):
-    """
-    Given an MSD ID, generate the path prefix.
-    E.g. TRABCD12345678 -> A/B/C/TRABCD12345678
-    """
-    return os.path.join(msd_id[2], msd_id[3], msd_id[4], msd_id)
-
-def get_midi_path(msd_id, midi_md5):
-    """Given an MSD ID and MIDI MD5, return path to a MIDI file.
-    kind should be one of 'matched' or 'aligned'. """
-    return os.path.join(settings['dataset_path'], msd_id_to_dirs(msd_id), midi_md5 + '.mid')
-
-def get_time_signature_info_and_array_dict(pm):
+def get_time_signature_info_and_arrays(pm):
     """Given a pretty_midi.PrettyMIDI class instance, return its time signature info dictionary and time signature array
     dictionary."""
     # sort time signature changes by time
@@ -39,13 +22,13 @@ def get_time_signature_info_and_array_dict(pm):
     time_signatures = [str(tsc.denominator) + '/' + str(tsc.numerator) for tsc in pm.time_signature_changes]
     time_signature_times = [tsc.time for tsc in pm.time_signature_changes]
     # collect variables into dictionaries to return
-    time_signature_info_dict = {'num_time_signature_changes': len(time_signatures),
-                                'time_signature': time_signatures[0] if len(time_signatures) == 1 else None}
-    time_signature_array_dict = {'time_signatures': time_signatures,
-                                 'time_signature_times': time_signature_times}
-    return time_signature_info_dict, time_signature_array_dict
+    time_signature_info = {'num_time_signature_changes': len(time_signatures),
+                           'time_signature': time_signatures[0] if len(time_signatures) == 1 else None}
+    time_signature_arrays = {'time_signatures': time_signatures,
+                             'time_signature_times': time_signature_times}
+    return time_signature_info, time_signature_arrays
 
-def get_beats_info_and_array_dict(pm, sort_tsc=True):
+def get_beats_info_and_arrays(pm, sort_tsc=True):
     """Given a pretty_midi.PrettyMIDI class instance, return its beats info dictionary and beats array dictionary.
     If sort_tsc is True(by default), the time_signatrue_changes list of the pretty_midi object will be first sorted."""
     # sort time signature changes by time
@@ -68,17 +51,17 @@ def get_beats_info_and_array_dict(pm, sort_tsc=True):
         idx_to_fill = np.searchsorted(beat_times, downbeat_time, side='right')
         downbeats_array[idx_to_fill] = True
     # collect variables into dictionaries to return
-    beats_info_dict = {'beat_start_time': beat_start_time,
-                       'num_beats': num_beats,
-                       'num_bars': num_bars,
-                       'incomplete_at_start': incomplete_at_start}
-    beats_array_dict = {'beat_times': beat_times,
-                        'downbeat_times': downbeat_times,
-                        'beats_array': beats_array,
-                        'downbeats_array': downbeats_array}
-    return beats_info_dict, beats_array_dict
+    beats_info = {'beat_start_time': beat_start_time,
+                  'num_beats': num_beats,
+                  'num_bars': num_bars,
+                  'incomplete_at_start': incomplete_at_start}
+    beats_arrays = {'beat_times': beat_times,
+                    'downbeat_times': downbeat_times,
+                    'beats_array': beats_array,
+                    'downbeats_array': downbeats_array}
+    return beats_info, beats_arrays
 
-def get_tempo_info_and_array_dict(pm, beat_times=None):
+def get_tempo_info_and_arrays(pm, beat_times=None):
     """Given a pretty_midi.PrettyMIDI class instance, return its tempo info dictionary and tempo info array dictionary.
     If no beat_times is given, pm.get_beats(beat_start_time) will be first computed to get beats_times."""
     # compute beat_times when it is not given
@@ -108,24 +91,24 @@ def get_tempo_info_and_array_dict(pm, beat_times=None):
         # deal with the rest beats
         tempo_array[tempo_start_beat:] = tempi[tempo_id]
     # collect variables into dictionaries to return
-    tempo_info_dict = {'tempo': tempi[0] if len(tempo_change_times) == 1 else settings['default_tempo']}
-    tempo_array_dict = {'tempo_change_times': tempo_change_times,
-                        'tempi': tempi,
-                        'tempo_array': tempo_array}
-    return tempo_info_dict, tempo_array_dict
+    tempo_info = {'tempo': tempi[0] if len(tempo_change_times) == 1 else settings['default_tempo']}
+    tempo_arrays = {'tempo_change_times': tempo_change_times,
+                    'tempi': tempi,
+                    'tempo_array': tempo_array}
+    return tempo_info, tempo_arrays
 
-def get_midi_info_and_array_dict(pm):
+def get_midi_info_and_arrays(pm):
     """Given a pretty_midi.PrettyMIDI class instance, return its midi_info_dict and midi_array_dict."""
     # get time sigature changes info
-    time_signature_info_dict, time_signature_array_dict = get_time_signature_info_and_array_dict(pm)
+    time_signature_info, time_signature_arrays = get_time_signature_info_and_arrays(pm)
     # get beats info dictionary and beats array dictionary
-    beats_info_dict, beats_array_dict = get_beats_info_and_array_dict(pm, sort_tsc=False)
+    beats_info, beats_arrays = get_beats_info_and_arrays(pm, sort_tsc=False)
     # get tempo info dictionary and tempo array dictionary
-    tempo_info_dict, tempo_array_dict = get_tempo_info_and_array_dict(pm, beat_times=beats_array_dict['beat_times'])
+    tempo_info, tempo_arrays = get_tempo_info_and_arrays(pm, beat_times=beats_arrays['beat_times'])
     # collect the results into dictionaries to return
-    midi_info_dict = merge_dicts(beats_info_dict, time_signature_info_dict, tempo_info_dict)
-    midi_array_dict = merge_dicts(beats_array_dict, time_signature_array_dict, tempo_array_dict)
-    return midi_info_dict, midi_array_dict
+    midi_info = merge_dicts(beats_info, time_signature_info, tempo_info)
+    midi_arrays = merge_dicts(beats_arrays, time_signature_arrays, tempo_arrays)
+    return midi_info, midi_arrays
 
 def get_piano_roll(instrument, beat_times=None, tempo_array=None, pm=None):
     """Given a pretty_midi.Instrument class instance, return the pianoroll of the instrument.
@@ -133,9 +116,9 @@ def get_piano_roll(instrument, beat_times=None, tempo_array=None, pm=None):
     if beat_times is None:
         beat_start_time = pm.time_signature_changes[0].time if pm.time_signature_changes else 0.0
         beat_times = pm.get_beats(beat_start_time)
-        num_beats = len(beat_times)
     if tempo_array is None:
-        _, tempo_array = get_tempo_info_and_array_dict(pm, beat_times)
+        _, tempo_array = get_tempo_info_and_arrays(pm, beat_times)
+    num_beats = len(beat_times)
     # create the piano roll and the onset array
     if settings['velocity'] == 'bool':
         piano_roll = np.zeros(shape=(settings['beat_resolution']*num_beats, 128), dtype=bool)
@@ -179,21 +162,14 @@ def get_piano_roll(instrument, beat_times=None, tempo_array=None, pm=None):
                 onset_array[start_idx, 0] = True
     return piano_roll, onset_array
 
-def get_instrument_info(instrument, identifier):
+def get_instrument_info(instrument):
     """Given a pretty_midi.Instrument class instance, return the infomation dictionary of the instrument."""
-    return {'id': identifier,
-            'program number': instrument.program,
-            'program name': pretty_midi.program_to_instrument_name(instrument.program),
+    return {'program_num': instrument.program,
+            'program_name': pretty_midi.program_to_instrument_name(instrument.program),
             'name': instrument.name,
-            'is drum': instrument.is_drum,
-            'family number': int(instrument.program)//8,
-            'family name': pretty_midi.program_to_instrument_class(instrument.program)}
-
-def get_instrument_filename(instrument, identifier):
-    """Given a pretty_midi.Instrument class instance and the identifier, return the filename of the instrument."""
-    family_name = pretty_midi.program_to_instrument_class(instrument.program)
-    program_name = pretty_midi.program_to_instrument_name(instrument.program)
-    return '_'.join([str(identifier), family_name, program_name])
+            'is_drum': instrument.is_drum,
+            'family_num': int(instrument.program)//8,
+            'family_name': pretty_midi.program_to_instrument_class(instrument.program)}
 
 def get_piano_rolls(pm):
     """
@@ -207,36 +183,37 @@ def get_piano_rolls(pm):
             piano_rolls: a list of extracted piano-rolls, one for each instrument track
             onset_arrays: a list of extracted onset_arrays, one for each instrument track, having one-to-one
                 correspondence with piano_rolls
-            midi_array_dict: a dictionary containing informative arrays as listed following
+            midi_arrays: a dictionary containing informative arrays as listed following
                 beat_times: an array storing the time (in sec) of each beat in the original midi file
                 downbeats_time: an array storing the time (in sec) of each downbeat in the original midi file
                 tempo_array: an array storing the tempo at each time step
                 beats_array: an array storing the location (time stpe) of beats
                 downbeats_array: an array storing the location (time stpe) of beats
-            midi_info_dict: a dictionary containing information of the midi file (time_signature/beats/tempo info)
-            instrument_dict: a dictionary containing information of each track
+            midi_info: a dictionary containing information of the midi file (time_signature/beats/tempo info)
+            instrument: a dictionary containing information of each track
     """
     # create an empty instrument dictionary to store information of each instrument
-    instrument_info_dict = {}
+    instrument_info = {}
     piano_rolls = []
     onset_arrays = []
     # get the midi information and the beats/tempo arrays
-    midi_info_dict, midi_array_dict = get_midi_info_and_array_dict(pm)
+    midi_info, midi_arrays = get_midi_info_and_arrays(pm)
     # sort instruments by their program numbers
     pm.instruments.sort(key=lambda x: x.program)
     # iterate thorugh all instruments
-    for instrument, idx in enumerate(pm.instruments):
+    for idx, instrument in enumerate(pm.instruments):
         # get the piano_roll and the onset array of a specific instrument
-        piano_roll, onset_array = get_piano_roll(instrument, beat_times=midi_array_dict['beat_times'],
-                                                 tempo_array=midi_array_dict['tempo_array'])
+        piano_roll, onset_array = get_piano_roll(instrument, beat_times=midi_arrays['beat_times'],
+                                                 tempo_array=midi_arrays['tempo_array'])
         # append the piano-roll to the piano_roll list and the onset_array list
         piano_rolls.append(piano_roll)
         onset_arrays.append(onset_array)
         # append information of current instrument to instrument dictionary
-        instrument_info = get_instrument_info(instrument, idx)
-        instrument_filename = get_instrument_filename(instrument, idx)
-        instrument_info_dict[instrument_filename] = instrument_info
-    return piano_rolls, onset_arrays, midi_array_dict, midi_info_dict, instrument_info_dict
+        instrument_info[str(idx)] = get_instrument_info(instrument)
+    return piano_rolls, {'onset_arrays': onset_arrays,
+                         'midi_arrays': midi_arrays,
+                         'midi_info': midi_info,
+                         'instrument_info': instrument_info}
 
 def midi_to_pianorolls(midi_path):
     """
@@ -250,14 +227,14 @@ def midi_to_pianorolls(midi_path):
             piano_rolls: a list of extracted piano-rolls, one for each instrument track
             onset_arrays: a list of extracted onset_arrays, one for each instrument track, having one-to-one
                 correspondence with piano_rolls
-            midi_array_dict: a dictionary containing informative arrays as listed following
+            midi_arrays: a dictionary containing informative arrays as listed following
                 beats_time: an array storing the time (in sec) of each beat in the original midi file
                 downbeats_time: an array storing the time (in sec) of each downbeat in the original midi file
                 tempo_array: an array storing the tempo at each time step
                 beats_array: an array storing the location (time stpe) of beats
                 downbeats_array: an array storing the location (time stpe) of beats
-            midi_info_dict: a dictionary containing information of the midi file (time_signature/beats/tempo info)
-            instrument_info_dict: a dictionary containing information of each track
+            midi_info: a dictionary containing information of the midi file (time_signature/beats/tempo info)
+            instrument_info: a dictionary containing information of each track
     """
     # load the MIDI file as a pretty_midi object
     pm = pretty_midi.PrettyMIDI(midi_path)
