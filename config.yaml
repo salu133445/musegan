@@ -1,6 +1,6 @@
 # local path
-dataset_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/lmd_matched/' # lmd_full, lmd_aligned
-result_path: '/home/salu133445/NAS/salu133445/midinet/lpd/'
+dataset_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/lmd_matched/'
+result_path: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_matched/'
 score_file_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/match_scores.json'
 
 # parameters
