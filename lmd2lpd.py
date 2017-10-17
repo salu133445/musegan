@@ -111,24 +111,26 @@ def main():
     # create a dictionary of the selected midi files
     midi_dict = {}
     # traverse from dataset root directory
-    for root, _, files in os.walk(settings['dataset_path']):
+    for dirpath, _, filenames in os.walk(settings['dataset_path']):
         # collect midi files into a list
-        midi_files = [f for f in files if f.endswith('.mid')]
+        midi_filenames = [f for f in filenames if f.endswith('.mid')]
         # skip the current folder if no midi files found
-        if not midi_files:
+        if not midi_filenames:
             continue
         # iterate through all midi files found
-        for midi_file in midi_files:
+        for midi_filename in midi_filenames:
             # get the msd_id and midi_md5
-            midi_md5 = os.path.splitext(midi_file)[0]
-            msd_id = os.path.basename(os.path.normpath(root))
+            midi_md5 = os.path.splitext(midi_filename)[0]
+            msd_id = os.path.basename(os.path.normpath(dirpath))
+            # get the midi filepath
+            midi_filepath = os.path.join(dirpath, midi_filename)
             # get the path to save the results
             result_song_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id))
             result_midi_dir = os.path.join(result_song_dir, midi_md5)
             # make sure the result directory exists
             make_sure_path_exists(result_midi_dir)
             # convert the midi file into piano-rolls
-            piano_rolls, midi_data = midi_to_pianorolls(midi_file)
+            piano_rolls, midi_data = midi_to_pianorolls(midi_filepath)
             # save the piano-rolls into files
             save_piano_rolls(piano_rolls, result_midi_dir, midi_data['instrument_info'])
             # save the onset arrays into files in a subfolder named 'onset_arrays'
@@ -141,7 +143,7 @@ def main():
             # store the midi_info_dict in the midi dictionary
             midi_dict[msd_id] = midi_data['midi_info']
             # save the instrument dictionary into a json file
-            with open(os.path.join(root, 'instruments.json'), 'w') as outfile:
+            with open(os.path.join(dirpath, 'instruments.json'), 'w') as outfile:
                 json.dump(midi_data['instrument_info'], outfile)
     # save the midi dict into a json file
     with open(os.path.join(settings['result_path'], 'midi_dict.json'), 'w') as outfile:
