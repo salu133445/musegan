@@ -19,13 +19,20 @@ def get_time_signature_info_and_arrays(pm):
     # sort time signature changes by time
     pm.time_signature_changes.sort(key=lambda x: x.time)
     # create a list of time signature changes content and another for the event times
-    time_signatures = [str(tsc.denominator) + '/' + str(tsc.numerator) for tsc in pm.time_signature_changes]
     time_signature_times = [tsc.time for tsc in pm.time_signature_changes]
+    time_signature_numerators = [tsc.numerator for tsc in pm.time_signature_changes]
+    time_signature_denominators = [tsc.denominator for tsc in pm.time_signature_changes]
+    # set time signature if only one time signature change event found
+    if len(time_signature_times) == 1:
+        time_signature = str(time_signature_numerators[0]) + '/' + str(time_signature_denominators[0])
+    else:
+        time_signature = None
     # collect variables into dictionaries to return
-    time_signature_info = {'num_time_signature_changes': len(time_signatures),
-                           'time_signature': time_signatures[0] if len(time_signatures) == 1 else None}
-    time_signature_arrays = {'time_signatures': time_signatures,
-                             'time_signature_times': time_signature_times}
+    time_signature_info = {'num_time_signature_changes': len(time_signature_times),
+                           'time_signature': time_signature }
+    time_signature_arrays = {'time_signature_numerators': np.array(time_signature_numerators),
+                             'time_signature_denominators': np.array(time_signature_denominators),
+                             'time_signature_times': np.array(time_signature_times)}
     return time_signature_info, time_signature_arrays
 
 def get_beats_info_and_arrays(pm, sort_tsc=True):
@@ -55,8 +62,8 @@ def get_beats_info_and_arrays(pm, sort_tsc=True):
                   'num_beats': num_beats,
                   'num_bars': num_bars,
                   'incomplete_at_start': incomplete_at_start}
-    beats_arrays = {'beat_times': beat_times,
-                    'downbeat_times': downbeat_times,
+    beats_arrays = {'beat_times': np.array(beat_times),
+                    'downbeat_times': np.array(downbeat_times),
                     'beats_array': beats_array,
                     'downbeats_array': downbeats_array}
     return beats_info, beats_arrays
@@ -72,7 +79,7 @@ def get_tempo_info_and_arrays(pm, beat_times=None):
     tempo_array = np.zeros(shape=(settings['beat_resolution']*len(beat_times), 1))
     # use built-in method in pretty_midi to get tempo change events
     tempo_change_times, tempi = pm.get_tempo_changes()
-    if not tempo_change_times:
+    if len(tempo_change_times) == 0:
         # set to default tempo value when no tempo change events
         tempo_array[:] = settings['default_tempo']
         tempo = settings['default_tempo']
@@ -92,8 +99,8 @@ def get_tempo_info_and_arrays(pm, beat_times=None):
         tempo_array[tempo_start_beat:] = tempi[tempo_id]
     # collect variables into dictionaries to return
     tempo_info = {'tempo': tempi[0] if len(tempo_change_times) == 1 else settings['default_tempo']}
-    tempo_arrays = {'tempo_change_times': tempo_change_times,
-                    'tempi': tempi,
+    tempo_arrays = {'tempo_change_times': np.array(tempo_change_times),
+                    'tempi': np.array(tempi),
                     'tempo_array': tempo_array}
     return tempo_info, tempo_arrays
 
