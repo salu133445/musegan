@@ -65,14 +65,14 @@ def load_npz(filepath):
     """Load the file and return the numpy arrays and scipy csc_matrices."""
     with np.load(filepath) as loaded:
         # serach for non-sparse arrays
-        arrays_name = [filename for filename in loaded.files if "csc_matrix" not in filename]
+        arrays_name = [filename for filename in loaded.files if "_csc_" not in filename]
         arrays = {array_name: loaded[array_name] for array_name in arrays_name}
         # serach for csc matrices
         csc_matrices_name = sorted([filename for filename in loaded.files if "_csc_" in filename])
         csc_matrices = {}
         if csc_matrices_name:
             for idx in range(len(csc_matrices_name)/4):
-                csc_matrix_name = csc_matrices_name[idx][:-9] # remove tailing 'csc_data'
+                csc_matrix_name = csc_matrices_name[4*idx][:-9] # remove tailing 'csc_data'
                 csc_matrices[csc_matrix_name] = scipy.sparse.csc_matrix((loaded[csc_matrices_name[4*idx]],
                                                                          loaded[csc_matrices_name[4*idx+1]],
                                                                          loaded[csc_matrices_name[4*idx+2]]),
@@ -131,8 +131,7 @@ def converter(filepath):
     # convert the midi file into piano-rolls
     try:
         piano_rolls, onset_rolls, info_dict = midi_to_pianorolls(filepath, beat_resolution=settings['beat_resolution'])
-    except (RuntimeError, TypeError, NameError) as err:
-        print(filepath, err)
+    except Exception as err:
         return None
     # get the path to save the results
     if settings['link_to_msd']:
@@ -165,8 +164,8 @@ def main():
                 midi_filepaths.append(os.path.join(dirpath, filename))
     # parrallelize the converter if in multicore mode
     if settings['multicores'] > 1:
-        kv_pairs = joblib.Parallel(n_jobs=settings['multicores'], verbose=5)(joblib.delayed(converter)(midi_filepath)
-                                                                             for midi_filepath in midi_filepaths)
+        kv_pairs = joblib.Parallel(n_jobs=settings['multicores'], verbose=5)(
+            joblib.delayed(converter)(midi_filepath) for midi_filepath in midi_filepaths)
         # save the midi dict into a json file
         kv_pairs = [kv_pair for kv_pair in kv_pairs if kv_pair is not None]
         save_dict_to_json(dict(kv_pairs), os.path.join(settings['result_path'], 'midis.json'))

@@ -5,5 +5,5 @@ score_file_path: '/home/salu133445/NAS/RichardYang/Dataset/Lakh_MIDI_Dataset/mat
 
 # parameters
 beat_resolution: 24
-multicores: 1
+multicores: 40
 link_to_msd: True
