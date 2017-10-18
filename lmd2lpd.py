@@ -26,7 +26,8 @@ from midi2pianoroll import midi_to_pianorolls
 
 if settings['filetype'] == 'npz':
     import scipy.sparse
-
+if settings['multicores'] > 1:
+    import joblib
 
 def msd_id_to_dirs(msd_id):
     """Given an MSD ID, generate the path prefix.
@@ -39,42 +40,72 @@ def get_midi_path(msd_id, midi_md5):
     return os.path.join(settings['dataset_path'], msd_id_to_dirs(msd_id), midi_md5 + '.mid')
 
 def make_sure_path_exists(path):
-    """Create all intermediate-level directories if the given path doesn't exist"""
+    """Create all intermediate-level directories if the given path not exist"""
     if not os.path.exists(path):
         os.makedirs(path)
 
-def get_instrument_filename(instrument_info, identifier, postfix=''):
-    """Given a pretty_midi.Instrument class instance and the identifier, return the filename of the instrument."""
-    family_name = instrument_info[str(identifier)]['family_name']
-    program_name = instrument_info[str(identifier)]['program_name']
-    return '_'.join([str(identifier), family_name.replace(' ', '-'), program_name.replace(' ', '-')]) + postfix
+# def get_instrument_filename(instrument_info, identifier, postfix=''):
+#     """Given a pretty_midi.Instrument class instance and the identifier, return
+#     the filename of the instrument."""
+#     family_name = instrument_info[str(identifier)]['family_name']
+#     program_name = instrument_info[str(identifier)]['program_name']
+#     return '_'.join([str(identifier), family_name.replace(' ', '-'), program_name.replace(' ', '-')]) + postfix
 
-def save_ndarray(ndarray, dir_path, filename):
-    """Save a numpy ndarray to the given directory with filetype given in settings file."""
-    filepath = os.path.join(dir_path, filename)
-    if settings['filetype'] == 'npy' or ndarray.ndim == 1:
-        np.save(filepath, ndarray)
-    elif settings['filetype'] == 'npz':
-        sparse_ndarray = scipy.sparse.csc_matrix(ndarray)
-        scipy.sparse.save_npz(filepath, sparse_ndarray)
-    elif settings['filetype'] == 'csv':
-        np.savetxt(filepath, ndarray, delimiter=',')
+def save_npz(filepath, arrays, csc_matrices=None):
+    """"Save the given matrices into one single '.npz' file."""
+    # if arg arrays is given as a dictionary, use it directly
+    if isinstance(arrays, dict):
+        arrays_dict = arrays
+    # if arg arrays is given as other iterable, set default name, 'arr_0', 'arr_1', ...
     else:
-        raise TypeError("unknown file type, allowed values are 'npy', 'npz' and 'csv'")
+        arrays_dict = {}
+        for idx, array in enumerate(arrays):
+            arrays_dict['arr_' + idx] = array
+    # convert sparse matrices to sparse representations of arrays if any
+    if csc_matrices:
+        for idx, csc_matrix in enumerate(csc_matrices):
+            # emmbed indices into filenames for future use when loading
+            arrays_dict['_'.join(['csc_matrix', str(idx), 'shape'])] = csc_matrix.shape
+            arrays_dict['_'.join(['csc_matrix', str(idx), 'data'])] = csc_matrix.data
+            arrays_dict['_'.join(['csc_matrix', str(idx), 'indices'])] = csc_matrix.indices
+            arrays_dict['_'.join(['csc_matrix', str(idx), 'indptr'])] = csc_matrix.indptr
+    # save to a compressed npz file
+    np.savez_compressed(filepath, **arrays_dict)
 
-def save_ndarray_dict(ndarray_dict, dir_path):
-    """Save a dict of numpy ndarrays to the given directory."""
-    for key, value in ndarray_dict.iteritems():
-        save_ndarray(value, dir_path, filename=key)
+def load_npz(filepath):
+    """"Save the given matrices into one single '.npz' file."""
+    arrays = []
+    csc_matrices = []
+    with np.load(filepath) as loaded:
+        # serach for non-sparse arrays
+        arrays_name = [filename for filename in loaded.files if "csc_matrix" not in filename]
+        for array_name in arrays_name:
+            arrays[array_name] = loaded[array_name]
+        # serach for csc matrices
+        csc_matrices_name = sorted([filename for filename in loaded.files if "csc_matrix" in filename])
+        if csc_matrices_name:
+            for idx in range(len(csc_matrices_name)/4):
+                csc_matrices.append(scipy.sparse.csc_matrix((loaded[csc_matrices_name[idx]],
+                                                             loaded[csc_matrices_name[idx+1]],
+                                                             loaded[csc_matrices_name[idx+2]]),
+                                                            shape=loaded[csc_matrices_name[idx+3]]))
+        return arrays, csc_matrices
 
-def save_piano_rolls(piano_rolls, dir_path, instrument_info, postfix=''):
-    """Save piano-rolls to files named <instrument_id>_<family_name>_<program_name>."""
-    for idx, piano_roll in enumerate(piano_rolls):
-        filename = get_instrument_filename(instrument_info, idx, postfix)
-        save_ndarray(piano_roll, dir_path, filename)
+
+def save_sparse_ndarray(ndarray, dir_path, filename):
+    """Save a sparse numpy ndarray to the given directory."""
+    filepath = os.path.join(dir_path, filename)
+    sparse_ndarray = scipy.sparse.csc_matrix(ndarray)
+    scipy.sparse.save_npz(filepath, sparse_ndarray)
+
+# def save_piano_rolls(piano_rolls, dir_path, instrument_info, postfix=''):
+#     """Save piano-rolls to files named <id>_<family-name>_<program-name>."""
+#     for idx, piano_roll in enumerate(piano_rolls):
+#         filename = get_instrument_filename(instrument_info, idx, postfix)
+#         save_ndarray(piano_roll, dir_path, filename)
 
 def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
-    """Get the statistics of a piano-roll, onset_array and midi_data should be given."""
+    """Get the statistics of a piano-roll."""
     # get the binarized version of piano_roll
     piano_roll_bool = (piano_roll > 0)
     # occurrence beat ratio
@@ -109,51 +140,67 @@ def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
             'rhythm complexity': rhythm_complexity,
             'pitch complexity': pitch_complexity}
 
+def save_dict_to_json(data, filepath):
+    """Save the data dictionary to the given filepath."""
+    with open(filepath, 'w') as outfile:
+        json.dump(data, outfile)
+
+def converter(filepath):
+    """Given the midi_filepath, convert it to piano-rolls and save the
+    piano-rolls along with other side products. Return a key value pair for
+    storing midi info to a dictionary."""
+    # get the msd_id and midi_md5
+    midi_md5 = os.path.splitext(os.path.basename(filepath))[0]
+    if settings['link_to_msd']:
+        msd_id = os.path.basename(os.path.dirname(filepath))
+    # convert the midi file into piano-rolls
+    try:
+        piano_rolls, onset_rolls, info_dict = midi_to_pianorolls(filepath, beat_resolution=settings['beat_resolution'])
+    except (RuntimeError, TypeError, NameError) as err:
+        print(filepath, err)
+    # get the path to save the results
+    if settings['link_to_msd']:
+        result_midi_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id), midi_md5)
+    else:
+        result_midi_dir = os.path.join(settings['result_path'], midi_md5)
+    # make sure the result directory exists
+    make_sure_path_exists(os.path.join(result_midi_dir, 'piano_rolls'))
+    make_sure_path_exists(os.path.join(result_midi_dir, 'onset_arrays'))
+    # save the piano-rolls into files
+    save_piano_rolls(piano_rolls, os.path.join(result_midi_dir, 'piano_rolls'), info_dict['instrument_info'])
+    # save the onset arrays into files in a subfolder named 'onset_arrays'
+    save_piano_rolls(onset_rolls, os.path.join(result_midi_dir, 'onset_rolls'), info_dict['instrument_info'],
+                     postfix='_onset')
+    # save the midi arrays to files
+    np.savez_compressed(os.path.join(result_midi_dir, 'midi_arrays'), **info_dict['midi_arrays'])
+    # save the instrument dictionary into a json file
+    save_dict_to_json(info_dict['instrument_info'], os.path.join(result_midi_dir, 'instruments.json'))
+    # add a key value pair storing the midi_md5 of the selected midi file if link_to_msd is set True
+    if settings['link_to_msd']:
+        return (msd_id, {midi_md5: info_dict['midi_info']})
+    else:
+        return (midi_md5, info_dict['midi_info'])
+
 def main():
-    # create a dictionary of the selected midi files
-    midi_dict = {}
-    # traverse from dataset root directory
+    # traverse from dataset root directory and serarch for midi files
+    midi_filepaths = []
     for dirpath, _, filenames in os.walk(settings['dataset_path']):
-        # collect midi files into a list
-        midi_filenames = [f for f in filenames if f.endswith('.mid')]
-        # skip the current folder if no midi files found
-        if not midi_filenames:
-            continue
-        # iterate through all midi files found
-        for midi_filename in midi_filenames:
-            # get the msd_id and midi_md5
-            midi_md5 = os.path.splitext(midi_filename)[0]
-            msd_id = os.path.basename(os.path.normpath(dirpath))
-            # get the midi filepath
-            midi_filepath = os.path.join(dirpath, midi_filename)
-            # convert the midi file into piano-rolls
-            try:
-                piano_rolls, midi_data = midi_to_pianorolls(midi_filepath)
-            except:
-                continue
-            # get the path to save the results
-            result_song_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id))
-            result_midi_dir = os.path.join(result_song_dir, midi_md5)
-            # make sure the result directory exists
-            make_sure_path_exists(os.path.join(result_midi_dir, 'piano_rolls'))
-            make_sure_path_exists(os.path.join(result_midi_dir, 'onset_arrays'))
-            # save the piano-rolls into files
-            save_piano_rolls(piano_rolls, os.path.join(result_midi_dir, 'piano_rolls'), midi_data['instrument_info'])
-            # save the onset arrays into files in a subfolder named 'onset_arrays'
-            save_piano_rolls(midi_data['onset_arrays'], os.path.join(result_midi_dir, 'onset_arrays'),
-                             midi_data['instrument_info'], postfix='_onset')
-            # save the midi arrays to files
-            save_ndarray_dict(midi_data['midi_arrays'], result_midi_dir)
-            # add a key value pair storing the midi_md5 of the selected midi file
-            midi_data['midi_info']['midi_md5'] = midi_md5
-            # store the midi_info_dict in the midi dictionary
-            midi_dict[msd_id] = midi_data['midi_info']
-            # save the instrument dictionary into a json file
-            with open(os.path.join(result_midi_dir, 'instruments.json'), 'w') as outfile:
-                json.dump(midi_data['instrument_info'], outfile)
-    # save the midi dict into a json file
-    with open(os.path.join(settings['result_path'], 'midi_dict.json'), 'w') as outfile:
-        json.dump(midi_dict, outfile)
+        for filename in filenames:
+            if filename.endswith('.mid'):
+                midi_filepaths.append(os.path.join(dirpath, filename))
+    # parrallelize the converter if in multicore mode
+    if settings['multicores'] > 1:
+        kv_pairs = joblib.Parallel(n_jobs=settings['multicores'], verbose=5)(joblib.delayed(converter)(midi_filepath)
+                                                                             for midi_filepath in midi_filepaths)
+        # save the midi dict into a json file
+        save_dict_to_json(dict(kv_pairs), os.path.join(settings['result_path'], 'midis.json'))
+    else:
+        midi_dict = {}
+        for midi_filepath in midi_filepaths:
+            kv_pair = converter(midi_filepath)
+            midi_dict[kv_pair[0]] = kv_pair[1]
+        # save the midi dict into a json file
+        save_dict_to_json(midi_dict, os.path.join(settings['result_path'], 'midis.json'))
 
 if __name__ == "__main__":
     main()
