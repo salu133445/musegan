@@ -34,9 +34,9 @@ def get_time_signature_info_and_arrays(pm):
                              'time_signature_times': np.array(time_signature_times)}
     return time_signature_info, time_signature_arrays
 
-def get_beats_info_and_arrays(pm, beat_resolution=24, sort_tsc=True):
-    """Given a pretty_midi.PrettyMIDI class instance, return its beats info
-    dictionary and beats array dictionary. If sort_tsc is True(by default), the
+def get_beat_info_and_arrays(pm, beat_resolution=24, sort_tsc=True):
+    """Given a pretty_midi.PrettyMIDI class instance, return its beat info
+    dictionary and beat array dictionary. If sort_tsc is True(by default), the
     time_signatrue_changes list of the pretty_midi object will first be sorted.
     """
     # sort time signature changes by time
@@ -50,35 +50,35 @@ def get_beats_info_and_arrays(pm, beat_resolution=24, sort_tsc=True):
     num_beats = len(beat_times)
     incomplete_at_start = (downbeat_times[0] > beat_times[0])
     num_bars = len(downbeat_times) + int(incomplete_at_start)
-    # create an empty beats array and an empty downbeats array
-    beats_array = np.zeros(shape=(beat_resolution*num_beats, 1), dtype=bool)
-    downbeats_array = np.zeros(shape=(beat_resolution*num_beats, 1), dtype=bool)
+    # create an empty beat array and an empty downbeat array
+    beat_array = np.zeros(shape=(beat_resolution*num_beats, 1), dtype=bool)
+    downbeat_array = np.zeros(shape=(beat_resolution*num_beats, 1), dtype=bool)
     # fill in the beats array and the downbeats array
-    beats_array[0:-1:beat_resolution] = True
+    beat_array[0:-1:beat_resolution] = True
     for _, downbeat_time in enumerate(downbeat_times):
         idx_to_fill = np.searchsorted(beat_times, downbeat_time, side='right')
-        downbeats_array[idx_to_fill] = True
+        downbeat_array[idx_to_fill] = True
     # collect variables into dictionaries to return
-    beats_info = {'beat_start_time': beat_start_time,
-                  'num_beats': num_beats,
-                  'num_bars': num_bars,
-                  'incomplete_at_start': incomplete_at_start}
-    beats_arrays = {'beat_times': beat_times,
-                    'downbeat_times': downbeat_times,
-                    'beats_array': beats_array,
-                    'downbeats_array': downbeats_array}
-    return beats_info, beats_arrays
+    beat_info = {'beat_start_time': beat_start_time,
+                 'num_beats': num_beats,
+                 'num_bars': num_bars,
+                 'incomplete_at_start': incomplete_at_start}
+    beat_arrays = {'beat_times': beat_times,
+                   'downbeat_times': downbeat_times,
+                   'beat_array': beat_array,
+                   'downbeat_array': downbeat_array}
+    return beat_info, beat_arrays
 
 def get_tempo_info_and_arrays(pm, beat_resolution=24, beat_times=None):
     """Given a pretty_midi.PrettyMIDI class instance, return its tempo info
     dictionary and tempo info array dictionary. If no beat_times is given,
-    pm.get_beats(beat_start_time) will be first computed to get beats_times."""
+    pm.get_beats(beat_start_time) will be first computed to get beat_times."""
     # compute beat_times when it is not given
     if beat_times is None:
         beat_start_time = pm.time_signature_changes[0].time if pm.time_signature_changes else 0.0
         beat_times = pm.get_beats(beat_start_time)
     # create an empty tempo_array
-    tempo_array = np.zeros(shape=(beat_resolution*len(beat_times), 1))
+    tempo_array = np.zeros(shape=(beat_resolution*len(beat_times), 1), dtype=float)
     # use built-in method in pretty_midi to get tempo change events
     tempo_change_times, tempi = pm.get_tempo_changes()
     if not tempo_change_times.size:
@@ -110,14 +110,14 @@ def get_midi_info_and_arrays(pm, beat_resolution=24):
     and midi_array_dict."""
     # get time sigature changes info
     time_signature_info, time_signature_arrays = get_time_signature_info_and_arrays(pm)
-    # get beats info dictionary and beats array dictionary
-    beats_info, beats_arrays = get_beats_info_and_arrays(pm, beat_resolution=beat_resolution, sort_tsc=False)
+    # get beat info dictionary and beats array dictionary
+    beat_info, beat_arrays = get_beat_info_and_arrays(pm, beat_resolution=beat_resolution, sort_tsc=False)
     # get tempo info dictionary and tempo array dictionary
     tempo_info, tempo_arrays = get_tempo_info_and_arrays(pm, beat_resolution=beat_resolution,
-                                                         beat_times=beats_arrays['beat_times'])
+                                                         beat_times=beat_arrays['beat_times'])
     # collect the results into dictionaries to return
-    midi_info = merge_dicts(beats_info, time_signature_info, tempo_info)
-    midi_arrays = merge_dicts(beats_arrays, time_signature_arrays, tempo_arrays)
+    midi_info = merge_dicts(beat_info, time_signature_info, tempo_info)
+    midi_arrays = merge_dicts(beat_arrays, time_signature_arrays, tempo_arrays)
     return midi_info, midi_arrays
 
 def get_piano_roll(instrument, beat_resolution=24, beat_times=None, tempo_array=None, pm=None):
@@ -173,7 +173,7 @@ def get_instrument_info(instrument):
     dictionary of the instrument."""
     return {'program_num': instrument.program,
             'program_name': pretty_midi.program_to_instrument_name(instrument.program),
-            'name': instrument.name,
+            'name': instrument.name.strip(),
             'is_drum': instrument.is_drum,
             'family_num': int(instrument.program)//8,
             'family_name': pretty_midi.program_to_instrument_class(instrument.program)}
@@ -202,19 +202,19 @@ def get_piano_rolls(pm, beat_resolution=24):
         conversion of the midi file.
             midi_arrays : dict
                 A dictionary containing informative arrays.
-                    beats_time : np.ndarray
+                    beat_times : np.ndarray
                         The time (in sec) of each beat
-                    downbeats_time : np.ndarray
+                    downbeat_times : np.ndarray
                         The time (in sec) of each downbeat
                     tempo_array : np.ndarray
                         The tempo at each time step
-                    beats_array : np.ndarray
+                    beat_array : np.ndarray
                         The location (time step) of beats
-                    downbeats_array : np.ndarray
-                        The location (time step) of beats
+                    downbeat_array : np.ndarray
+                        The location (time step) of downbeats
             midi_info : dict
                 Contains information of the midi file, including time_signature,
-                beats and tempo info.
+                beat and tempo info.
             instrument_info: dict
                 Contains information of each track
     """
@@ -222,7 +222,7 @@ def get_piano_rolls(pm, beat_resolution=24):
     instrument_info = {}
     piano_rolls = []
     onset_rolls = []
-    # get the midi information and the beats/tempo arrays
+    # get the midi information and the beat/tempo arrays
     midi_info, midi_arrays = get_midi_info_and_arrays(pm, beat_resolution)
     # sort instruments by their program numbers
     pm.instruments.sort(key=lambda x: x.program)
@@ -266,19 +266,19 @@ def midi_to_pianorolls(midi_path, beat_resolution=24):
         conversion of the midi file.
             midi_arrays : dict
                 A dictionary containing informative arrays.
-                    beats_time : np.ndarray
+                    beat_times : np.ndarray
                         The time (in sec) of each beat
-                    downbeats_time : np.ndarray
+                    downbeat_times : np.ndarray
                         The time (in sec) of each downbeat
                     tempo_array : np.ndarray
                         The tempo at each time step
-                    beats_array : np.ndarray
+                    beat_array : np.ndarray
                         The location (time step) of beats
-                    downbeats_array : np.ndarray
-                        The location (time step) of beats
+                    downbeat_array : np.ndarray
+                        The location (time step) of downbeats
             midi_info : dict
                 Contains information of the midi file, including time_signature,
-                beats and tempo info.
+                beat and tempo info.
             instrument_info: dict
                 Contains information of each track
     """

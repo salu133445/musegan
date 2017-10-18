@@ -1,25 +1,7 @@
-# Herman Dong 2017.5.18 v1
-# Last modified: Herman Dong 2017.09.27 v2
-"""
-[How to use]
-    (1) set the correct DATASET_ROOT, SEARCH_ROOT, RESULTS_PATH constant
-    (2) set the correct SCORE_FILE path constant
-    (3) set the desired FILETYPE constant
-    (4) set the correct CONFIDENCE_TH, BEAT_RESOLUTION constant
-    (5) run the following
-            python2 midi2pianoroll.py
-[Notes]
-    Only the midi file with highest confidence score is chosen.
-    occurrence ratio: the ratio of the number of bars that the instrument shows up to the number of bars in total
-    average notes simultaneously: the average number of notes occurs simultaneously
-    max notes simultaneously: the maximum number of notes occurs simultaneously
-    rhythm complexity: average number of notes(onset only) in a bar
-    pitch complexity: average number of notes with different pitches
-"""
-
 from __future__ import print_function
 import os
 import json
+import warnings
 import numpy as np
 import scipy.sparse
 from config import settings
@@ -27,6 +9,8 @@ from midi2pianoroll import midi_to_pianorolls
 
 if settings['multicores'] > 1:
     import joblib
+
+warnings.filterwarnings('ignore')
 
 def msd_id_to_dirs(msd_id):
     """Given an MSD ID, generate the path prefix.
@@ -43,31 +27,35 @@ def make_sure_path_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-# def get_instrument_filename(instrument_info, identifier, postfix=''):
-#     """Given a pretty_midi.Instrument class instance and the identifier, return
-#     the filename of the instrument."""
-#     family_name = instrument_info[str(identifier)]['family_name']
-#     program_name = instrument_info[str(identifier)]['program_name']
-#     return '_'.join([str(identifier), family_name.replace(' ', '-'), program_name.replace(' ', '-')]) + postfix
-
-def save_npz(filepath, arrays=None, csc_matrices=None):
+def save_npz(filepath, arrays=None, sparse_matrices=None):
     """"Save the given matrices into one single '.npz' file."""
+    arrays_dict = {}
     if arrays:
         if isinstance(arrays, dict):
             arrays_dict = arrays
         else:
-            arrays_dict = {}
             # if arg arrays is given as other iterable, set to default name, 'arr_0', 'arr_1', ...
             for idx, array in enumerate(arrays):
                 arrays_dict['arr_' + idx] = array
-    # convert sparse matrices to sparse representations of arrays if any
-    if csc_matrices:
-        for idx, csc_matrix in enumerate(csc_matrices):
-            # emmbed indices into filenames for future use when loading
-            arrays_dict['_'.join(['csc_matrix', str(idx), 'shape'])] = csc_matrix.shape
-            arrays_dict['_'.join(['csc_matrix', str(idx), 'data'])] = csc_matrix.data
-            arrays_dict['_'.join(['csc_matrix', str(idx), 'indices'])] = csc_matrix.indices
-            arrays_dict['_'.join(['csc_matrix', str(idx), 'indptr'])] = csc_matrix.indptr
+    if sparse_matrices:
+        if isinstance(sparse_matrices, dict):
+            # convert sparse matrices to sparse representations of arrays if any
+            for sparse_matrix_name, sparse_matrix in sparse_matrices.iteritems():
+                csc_matrix = scipy.sparse.csc_matrix(sparse_matrix)
+                # emmbed indices into filenames for future use when loading
+                arrays_dict['_'.join([sparse_matrix_name, 'csc_data'])] = csc_matrix.data
+                arrays_dict['_'.join([sparse_matrix_name, 'csc_indices'])] = csc_matrix.indices
+                arrays_dict['_'.join([sparse_matrix_name, 'csc_indptr'])] = csc_matrix.indptr
+                arrays_dict['_'.join([sparse_matrix_name, 'csc_shape'])] = csc_matrix.shape
+        else:
+            # convert sparse matrices to sparse representations of arrays if any
+            for idx, sparse_matrix in enumerate(sparse_matrices):
+                csc_matrix = scipy.sparse.csc_matrix(sparse_matrix)
+                # emmbed indices into filenames for future use when loading
+                arrays_dict['_'.join([str(idx), 'csc_data'])] = csc_matrix.data
+                arrays_dict['_'.join([str(idx), 'csc_indices'])] = csc_matrix.indices
+                arrays_dict['_'.join([str(idx), 'csc_indptr'])] = csc_matrix.indptr
+                arrays_dict['_'.join([str(idx), 'csc_shape'])] = csc_matrix.shape
     # save to a compressed npz file
     if not filepath.endswith('.npz'):
         filepath = filepath + '.npz'
@@ -75,21 +63,20 @@ def save_npz(filepath, arrays=None, csc_matrices=None):
 
 def load_npz(filepath):
     """Load the file and return the numpy arrays and scipy csc_matrices."""
-    arrays = []
-    csc_matrices = []
     with np.load(filepath) as loaded:
         # serach for non-sparse arrays
         arrays_name = [filename for filename in loaded.files if "csc_matrix" not in filename]
-        for array_name in arrays_name:
-            arrays[array_name] = loaded[array_name]
+        arrays = {array_name: loaded[array_name] for array_name in arrays_name}
         # serach for csc matrices
-        csc_matrices_name = sorted([filename for filename in loaded.files if "csc_matrix" in filename])
+        csc_matrices_name = sorted([filename for filename in loaded.files if "_csc_" in filename])
+        csc_matrices = {}
         if csc_matrices_name:
             for idx in range(len(csc_matrices_name)/4):
-                csc_matrices.append(scipy.sparse.csc_matrix((loaded[csc_matrices_name[idx]],
-                                                             loaded[csc_matrices_name[idx+1]],
-                                                             loaded[csc_matrices_name[idx+2]]),
-                                                            shape=loaded[csc_matrices_name[idx+3]]))
+                csc_matrix_name = csc_matrices_name[idx][:-9] # remove tailing 'csc_data'
+                csc_matrices[csc_matrix_name] = scipy.sparse.csc_matrix((loaded[csc_matrices_name[4*idx]],
+                                                                         loaded[csc_matrices_name[4*idx+1]],
+                                                                         loaded[csc_matrices_name[4*idx+2]]),
+                                                                        shape=loaded[csc_matrices_name[4*idx+3]])
         return arrays, csc_matrices
 
 def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
@@ -146,20 +133,21 @@ def converter(filepath):
         piano_rolls, onset_rolls, info_dict = midi_to_pianorolls(filepath, beat_resolution=settings['beat_resolution'])
     except (RuntimeError, TypeError, NameError) as err:
         print(filepath, err)
+        return None
     # get the path to save the results
     if settings['link_to_msd']:
         result_midi_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id), midi_md5)
     else:
         result_midi_dir = os.path.join(settings['result_path'], midi_md5)
-    # make sure the result directory exists
-    make_sure_path_exists(os.path.join(result_midi_dir, 'piano_rolls'))
-    make_sure_path_exists(os.path.join(result_midi_dir, 'onset_arrays'))
-    # save the piano-rolls into files
-    save_npz(os.path.join(result_midi_dir, 'piano_rolls.npz'), csc_matrices=piano_rolls)
-    # save the onset arrays into files in a subfolder named 'onset_arrays'
-    save_npz(os.path.join(result_midi_dir, 'onset_rolls.npz'), csc_matrices=onset_rolls)
-    # save the midi arrays to files
-    save_npz(os.path.join(result_midi_dir, 'arrays.npz'), info_dict['midi_arrays'])
+    # save the piano-rolls an the onset-rolls into files
+    make_sure_path_exists(result_midi_dir)
+    save_npz(os.path.join(result_midi_dir, 'piano_rolls.npz'), sparse_matrices=piano_rolls)
+    save_npz(os.path.join(result_midi_dir, 'onset_rolls.npz'), sparse_matrices=onset_rolls)
+    # save the midi arrays into files
+    sparse_matrices_keys = ['tempo_array', 'beat_array', 'downbeat_array']
+    sparse_matrices = {key: value for key, value in info_dict['midi_arrays'].iteritems() if key in sparse_matrices_keys}
+    arrays = {key: value for key, value in info_dict['midi_arrays'].iteritems() if key not in sparse_matrices_keys}
+    save_npz(os.path.join(result_midi_dir, 'arrays.npz'), arrays=arrays, sparse_matrices=sparse_matrices)
     # save the instrument dictionary into a json file
     save_dict_to_json(info_dict['instrument_info'], os.path.join(result_midi_dir, 'instruments.json'))
     # add a key value pair storing the midi_md5 of the selected midi file if link_to_msd is set True
@@ -180,6 +168,7 @@ def main():
         kv_pairs = joblib.Parallel(n_jobs=settings['multicores'], verbose=5)(joblib.delayed(converter)(midi_filepath)
                                                                              for midi_filepath in midi_filepaths)
         # save the midi dict into a json file
+        kv_pairs = [kv_pair for kv_pair in kv_pairs if kv_pair is not None]
         save_dict_to_json(dict(kv_pairs), os.path.join(settings['result_path'], 'midis.json'))
     else:
         midi_dict = {}
