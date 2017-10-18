@@ -21,11 +21,10 @@ from __future__ import print_function
 import os
 import json
 import numpy as np
+import scipy.sparse
 from config import settings
 from midi2pianoroll import midi_to_pianorolls
 
-if settings['filetype'] == 'npz':
-    import scipy.sparse
 if settings['multicores'] > 1:
     import joblib
 
