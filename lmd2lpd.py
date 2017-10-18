@@ -51,16 +51,16 @@ def make_sure_path_exists(path):
 #     program_name = instrument_info[str(identifier)]['program_name']
 #     return '_'.join([str(identifier), family_name.replace(' ', '-'), program_name.replace(' ', '-')]) + postfix
 
-def save_npz(filepath, arrays, csc_matrices=None):
+def save_npz(filepath, arrays=None, csc_matrices=None):
     """"Save the given matrices into one single '.npz' file."""
-    # if arg arrays is given as a dictionary, use it directly
-    if isinstance(arrays, dict):
-        arrays_dict = arrays
-    # if arg arrays is given as other iterable, set default name, 'arr_0', 'arr_1', ...
-    else:
-        arrays_dict = {}
-        for idx, array in enumerate(arrays):
-            arrays_dict['arr_' + idx] = array
+    if arrays:
+        if isinstance(arrays, dict):
+            arrays_dict = arrays
+        else:
+            arrays_dict = {}
+            # if arg arrays is given as other iterable, set to default name, 'arr_0', 'arr_1', ...
+            for idx, array in enumerate(arrays):
+                arrays_dict['arr_' + idx] = array
     # convert sparse matrices to sparse representations of arrays if any
     if csc_matrices:
         for idx, csc_matrix in enumerate(csc_matrices):
@@ -70,10 +70,12 @@ def save_npz(filepath, arrays, csc_matrices=None):
             arrays_dict['_'.join(['csc_matrix', str(idx), 'indices'])] = csc_matrix.indices
             arrays_dict['_'.join(['csc_matrix', str(idx), 'indptr'])] = csc_matrix.indptr
     # save to a compressed npz file
+    if not filepath.endswith('.npz'):
+        filepath = filepath + '.npz'
     np.savez_compressed(filepath, **arrays_dict)
 
 def load_npz(filepath):
-    """"Save the given matrices into one single '.npz' file."""
+    """Load the file and return the numpy arrays and scipy csc_matrices."""
     arrays = []
     csc_matrices = []
     with np.load(filepath) as loaded:
@@ -91,22 +93,9 @@ def load_npz(filepath):
                                                             shape=loaded[csc_matrices_name[idx+3]]))
         return arrays, csc_matrices
 
-
-def save_sparse_ndarray(ndarray, dir_path, filename):
-    """Save a sparse numpy ndarray to the given directory."""
-    filepath = os.path.join(dir_path, filename)
-    sparse_ndarray = scipy.sparse.csc_matrix(ndarray)
-    scipy.sparse.save_npz(filepath, sparse_ndarray)
-
-# def save_piano_rolls(piano_rolls, dir_path, instrument_info, postfix=''):
-#     """Save piano-rolls to files named <id>_<family-name>_<program-name>."""
-#     for idx, piano_roll in enumerate(piano_rolls):
-#         filename = get_instrument_filename(instrument_info, idx, postfix)
-#         save_ndarray(piano_roll, dir_path, filename)
-
 def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
     """Get the statistics of a piano-roll."""
-    # get the binarized version of piano_roll
+    # get the binarized version of the piano_roll
     piano_roll_bool = (piano_roll > 0)
     # occurrence beat ratio
     sum_rhythm_bool = piano_roll_bool.sum(dtype=bool, axis=1)
@@ -167,12 +156,11 @@ def converter(filepath):
     make_sure_path_exists(os.path.join(result_midi_dir, 'piano_rolls'))
     make_sure_path_exists(os.path.join(result_midi_dir, 'onset_arrays'))
     # save the piano-rolls into files
-    save_piano_rolls(piano_rolls, os.path.join(result_midi_dir, 'piano_rolls'), info_dict['instrument_info'])
+    save_npz(os.path.join(result_midi_dir, 'piano_rolls.npz'), csc_matrices=piano_rolls)
     # save the onset arrays into files in a subfolder named 'onset_arrays'
-    save_piano_rolls(onset_rolls, os.path.join(result_midi_dir, 'onset_rolls'), info_dict['instrument_info'],
-                     postfix='_onset')
+    save_npz(os.path.join(result_midi_dir, 'onset_rolls.npz'), csc_matrices=onset_rolls)
     # save the midi arrays to files
-    np.savez_compressed(os.path.join(result_midi_dir, 'midi_arrays'), **info_dict['midi_arrays'])
+    save_npz(os.path.join(result_midi_dir, 'arrays.npz'), info_dict['midi_arrays'])
     # save the instrument dictionary into a json file
     save_dict_to_json(info_dict['instrument_info'], os.path.join(result_midi_dir, 'instruments.json'))
     # add a key value pair storing the midi_md5 of the selected midi file if link_to_msd is set True

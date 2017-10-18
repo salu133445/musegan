@@ -141,7 +141,7 @@ def get_piano_roll(instrument, beat_resolution=24, beat_times=None, tempo_array=
         if note.end < beat_times[0]:
             continue
         else:
-            # find the corresponding index of the note on/off event
+            # find the corresponding index of the note on event
             if note.start >= beat_times[0]:
                 start_beat = np.searchsorted(beat_times, note.start, side='right') - 1
                 start_loc = (note.start - beat_times[start_beat])
@@ -150,8 +150,9 @@ def get_piano_roll(instrument, beat_resolution=24, beat_times=None, tempo_array=
                 start_beat = 0
                 start_loc = 0.0
             start_idx = int(start_beat*ppbeat + start_loc*hppbeat)
-
+            # find the corresponding index of the note off event
             if instrument.is_drum:
+                # set note length to minimal (32th notes) for drums
                 end_idx = start_idx + 2
             else:
                 end_beat = np.searchsorted(beat_times, note.end, side='right') - 1
