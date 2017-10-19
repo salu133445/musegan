@@ -137,7 +137,7 @@ def converter(filepath):
     if settings['link_to_msd']:
         result_midi_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id), midi_md5)
     else:
-        result_midi_dir = os.path.join(settings['result_path'], midi_md5)
+        result_midi_dir = os.path.join(settings['result_path'], midi_md5[0])
     # save the piano-rolls an the onset-rolls into files
     make_sure_path_exists(result_midi_dir)
     save_npz(os.path.join(result_midi_dir, 'piano_rolls.npz'), sparse_matrices=piano_rolls)
@@ -168,7 +168,12 @@ def main():
             joblib.delayed(converter)(midi_filepath) for midi_filepath in midi_filepaths)
         # save the midi dict into a json file
         kv_pairs = [kv_pair for kv_pair in kv_pairs if kv_pair is not None]
-        save_dict_to_json(dict(kv_pairs), os.path.join(settings['result_path'], 'midis.json'))
+        midi_dict = {}
+        for key in set([kv_pair[0] for kv_pair in kv_pairs]):
+            midi_dict[key] = {}
+        for kv_pair in kv_pairs:
+            midi_dict[kv_pair[0]].update(kv_pair[1])
+        save_dict_to_json(midi_dict, os.path.join(settings['result_path'], 'midis.json'))
     else:
         midi_dict = {}
         for midi_filepath in midi_filepaths:

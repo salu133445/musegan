@@ -7,11 +7,14 @@
 ## Abstract
 Generating music has a few notable differences from generating images and videos. First, music is an art of time, necessitating a temporal model. Second, music is usually composed of multiple instruments/tracks, with close interaction with one another. Each track has its own temporal dynamics, but collectively they unfold over time interdependently. Lastly, for symbolic domain music generation, the targeted output is sequences of discrete musical events, not continuous values. In this paper, we propose and study three generative adversarial networks (GANs) for symbolic-domain multi-track music generation, using a data set of 127,731 MIDI bars of pop/rock music. The three models, which differ in the underlying model assumption and accordingly the network architecture, are referred to as the jamming model, composer model, and hybrid model, respectively. We propose a few intra-track and inter-track objective metrics to examine and compare their generation result, in addition to a subjective evaluation. We show that our models can learn from the noisy MIDI files and generate coherent music of four bars right from scratch (i.e. without human inputs). We also propose extensions of our models to facilitate human-AI cooperative music creation: given the piano track composed by human we can generate four additional tracks in return to accompany it.
 
-## System Diagram
 ![musegan](fig/musegan.png "musegan")
 <p align="center">System diagram of MuseGAN</p>
 
-## Results
+[//]: # (# Dataset)
+[//]: # (- LPD-matched: 30887 songs, 115006 midi files converted)
+
+
+# Results
 
 ![evolution](fig/evolution.png "evolution")
 <p align="center">Evolution of the generated piano-rolls as a function of update steps</p>

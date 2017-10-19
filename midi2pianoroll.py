@@ -48,7 +48,7 @@ def get_beat_info_and_arrays(pm, beat_resolution=24, sort_tsc=True):
     downbeat_times = pm.get_downbeats(beat_start_time)
     # calculate beats information
     num_beats = len(beat_times)
-    incomplete_at_start = (downbeat_times[0] > beat_times[0])
+    incomplete_at_start = bool(downbeat_times[0] > beat_times[0])
     num_bars = len(downbeat_times) + int(incomplete_at_start)
     # create an empty beat array and an empty downbeat array
     beat_array = np.zeros(shape=(beat_resolution*num_beats, 1), dtype=bool)
