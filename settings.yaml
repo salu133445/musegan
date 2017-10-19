@@ -4,5 +4,5 @@ result_path: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_full'
 
 # parameters
 beat_resolution: 24
-multicores: 40
+multicore: 30
 link_to_msd: False

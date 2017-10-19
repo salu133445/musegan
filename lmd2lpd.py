@@ -7,7 +7,7 @@ import scipy.sparse
 from config import settings
 from midi2pianoroll import midi_to_pianorolls
 
-if settings['multicores'] > 1:
+if settings['multicore'] > 1:
     import joblib
 
 warnings.filterwarnings('ignore')
@@ -142,7 +142,7 @@ def converter(filepath):
     if settings['link_to_msd']:
         result_midi_dir = os.path.join(settings['result_path'], msd_id_to_dirs(msd_id), midi_md5)
     else:
-        result_midi_dir = os.path.join(settings['result_path'], midi_md5[0])
+        result_midi_dir = os.path.join(settings['result_path'], midi_md5[0], midi_md5)
     # save the piano-rolls an the onset-rolls into files
     make_sure_path_exists(result_midi_dir)
     save_npz(os.path.join(result_midi_dir, 'piano_rolls.npz'), sparse_matrices=piano_rolls)
@@ -168,8 +168,8 @@ def main():
             if filename.endswith('.mid'):
                 midi_filepaths.append(os.path.join(dirpath, filename))
     # parrallelize the converter if in multicore mode
-    if settings['multicores'] > 1:
-        kv_pairs = joblib.Parallel(n_jobs=settings['multicores'], verbose=5)(
+    if settings['multicore'] > 1:
+        kv_pairs = joblib.Parallel(n_jobs=settings['multicore'], verbose=5)(
             joblib.delayed(converter)(midi_filepath) for midi_filepath in midi_filepaths)
         # save the midi dict into a json file
         kv_pairs = [kv_pair for kv_pair in kv_pairs if kv_pair is not None]
