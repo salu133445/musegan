@@ -24,8 +24,13 @@ def get_midi_path(msd_id, midi_md5):
 
 def make_sure_path_exists(path):
     """Create all intermediate-level directories if the given path not exist"""
-    if not os.path.exists(path):
-        os.makedirs(path)
+    while True:
+        if not os.path.exists(path):
+            try:
+                os.makedirs(path)
+                break
+            except OSError as e:
+                pass
 
 def save_npz(filepath, arrays=None, sparse_matrices=None):
     """"Save the given matrices into one single '.npz' file."""
