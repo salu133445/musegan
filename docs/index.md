@@ -1,5 +1,5 @@
 # MuseGAN
-**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**  
+**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**
 [[arxiv](http://arxiv.org/abs/1709.06298)]
 <br><br>  
 
@@ -16,6 +16,7 @@ Generating music has a few notable differences from generating images and videos
 [//]: # ([[lpd-matched](https://drive.google.com/open?id=0Bx-qnQlE_EmsWG1LbVY0MHY5ems)]: 30887 songs, 115006 midi files converted)
 [//]: # ([[lpd-full]()]: )
 [//]: # (## Training data)
+
 - [bar.npz](https://drive.google.com/open?id=0Bx-qnQlE_EmsQzdMLXlrT3FDUjg): training data of bars
 - [phrase.npz](https://drive.google.com/open?id=0Bx-qnQlE_EmsZ19pRnd3TU85S2c): training data of phrases
 - [sparse_npz.py](https://drive.google.com/open?id=0Bx-qnQlE_EmsMFRISEd2MFJsS3c): utilities for saving/loading multiple scipy.sparse.csc_matrix in one npz file.
