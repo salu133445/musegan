@@ -4,6 +4,7 @@
 [[arxiv](http://arxiv.org/abs/1709.06298)]
 <br><br>  
 
+
 # Introduction
 
 Generating music has a few notable differences from generating images and videos. First, music is an art of time, necessitating a temporal model. Second, music is usually composed of multiple instruments/tracks, with close interaction with one another. Each track has its own temporal dynamics, but collectively they unfold over time interdependently. Lastly, for symbolic domain music generation, the targeted output is sequences of discrete musical events, not continuous values. In this paper, we propose and study three generative adversarial networks (GANs) for symbolic-domain multi-track music generation, using a data set of 127,731 MIDI bars of pop/rock music. The three models, which differ in the underlying model assumption and accordingly the network architecture, are referred to as the jamming model, composer model, and hybrid model, respectively. We propose a few intra-track and inter-track objective metrics to examine and compare their generation result, in addition to a subjective evaluation. We show that our models can learn from the noisy MIDI files and generate coherent music of four bars right from scratch (i.e. without human inputs). We also propose extensions of our models to facilitate human-AI cooperative music creation: given the piano track composed by human we can generate four additional tracks in return to accompany it.
@@ -11,13 +12,14 @@ Generating music has a few notable differences from generating images and videos
 ![musegan](fig/musegan.png "musegan")
 <p align="center">System diagram of MuseGAN</p>
 
+
 # Data
 
 ## Lakh Piano-roll Dataset(LPD)
 
-The Lakh Pianoroll Dataset (LMD) is a collection of 173,997 unique MIDI files derived from midi files in the Lakh MIDI Dataset (LMD). Moreinfomaton about the LMD, please go to: http://colinraffel.com/projects/lmd/
+The Lakh Pianoroll Dataset (LMD) is a collection of 173,997 unique MIDI files derived from midi files in the Lakh MIDI Dataset (LMD). More infomaton about the LMD, please go to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
-- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the demo page of LMD: http://colinraffel.com/projects/lmd/ 
+- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
 - [lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk): 173997 midi files converted into piano-rolls.
 
@@ -27,7 +29,7 @@ Please use the provided utilities to load the npz files directly into csc_matric
 
 ### License/attribution
 
-Lakh Piano-roll Dataset is a derivative of Lakh MIDI dataset by Colin Raffel, used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Lakh Piano-roll Dataset is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by Hao-Wen Dong and Wen-Yi Hsiao.
+Lakh Piano-roll Dataset is a derivative of [Lakh MIDI dataset](http://colinraffel.com/projects/lmd/) by [Colin Raffel](http://colinraffel.com), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Lakh Piano-roll Dataset is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by Hao-Wen Dong and Wen-Yi Hsiao.
 
 Please reference the following papers if you use this dataset.
 
