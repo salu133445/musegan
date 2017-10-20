@@ -15,15 +15,21 @@ Generating music has a few notable differences from generating images and videos
 
 ## Lakh Piano-roll Dataset(LPD)
 
-- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls.
+The Lakh Pianoroll Dataset (LMD) is a collection of 173,997 unique MIDI files derived from midi files in the Lakh MIDI Dataset (LMD). Moreinfomaton about the LMD, please go to: http://colinraffel.com/projects/lmd/
+
+- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the demo page of LMD: http://colinraffel.com/projects/lmd/ 
 
 - [lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk): 173997 midi files converted into piano-rolls.
 
 - [sparse_npz.py](https://drive.google.com/open?id=0Bx-qnQlE_EmsMFRISEd2MFJsS3c): utilities for saving/loading multiple scipy.sparse.csc_matrix in one npz file.
 
-Please use the provided utilities to load these npz files.
+Please use the provided utilities to load the npz files directly into csc_matrices.
 
-Please cite the following papers if you use this dataset.
+### License/attribution
+
+Lakh Piano-roll Dataset is a derivative of Lakh MIDI dataset by Colin Raffel, used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Lakh Piano-roll Dataset is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by Hao-Wen Dong and Wen-Yi Hsiao.
+
+Please reference the following papers if you use this dataset.
 
 - Colin Raffel. "Learning-Based Methods for Comparing Sequences, with Applications to Audio-to-MIDI Alignment and Matching". PhD Thesis, 2016.
 
