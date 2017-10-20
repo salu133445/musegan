@@ -13,8 +13,11 @@ Generating music has a few notable differences from generating images and videos
 # Data
 
 ## Lakh Pianoroll Dataset(LPD)
+
 [[lpd-matched](https://drive.google.com/open?id=0Bx-qnQlE_EmsWG1LbVY0MHY5ems)]: 30887 songs, 115006 midi files converted
+
 [//]: # ([[lpd-full]()]: )
+
 Please cite the following papers if you use this dataset.
 - Colin Raffel. "Learning-Based Methods for Comparing Sequences, with Applications to Audio-to-MIDI Alignment and Matching". PhD Thesis, 2016.
 - Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang, Yi-Hsuan Yang. "MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks". arXiv preprint arXiv:1709.06298. 2017
