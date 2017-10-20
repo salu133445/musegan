@@ -15,9 +15,13 @@ Generating music has a few notable differences from generating images and videos
 
 ## Lakh Piano-roll Dataset(LPD)
 
-[[lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk)]: 115006 midi files from 30887 songs converted into piano-rolls.
+- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls.
 
-[[lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk)]: 173997 midi files converted into piano-roll.
+- [lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk): 173997 midi files converted into piano-rolls.
+
+- [sparse_npz.py](https://drive.google.com/open?id=0Bx-qnQlE_EmsMFRISEd2MFJsS3c): utilities for saving/loading multiple scipy.sparse.csc_matrix in one npz file.
+
+Please use the provided utilities to load these npz files.
 
 Please cite the following papers if you use this dataset.
 
@@ -27,7 +31,7 @@ Please cite the following papers if you use this dataset.
 
 ## Training data
 
-The following are our training data. Please use the provided utilities to load these npz files.
+The following are our training data. Please use the provided utilities to load the npz files.
 
 The loaded is a python dictionary. The keys are 'bass', 'drums', 'guitar', 'strings' and 'piano'. The values are the corresponding piano-roll matrices stored  as scipy.sparse.csc_matrix objects.
 
