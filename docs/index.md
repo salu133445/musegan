@@ -1,6 +1,6 @@
 # MuseGAN
 
-**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks** 
+**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**
 [[arxiv](http://arxiv.org/abs/1709.06298)]
 <br><br>  
 
@@ -15,13 +15,17 @@ Generating music has a few notable differences from generating images and videos
 
 # Data
 
+## What is a piano-roll?
+
+Piano-roll is a music storing format which represents a music piece by a score-like matrix. The vertical axis represents note pitch, and the horizontal axis represents time. The time axis can be either in absolute timing or in symbolic timing. With absolute timing, the actual timing of note ocurrence is used. With symbolic timing, each beat has the same length. The tempo information are removed. In our work, we use symbolic timing and we set the time resolution to 96 to cover common temporal patterns such as triplets and 16th notes. The note pitch has 84 possibillities, covering from C1 to C8 (excluded). For example, a bar in 4/4 time can be represented as a 96 x 84 piano-roll matrix. Note that a piano-roll is typically single-track. We simply represents a multi-track music piece with a *multi-track piano-roll*, which is a set of piano-rolls where eack track is encoded into one piano-roll. For example, a N-track music piece will be converted into a set of N piano-rolls.
+
 ## Lakh Piano-roll Dataset(LPD)
 
 The Lakh Piano-roll Dataset (LPD) is a collection of 173,997 unique multi-track piaorolls derived from midi files in the Lakh MIDI Dataset (LMD). More infomaton about the LMD, please go to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
-- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
+- [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into multi-track piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
-- [lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk): 173997 midi files converted into piano-rolls.
+- [lpd-full](https://drive.google.com/file/d/0Bx-qnQlE_EmseEtIWGR6WHVoQmM/view?usp=drivesdk): 173997 midi files converted into multi-track piano-rolls.
 
 - [sparse_npz.py](https://drive.google.com/open?id=0Bx-qnQlE_EmsMFRISEd2MFJsS3c): utilities for saving/loading multiple scipy.sparse.csc_matrix in one npz file.
 
