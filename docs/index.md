@@ -17,7 +17,7 @@ Generating music has a few notable differences from generating images and videos
 
 ## Lakh Piano-roll Dataset(LPD)
 
-The Lakh Pianoroll Dataset (LMD) is a collection of 173,997 unique multi-track piaorolls derived from midi files in the Lakh MIDI Dataset (LMD). More infomaton about the LMD, please go to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
+The Lakh Piano-roll Dataset (LPD) is a collection of 173,997 unique multi-track piaorolls derived from midi files in the Lakh MIDI Dataset (LMD). More infomaton about the LMD, please go to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
 - [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk): 115006 midi files from 30887 songs converted into piano-rolls. These files are matched to entries in the Million Song Dataset (MSD). To make use of the metadata from MSD, we refer the user to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
