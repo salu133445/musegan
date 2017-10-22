@@ -2,8 +2,17 @@
 
 **MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks**
 [[arxiv](http://arxiv.org/abs/1709.06298)]
-<br><br>  
 
+Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang and Yi-Hsuan Yang
+
+**MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls**  
+[[paper](pdf/musegan-ismir17-lbd.pdf)]
+
+Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang and Yi-Hsuan Yang
+
+(non-peer reviewed two-page extended abstract)(ISMIR'17-LBD)
+
+<br><br>
 
 # Introduction
 
