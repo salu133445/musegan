@@ -59,7 +59,7 @@ Please reference the following papers if you use this dataset.
 
 # Audio Samples
 ## Best Samples
-{% include player.html filename="composer_best.mp3" %}
+{% include player.html filename="best_samples.mp3" %}
 
 ## Generation From Scratch
 - the *composer* model
