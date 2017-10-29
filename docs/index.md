@@ -4,9 +4,8 @@ Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang and Yi-Hsuan Yang. 2017. **MuseGAN: Sym
 [[arxiv](http://arxiv.org/abs/1709.06298)]
 
 Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang and Yi-Hsuan Yang. 2017.  **MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls.** *ISMIR'17 Late-Breaking and Demo Session*. (non-peer reviewed two-page extended abstract)
-[[paper](pdf/musegan-ismir17-lbd.pdf)]
+[[paper](pdf/musegan-ismir17-lbd.pdf)] [[poster](pdf/musegan-ismir17-lbd-poster.pdf)]
 
-<br><br>
 
 # Introduction
 
