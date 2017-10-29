@@ -60,25 +60,24 @@ Please reference the following papers if you use this dataset.
 
 # Audio Samples
 ## Best Samples
-{% include audio.html filename="composer_best.mp3" %}
-<!-- {% include player.html id="342139222" token="s-ucrbd" %} -->
+{% include player.html filename="composer_best.mp3" %}
 
 ## Generation From Scratch
-- the *jamming* model
-{% include player.html id="342139219" token="s-AtsSW" %}
-
 - the *composer* model
-{% include player.html id="342139221" token="s-pmUd2" %}
+{% include player.html filename="from_scratch_composer.mp3" %}
+
+- the *jamming* model
+{% include player.html filename="from_scratch_jamming.mp3" %}
 
 - the *hybrid* model
-{% include player.html id="342139220" token="s-XH64Z"%}
+{% include player.html filename="from_scratch_hybrid.mp3" %}
 
 ## Track-conditional Generation
-- the *jamming* model
-{% include player.html id="342139215" token="s-414n1" %}
-
 - the *composer* model
-{% include player.html id="342139218" token="s-HaAWz" %}
+{% include player.html filename="track_conditional_composer.mp3" %}
+
+- the *jamming* model
+{% include player.html filename="track_conditional_jamming.mp3" %}
 
 - the *hybrid* model
-{% include player.html id="342139217" token="s-zC6QN" %}
+{% include player.html filename="track_conditional_hybrid.mp3" %}
