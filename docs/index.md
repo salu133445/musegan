@@ -71,7 +71,8 @@ The loaded is a python dictionary. The keys are 'bass', 'drums', 'guitar', 'stri
 
 # Audio Samples
 ## Best Samples
-{% include player.html id="342139222" token="s-ucrbd" %}
+{% include audio.html filename="composer_best.mp3" %}
+<!-- {% include player.html id="342139222" token="s-ucrbd" %} -->
 
 ## Generation From Scratch
 - the *jamming* model
