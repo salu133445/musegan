@@ -48,17 +48,6 @@ Please reference the following papers if you use this dataset.
 
 - Hao-Wen Dong, Wen-Yi Hsiao, Li-Chia Yang, Yi-Hsuan Yang. "MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks". arXiv preprint arXiv:1709.06298. 2017.
 
-## Training data
-
-The following are our training data. Please use the provided utilities to load the npz files.
-
-The loaded is a python dictionary. The keys are 'bass', 'drums', 'guitar', 'strings' and 'piano'. The values are the corresponding piano-roll matrices stored  as scipy.sparse.csc_matrix objects.
-
-- [bar.npz](https://drive.google.com/open?id=0Bx-qnQlE_EmsQzdMLXlrT3FDUjg): training data of bars. Please reshape each piano-roll to (-1, 96, 128).
-
-- [phrase.npz](https://drive.google.com/open?id=0Bx-qnQlE_EmsZ19pRnd3TU85S2c): training data of phrases. Please reshape each piano-roll to (-1, 8, 96, 128).
-
-- [sparse_npz.py](https://drive.google.com/open?id=0Bx-qnQlE_EmsMFRISEd2MFJsS3c): utilities for saving/loading multiple scipy.sparse.csc_matrix in one npz file.
 
 # Results
 
