@@ -1,5 +1,3 @@
-# MuseGAN
-
 Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
 **MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks.**
 *AAAI Conference on Artificial Intelligence (**AAAI**)*, 2018.
