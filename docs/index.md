@@ -11,7 +11,7 @@ Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
 (non-peer reviewed two-page extended abstract)
 [[paper](pdf/musegan-ismir17-lbd.pdf)] [[poster](pdf/musegan-ismir17-lbd-poster.pdf)]
 
-###### \**These authors contributed equally to this work.*
+\**These authors contributed equally to this work.*
 
 # Introduction
 
