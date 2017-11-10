@@ -36,6 +36,8 @@
             {% if forloop.first %}
                 {% assign str = {{ str | append:'' }} %}
             {% else %}
+                {{ collaborator[0] }}
+                {{ collaborator[1] }}
                 {% unless forloop.last %}
                     {% assign str = {{ {{ {{ str | append:', <a href="' }} | append:{{ collaborator[1] }} }} | append:'">' }}  %}
                     {% assign str = {{ {{ str | append:{{ collaborator[0] }} }} | append:'</a>' }} %}
