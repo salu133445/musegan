@@ -3,6 +3,8 @@
 ## Best Samples
 {% include audio_player.html filename="best_samples.mp3" %}
 
+---
+
 ## Piano-roll Visualizations
 
 ![evolution](figs/evolution.png)
@@ -10,6 +12,8 @@
 
 ![hybrid](figs/hybrid.png)
 <p align="center">Randomly-picked generation result (piano-rolls), generating from scratch</p>
+
+---
 
 ## Generation From Scratch
 **(no cherry-picking)**
@@ -22,6 +26,8 @@
 
 ### the *hybrid* model
 {% include audio_player.html filename="from_scratch_hybrid.mp3" %}
+
+---
 
 ## Track-conditional Generation
 **(no cherry-picking)**
