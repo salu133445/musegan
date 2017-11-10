@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+{% seo %}
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <a href="/"> <h1>Hao-Wen Dong (Herman)</h1></a>
+        
+        <a href="/">Home</a><br>
+
+        {% for subpage in site.subpages %}
+            <a href="{{ subpage }}">{{ subpage | capitalize }}</a><br>
+        {% endfor %}
+
+        <p class="view" style="margin: 0"><a href="{{ site.github.owner_url }}">GitHub Repository</a></p>
+      </header>
+      <section>
+
+      {{ content }}
+
+      </section>
+      <footer>
+
+        {% assign str = ""}
+        {% for collaborator in site.collaborators %}
+            {% if forloop.first %}
+                {{ str | append:"<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+            {% else %}
+                {% unless forloop.last %}
+                    {{ str | append:", <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+                {% else %}
+                    {{ str | append:" and <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+                {% endunless %}
+            {% endif %}
+        {% else %}
+            {{ str | append:"<a href="https://salu133445.github.io/">{{ Hao-Wen Dong }}</a>" }}
+        {% endfor %}
+
+        <hr style="margin:15px 0 0">
+        <p style="margin:0""><small>Maintained by {{ str }}.</small></p>
+        <p style="margin:0""><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
+  </body>
+</html>
