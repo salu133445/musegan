@@ -30,7 +30,7 @@
                 {% else %}
                     <a href="{{ subpage[0] }}">{{ subpage[0]] }}</a><br>
             {% else %}
-                <a href="{{ subpage }}">{{ subpage | replace:'_','' | capitalize }}</a><br>
+                <a href="{{ subpage }}">{{ subpage | replace:'_',' ' | capitalize }}</a><br>
             {% endif %}
         {% endfor %}
 
