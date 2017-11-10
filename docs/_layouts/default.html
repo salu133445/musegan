@@ -34,21 +34,23 @@
         {% assign str = "" %}
         {% for collaborator in site.collaborators %}
             {% if forloop.first %}
-                {% assign str = {{ str | append:'' }} %}
+                {% assign str = {{ str | append:{{ {{ '<a href="' | append:{{ collaborator[1] }} }} | append:'">' }}  %}
+                {% assign str = {{ str | append:{{ {{ collaborator[0] }} | append:'</a>' }} %}
             {% else %}
-                {{ collaborator[0] }}
-                {{ collaborator[1] }}
                 {% unless forloop.last %}
-                    {% assign str = {{ {{ {{ str | append:', <a href="' }} | append:{{ collaborator[1] }} }} | append:'">' }}  %}
-                    {% assign str = {{ {{ str | append:{{ collaborator[0] }} }} | append:'</a>' }} %}
+                    {% assign str = {{ str | append:{{ {{ ', <a href="' | append:{{ collaborator[1] }} }} | append:'">' }}  %}
+                    {% assign str = {{ str | append:{{ {{ collaborator[0] }} | append:'</a>' }} %}
                 {% else %}
-                    {% assign str = {{ {{ {{ str | append:' and <a href="' }} | append:{{ collaborator[1] }} }} | append:'">' }}  %}
-                    {% assign str = {{ {{ str | append:{{ collaborator[0] }} }} | append:'</a>' }} %}
+                    {% assign str = {{ str | append:{{ {{ ' and <a href="' | append:{{ collaborator[1] }} }} | append:'">' }}  %}
+                    {% assign str = {{ str | append:{{ {{ collaborator[0] }} | append:'</a>' }} %}
                 {% endunless %}
             {% endif %}
+            {{ str }}
         {% else %}
             {% assign str = {{ str | append:'<a href="https://salu133445.github.io/">{{ Hao-Wen Dong }}</a>' }} %}
         {% endfor %}
+        haha
+        {{ str }}
 
         <hr style="margin:15px 0 0">
         <p style="margin:0""><small>Maintained by {{ str }}.</small></p>
