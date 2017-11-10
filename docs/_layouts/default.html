@@ -15,9 +15,9 @@
   <body>
     <div class="wrapper">
       <header>
-        <a href="/"> <h1>MuseGAN</h1></a>
+        <a href="{{ site.github.url }}"> <h1>MuseGAN</h1></a>
 
-        <a href="/">Home</a><br>
+        <a href="{{ site.github.url }}">Home</a><br>
 
         {% for subpage in site.subpages %}
             <a href="{{ subpage }}">{{ subpage | capitalize }}</a><br>
@@ -31,33 +31,31 @@
 
       </section>
       <footer>
-        {% assign str = "" %}
+      
+        {% capture str %}
         {% for collaborator in site.collaborators %}
-        
-            
-        
-            {% assign html_content = '<a href="' %}
-            1. {{ html_content }}
-            {% assign html_content = {{ {{ html_content }} | append:{{ collaborator[1] }} %}
-            2. {{ html_content }}
-            {% assign html_content = {{ {{ html_content }} | append:'">' %}
-            3. {{ html_content }}
-            {% assign html_content = {{ {{ html_content }} | append:'</a>' %}
-            4. {{ html_content }}
             {% if forloop.first %}
-                {% assign str = {{ str | append:{{ html_content }} %}
+                {% assign prefix = '' %}
             {% else %}
                 {% unless forloop.last %}
-                    {% assign str = {{ str | append:{{ html_content:', ' }} %}
+                    {% assign prefix = ', ' %}
                 {% else %}
-                    {% assign str = {{ str | append:{{ html_content | prepend:' and ' }} %}
+                    {% assign prefix = ' and ' %}
                 {% endunless %}
             {% endif %}
-            {{ str }}
+            {{ prefix }}<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>
         {% else %}
-            {% assign str = {{ str | append:'<a href="https://salu133445.github.io/">{{ Hao-Wen Dong }}</a>' }} %}
+            <a href="https://salu133445.github.io/">Hao-Wen Dong</a>
         {% endfor %}
-
+        {% endcapture %}
+        
+        {{ str }}
+        
+        haha
+        
+        {{ str | strip_newlines }}
+        
+        
         <hr style="margin:15px 0 0">
         <p style="margin:0""><small>Maintained by {{ str }}.</small></p>
         <p style="margin:0""><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
