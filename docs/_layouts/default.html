@@ -16,7 +16,7 @@
     <div class="wrapper">
       <header>
         <a href="/"> <h1>MuseGAN</h1></a>
-        
+
         <a href="/">Home</a><br>
 
         {% for subpage in site.subpages %}
@@ -31,16 +31,17 @@
 
       </section>
       <footer>
-
         {% assign str = "" %}
         {% for collaborator in site.collaborators %}
             {% if forloop.first %}
-                {% assign str = {{ str | append:'<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>' }} %}
+                {% assign str = {{ str | append:'' }} %}
             {% else %}
                 {% unless forloop.last %}
-                    {% assign str = {{ str | append:', <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>' }} %}
+                    {% assign str = {{ {{ {{ str | append:', <a href="' }} | append:{{ collaborator[1] }} }} | append:'">' }}  %}
+                    {% assign str = {{ {{ str | append:{{ collaborator[0] }} }} | append:'</a>' }} %}
                 {% else %}
-                    {% assign str = {{ str | append:' and <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>' }} %}
+                    {% assign str = {{ {{ {{ str | append:' and <a href="' }} | append:{{ collaborator[1] }} }} | append:'">' }}  %}
+                    {% assign str = {{ {{ str | append:{{ collaborator[0] }} }} | append:'</a>' }} %}
                 {% endunless %}
             {% endif %}
         {% else %}
