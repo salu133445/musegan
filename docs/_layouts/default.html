@@ -4,13 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-{% seo %}
+    {% seo %}
 
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <meta name="viewport" content="width=device-width">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="wrapper">
@@ -24,23 +21,18 @@
             <a href="http://mac.citi.sinica.edu.tw/~yang/">Yi-Hsuan Yang</a>
         <p/>
 
-        <p style="margin:0; color:#222;">Music and Audio Computing (MAC) Lab</p>
-        <p style="margin:0; color:#222;">Research Center for IT Innovation (CITI)</p>
-        <p style="color:#222;">Academia Sinica</p>
+        <p style="color:#222;">
+            Music and Audio Computing (MAC) Lab<br>
+            Research Center for IT Innovation (CITI)<br>
+            Academia Sinica
+        </p>
 
         <a class="subpage-link" href="{{ site.github.url }}">Home</a><br>
-
-        {% for subpage in site.subpages %}
-            {% if subpage[0] %}
-                {% if subpage[1] %}
-                    <a class="subpage-link" href="{{ subpage[0] }}">{{ subpage[1]] }}</a><br>
-                {% else %}
-                    <a class="subpage-link" href="{{ subpage[0] }}">{{ subpage[0]] }}</a><br>
-                {% endif %}
-            {% else %}
-                <a class="subpage-link" href="{{ subpage }}">{{ subpage | replace:'_',' ' | capitalize }}</a><br>
-            {% endif %}
-        {% endfor %}
+        <a class="subpage-link" href="about">About</a><br>
+        <a class="subpage-link" href="data">Data Representatio</a><br>
+        <a class="subpage-link" href="dataset">Lakh Pianoroll Dataset</a><br>
+        <a class="subpage-link" href="results">Results &amp; Samples</a><br>
+        <a class="subpage-link" href="papers">Papers</a><br>
 
         <br><br>
 
@@ -53,26 +45,8 @@
 
       </section>
       <footer>
-
-        {% capture str %}
-        {% for collaborator in site.collaborators %}
-            {% if forloop.first %}
-                {% assign prefix = '' %}
-            {% else %}
-                {% unless forloop.last %}
-                    {% assign prefix = ', ' %}
-                {% else %}
-                    {% assign prefix = ' and ' %}
-                {% endunless %}
-            {% endif %}
-            {{ prefix }}<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>
-        {% else %}
-            <a href="https://salu133445.github.io/">Hao-Wen Dong</a>
-        {% endfor %}
-        {% endcapture %}
-
         <hr style="margin:15px 0 0">
-        <p style="margin:0"><small>Maintained by {{ str | strip_newlines }}.</small></p>
+        <p style="margin:0"><small>Maintained by <a href="https://salu133445.github.io/">Hao-Wen Dong</a>.</small></p>
         <p style="margin:0"><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
