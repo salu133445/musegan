@@ -33,13 +33,16 @@
       <footer>
         {% assign str = "" %}
         {% for collaborator in site.collaborators %}
+        
+            
+        
             {% assign html_content = '<a href="' %}
             1. {{ html_content }}
-            {% assign html_content = {{ html_content | append:{{ collaborator[1] }} %}
+            {% assign html_content = {{ {{ html_content }} | append:{{ collaborator[1] }} %}
             2. {{ html_content }}
-            {% assign html_content = {{ html_content | append:'">' %}
+            {% assign html_content = {{ {{ html_content }} | append:'">' %}
             3. {{ html_content }}
-            {% assign html_content = {{ html_content | append:'</a>' %}
+            {% assign html_content = {{ {{ html_content }} | append:'</a>' %}
             4. {{ html_content }}
             {% if forloop.first %}
                 {% assign str = {{ str | append:{{ html_content }} %}
