@@ -1,7 +1,7 @@
 
 <img src="figs/logo.png" alt="logo" width="200" height="200" />
 
-<p style="color:#222;"><em>News: accepted by <strong>AAAI2018</strong> &mdash; Nov 9, 2017*</em></p>
+<p style="color:#222;"><em>News: accepted by <strong>AAAI2018</strong> &mdash; Nov 9th, 2017</em></p>
 
 MuseGAN is a project on multi-track sequential data generation. In essence, we aim to generate multi-track polyphonic music with harmonic and rhythmic structure, multi-track interdependency and temporal structure from a large collection of MIDIs in an unsupervised approach. To our knowledge, our work represents the first approach that deal with these issues altogether.
 

@@ -1,4 +1,4 @@
 theme: jekyll-theme-minimal
 title: MuseGAN
-subpages: [about, [data, Data Representation], [dataset, LPD Dataset], results, papers]
+subpages: [about, [data, Data Representation], [dataset, Lakh Pianoroll Dataset], [results, Results & Samples], papers]
 collaborators: [[Hao-Wen Dong, "https://salu133445.github.io/"], [Wen-Yi Hsiao, "https://github.com/wayne391"]]
