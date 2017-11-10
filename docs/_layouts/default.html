@@ -15,15 +15,27 @@
   <body>
     <div class="wrapper">
       <header>
-        <a href="{{ site.github.url }}"> <h1>MuseGAN</h1></a>
+        <a href="{{ site.github.url }}"><h1>MuseGAN</h1></a>
+        <p style="margin:0; color:#222;">Music and Audio Computing (MAC) Lab</p>
+        <p style="margin:0; color:#222;">Research Center for IT Innovation (CITI)</p>
+        <p style="margin:0 0 5px; color:#222;">Academia Sinica</p>
+        <p style="color:#222;">Lab Director: <a href="http://mac.citi.sinica.edu.tw/~yang/" style="color:#777;">Yi-Hsuan Yang</a></p>
 
         <a href="{{ site.github.url }}">Home</a><br>
 
         {% for subpage in site.subpages %}
-            <a href="{{ subpage }}">{{ subpage | capitalize }}</a><br>
+            {% if subpage[0] %}
+                {% if subpage[1] %}
+                    <a href="{{ subpage[0] }}">{{ subpage[1]] }}</a><br>
+                {% else %}
+                    <a href="{{ subpage[0] }}">{{ subpage[0]] }}</a><br>
+            {% else %}
+                <a href="{{ subpage }}">{{ subpage | replace:'_','' | capitalize }}</a><br>
+            {% endif %}
         {% endfor %}
 
-        <p class="view" style="margin: 0"><a href="{{ site.github.owner_url }}">GitHub Repository</a></p>
+        <p class="view" style="margin: 0"><a href="{{ site.github.owner_url }}">GitHub</a></p>
+        <p class="view" style="margin: 0"><a href="http://mac.citi.sinica.edu.tw/">MACLab</a></p>
       </header>
       <section>
 
@@ -50,8 +62,8 @@
         {% endcapture %}
 
         <hr style="margin:15px 0 0">
-        <p style="margin:0""><small>Maintained by {{ str | strip_newlines }}.</small></p>
-        <p style="margin:0""><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p style="margin:0"><small>Maintained by {{ str | strip_newlines }}.</small></p>
+        <p style="margin:0"><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="{{ '/assets/js/scale.fix.js' | relative_url }}"></script>
