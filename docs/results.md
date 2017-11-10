@@ -12,25 +12,25 @@
 <p align="center">Randomly-picked generation result (piano-rolls), generating from scratch</p>
 
 ## Generation From Scratch
-(no cherry-picking)
+**(no cherry-picking)**
 
-- the *composer* model
-{% include player.html filename="from_scratch_composer.mp3" %}
+### the *composer* model
+{% include audio_player.html filename="from_scratch_composer.mp3" %}
 
-- the *jamming* model
-{% include player.html filename="from_scratch_jamming.mp3" %}
+### the *jamming* model
+{% include audio_player.html filename="from_scratch_jamming.mp3" %}
 
-- the *hybrid* model
-{% include player.html filename="from_scratch_hybrid.mp3" %}
+### the *hybrid* model
+{% include audio_player.html filename="from_scratch_hybrid.mp3" %}
 
 ## Track-conditional Generation
-(no cherry-picking)
+**(no cherry-picking)**
 
-- the *composer* model
-{% include player.html filename="track_conditional_composer.mp3" %}
+### the *composer* model
+{% include audio_player.html filename="track_conditional_composer.mp3" %}
 
-- the *jamming* model
-{% include player.html filename="track_conditional_jamming.mp3" %}
+### the *jamming* model
+{% include audio_player.html filename="track_conditional_jamming.mp3" %}
 
-- the *hybrid* model
-{% include player.html filename="track_conditional_hybrid.mp3" %}
+### the *hybrid* model
+{% include audio_player.html filename="track_conditional_hybrid.mp3" %}

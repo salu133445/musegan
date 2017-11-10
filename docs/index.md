@@ -9,4 +9,4 @@ Our model can generate music either from scratch, or by accompanying a track giv
 
 Listen to some of the best segments.
 
-{% include player.html filename="best_samples.mp3" %}
+{% include audio_player.html filename="best_samples.mp3" %}
