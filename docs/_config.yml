@@ -1,5 +1,5 @@
 theme: jekyll-theme-minimal
 title: MuseGAN
 subpages: [about, dataset, results, papers]
-collaborators: [[Hao-Wen Dong, https://salu133445.github.io/], [Wen-Yi Hsiao, https://github.com/wayne391]]
+collaborators: [[Hao-Wen Dong, "https://salu133445.github.io/"], [Wen-Yi Hsiao, "https://github.com/wayne391"]]
 
