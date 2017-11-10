@@ -1,21 +1,13 @@
-Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
-**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks.**
-*AAAI Conference on Artificial Intelligence (**AAAI**)*, 2018.
-[[arxiv](http://arxiv.org/abs/1709.06298)]
 
-Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
-**MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls.**
-*ISMIR'17 Late-Breaking and Demo Session*, 2017.
-(non-peer reviewed two-page extended abstract)
-[[paper](pdf/musegan-ismir17-lbd.pdf)] [[poster](pdf/musegan-ismir17-lbd-poster.pdf)]
+![logo](figs/logo.png)
 
-\**These authors contributed equally to this work.*
+(accepted by AAAI2018)
 
-# Introduction
+MuseGAN is a project on multi-track sequential data generation. In essence, we aim to generate multi-track polyphonic music with harmonic and rhythmic structure, multi-track interdependency and temporal structure from a large collection of MIDIs in an unsupervised approach. To our knowledge, our work represents the first approach that deal with these issues altogether.
 
-Generating music has a few notable differences from generating images and videos. First, music is an art of time, necessitating a temporal model. Second, music is usually composed of multiple instruments/tracks, with close interaction with one another. Each track has its own temporal dynamics, but collectively they unfold over time interdependently. Lastly, for symbolic domain music generation, the targeted output is sequences of discrete musical events, not continuous values. In this paper, we propose and study three generative adversarial networks (GANs) for symbolic-domain multi-track music generation, using a data set of 127,731 MIDI bars of pop/rock music. The three models, which differ in the underlying model assumption and accordingly the network architecture, are referred to as the jamming model, composer model, and hybrid model, respectively. We propose a few intra-track and inter-track objective metrics to examine and compare their generation result, in addition to a subjective evaluation. We show that our models can learn from the noisy MIDI files and generate coherent music of four bars right from scratch (i.e. without human inputs). We also propose extensions of our models to facilitate human-AI cooperative music creation: given the piano track composed by human we can generate four additional tracks in return to accompany it.
+Our model can generate music either from scratch, or by accompanying a track given by user. Specifically, we use the model to generate pop song segments consisting of bass, drums, guitar, piano and strings tracks.
 
-![musegan](fig/musegan.png "musegan")
+![musegan](figs/musegan.png)
 <p align="center">System diagram of MuseGAN</p>
 
 
@@ -54,10 +46,10 @@ Please reference the following papers if you use this dataset.
 
 # Results
 
-![evolution](fig/evolution.png "evolution")
+![evolution](figs/evolution.png)
 <p align="center">Evolution of the generated piano-rolls as a function of update steps</p>
 
-![hybrid](fig/hybrid.png "hybrid")
+![hybrid](figs/hybrid.png)
 <p align="center">Randomly-picked generation result (piano-rolls), generating from scratch</p>
 
 
@@ -84,3 +76,18 @@ Please reference the following papers if you use this dataset.
 
 - the *hybrid* model
 {% include player.html filename="track_conditional_hybrid.mp3" %}
+
+# Papers
+
+Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
+**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks.**
+*AAAI Conference on Artificial Intelligence (**AAAI**)*, 2018.
+[[arxiv](http://arxiv.org/abs/1709.06298)]
+
+Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
+**MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls.**
+*ISMIR'17 Late-Breaking and Demo Session*, 2017.
+(non-peer reviewed two-page extended abstract)
+[[paper](pdf/musegan-ismir17-lbd.pdf)] [[poster](pdf/musegan-ismir17-lbd-poster.pdf)]
+
+\**These authors contributed equally to this work.*
