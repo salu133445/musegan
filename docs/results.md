@@ -1,7 +1,7 @@
 # Results
 
 ## Best Samples
-{% include player.html filename="best_samples.mp3" %}
+{% include audio_player.html filename="best_samples.mp3" %}
 
 ## Piano-roll Visualizations
 
