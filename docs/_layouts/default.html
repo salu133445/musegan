@@ -32,19 +32,19 @@
       </section>
       <footer>
 
-        {% assign str = ""}
+        {% assign str = "" %}
         {% for collaborator in site.collaborators %}
             {% if forloop.first %}
-                {{ str | append:"<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+                {% assign str = {{ str | append:"<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }} %}
             {% else %}
                 {% unless forloop.last %}
-                    {{ str | append:", <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+                    {% assign str = {{ str | append:", <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }} %}
                 {% else %}
-                    {{ str | append:" and <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }}
+                    {% assign str = {{ str | append:" and <a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>" }} %}
                 {% endunless %}
             {% endif %}
         {% else %}
-            {{ str | append:"<a href="https://salu133445.github.io/">{{ Hao-Wen Dong }}</a>" }}
+            {% assign str = {{ str | append:"<a href="https://salu133445.github.io/">{{ Hao-Wen Dong }}</a>" }} %}
         {% endfor %}
 
         <hr style="margin:15px 0 0">
