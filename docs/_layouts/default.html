@@ -31,7 +31,7 @@
 
       </section>
       <footer>
-      
+
         {% capture str %}
         {% for collaborator in site.collaborators %}
             {% if forloop.first %}
@@ -43,21 +43,14 @@
                     {% assign prefix = ' and ' %}
                 {% endunless %}
             {% endif %}
-            {{ prefix }}<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>
+{{ prefix }}<a href="{{ collaborator[1] }}">{{ collaborator[0] }}</a>
         {% else %}
-            <a href="https://salu133445.github.io/">Hao-Wen Dong</a>
+<a href="https://salu133445.github.io/">Hao-Wen Dong</a>
         {% endfor %}
         {% endcapture %}
-        
-        {{ str }}
-        
-        haha
-        
-        {{ str | strip_newlines }}
-        
-        
+
         <hr style="margin:15px 0 0">
-        <p style="margin:0""><small>Maintained by {{ str }}.</small></p>
+        <p style="margin:0""><small>Maintained by {{ str | strip_newlines }}.</small></p>
         <p style="margin:0""><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
