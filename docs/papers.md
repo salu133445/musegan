@@ -1,7 +1,7 @@
 # Papers
 
 Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang.
-**MuseGAN: Symbolic-domain Music Generation and Accompaniment with Multi-track Sequential Generative Adversarial Networks.**
+**MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment**
 *AAAI Conference on Artificial Intelligence (**AAAI**)*, 2018.
 [[arxiv](http://arxiv.org/abs/1709.06298)]
 
