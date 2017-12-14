@@ -1,4 +1,4 @@
-## (In Progressing)
+## (In Progress)
 
 Implementation of MuseGAN
 
