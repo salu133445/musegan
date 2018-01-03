@@ -1,8 +1,8 @@
 # local path
-dataset_path: '/home/salu133445/NAS/salu133445/midinet/lmd/lmd_full/'
-result_path: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_full'
+lmd_dir: '/home/salu133445/NAS/salu133445/midinet/lmd/'
+lpd_dir: '/home/salu133445/NAS/salu133445/midinet/lpd/'
 
 # parameters
+dataset: 'full' # 'matched'
 beat_resolution: 24
 multicore: 30
-link_to_msd: False
