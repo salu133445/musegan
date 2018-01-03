@@ -37,7 +37,7 @@ def get_time_signature_info_and_arrays(pm):
 def get_beat_info_and_arrays(pm, beat_resolution=24, sort_tsc=True):
     """Given a pretty_midi.PrettyMIDI class instance, return its beat info
     dictionary and beat array dictionary. If sort_tsc is True(by default), the
-    time_signatrue_changes list of the pretty_midi object will first be sorted.
+    time_signature_changes list of the pretty_midi object will first be sorted.
     """
     # sort time signature changes by time
     if sort_tsc:
@@ -108,7 +108,7 @@ def get_tempo_info_and_arrays(pm, beat_resolution=24, beat_times=None):
 def get_midi_info_and_arrays(pm, beat_resolution=24):
     """Given a pretty_midi.PrettyMIDI class instance, return its midi_info_dict
     and midi_array_dict."""
-    # get time sigature changes info
+    # get time signature changes info
     time_signature_info, time_signature_arrays = get_time_signature_info_and_arrays(pm)
     # get beat info dictionary and beats array dictionary
     beat_info, beat_arrays = get_beat_info_and_arrays(pm, beat_resolution=beat_resolution, sort_tsc=False)
@@ -165,11 +165,11 @@ def get_piano_roll(instrument, beat_resolution=24, beat_times=None, tempo_array=
             # set values to the piano-roll and the onset-roll matrix
             piano_roll[start_idx:(end_idx-1), note.pitch] = note.velocity
             if start_idx < onset_roll.shape[0]:
-                onset_roll[start_idx, 0] = True
+                onset_roll[start_idx] = True
     return piano_roll, onset_roll
 
 def get_instrument_info(instrument):
-    """Given a pretty_midi.Instrument class instance, return the infomation
+    """Given a pretty_midi.Instrument class instance, return the information
     dictionary of the instrument."""
     return {'program_num': instrument.program,
             'program_name': pretty_midi.program_to_instrument_name(instrument.program),
@@ -194,7 +194,7 @@ def get_piano_rolls(pm, beat_resolution=24):
         dimension is the id of the instrument. The size is (num_instrument,
         num_time_step, num_pitches).
     onset_rolls : np.ndarray of bool
-        The extracted onset-rolls. The value indicates the occurence of onset
+        The extracted onset-rolls. The value indicates the occurrence of onset
         events. The first dimension is the id of the instrument. The size is
         (num_instrument, num_time_step, num_pitches).
     info_dict : dict
@@ -258,7 +258,7 @@ def midi_to_pianorolls(midi_path, beat_resolution=24):
         dimension is the id of the instrument. The size is (num_instrument,
         num_time_step, num_pitches).
     onset_rolls : np.ndarray of bool
-        The extracted onset-rolls. The value indicates the occurence of onset
+        The extracted onset-rolls. The value indicates the occurrence of onset
         events. The first dimension is the id of the instrument. The size is
         (num_instrument, num_time_step, num_pitches).
     info_dict : dict
