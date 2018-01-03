@@ -22,25 +22,12 @@ def get_instrument(piano_roll, program_num, is_drum, velocity=100, tempo=120.0, 
         # iterate through all the searched notes
         for idx, start_time in enumerate(start_times):
             # create an Note object with corresponding note number, start time and end time
-            note = pretty_midi.Note(velocity=velocity, pitch=note_num, start=start_times[idx], end=end_times[idx])
+            note = pretty_midi.Note(velocity=velocity, pitch=note_num, start=start_time, end=end_times[idx])
             # add the note to the Instrument object
             instrument.notes.append(note)
     # sort the notes by their start time
     instrument.notes.sort(key=lambda note: note.start)
     return instrument
-
-# def write_piano_roll_to_midi(piano_roll, filename, program_num=0, is_drum=False, velocity=100, tempo=120.0,
-#                              beat_resolution=24):
-#     # create a PrettyMIDI object
-#     midi = pretty_midi.PrettyMIDI(initial_tempo=tempo)
-#     # create an Instrument object
-#     instrument = pretty_midi.Instrument(program=program_num, is_drum=is_drum)
-#     # set the piano roll to the Instrument object
-#     set_piano_roll_to_instrument(piano_roll, instrument, velocity, tempo, beat_resolution)
-#     # add the instrument to the PrettyMIDI object
-#     midi.instruments.append(instrument)
-#     # write MIDI file
-#     midi.write(filename)
 
 def get_midi(piano_rolls, program_nums=None, is_drum=None, velocity=100, tempo=120.0, beat_resolution=24):
     """
