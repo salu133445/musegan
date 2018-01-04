@@ -8,7 +8,7 @@ The Lakh Pianoroll Dataset (LPD) is a collection of 173,997 unique multi-track p
 
 - [lpd-matched](https://drive.google.com/file/d/0Bx-qnQlE_EmsWG1LbVY0MHY5ems/view?usp=drivesdk)\*: 115006 multi-track piano-rolls converted from midi files of 30887 songs in LMD-matched.
 
-- [lpd-5-matched](https://drive.google.com/file/d/11c7XH3OJDQNr6Ybxc7KGvl559DluqRFk/view?usp=drivesdk)\*: 173997 multi-track piano-rolls converted from midi files in LMD. 
+- [lpd-5-full](https://drive.google.com/file/d/11c7XH3OJDQNr6Ybxc7KGvl559DluqRFk/view?usp=drivesdk)\*: 173997 multi-track piano-rolls converted from midi files in LMD. 
 
 - lpd-5-matched\*: 115006 five-track piano-rolls converted from midi files of 30887 songs in LMD-matched. 
 
