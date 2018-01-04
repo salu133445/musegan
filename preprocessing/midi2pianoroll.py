@@ -1,8 +1,7 @@
-"""Utility functions for conversion between midi and pianoroll"""
+"""Utility functions for conversion from midi to pianoroll"""
 
 import numpy as np
 import pretty_midi
-
 
 def merge_dicts(*dict_args):
     """Given any number of dicts, shallow copy and merge into a new dict,
