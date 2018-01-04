@@ -1,9 +1,35 @@
+"""Utility functions for conversion from pianoroll to midi"""
+
 from __future__ import print_function
 import numpy as np
 import pretty_midi
 
-def get_instrument(piano_roll, program_num, is_drum, velocity=100, tempo=120.0, beat_resolution=24):
-    """Given a piano-roll and """
+def get_instrument(piano_roll, program_num=0, is_drum=False, velocity=100, tempo=120.0, beat_resolution=24):
+    """
+    Convert a piano-roll to a pretty_midi.Instrument object.
+
+    Parameters
+    ----------
+    piano_roll : np.ndarray of int (or bool)
+        The size is (num_time_step, num_pitches). If dtype is int, the values
+        represent the velocity. If dtype is bool, the parameter 'velocity' is
+        used for all notes.
+    program_num : int
+        MIDI program number, in [0, 127].
+    is_drum : bool
+        Indicates whether the piano-roll is a drum track.
+    velocity : int
+        Velocity of notes, in [0, 127].
+    tempo: float
+        Tempo in beat per minute (bpm).
+    beat_resolution: int
+        The resolution of a beat used in the input piano-roll.
+
+    Returns
+    -------
+    instrument : pretty_midi.Instrument
+        The converted result, a pretty_midi.Instrument object.
+    """
     # calculate time per pixel
     tpp = 60.0/tempo/float(beat_resolution)
     # create piano_roll_search that captures note onsets and offsets
@@ -31,7 +57,31 @@ def get_instrument(piano_roll, program_num, is_drum, velocity=100, tempo=120.0, 
 
 def get_midi(piano_rolls, program_nums=None, is_drum=None, velocity=100, tempo=120.0, beat_resolution=24):
     """
-    XD
+    Convert a multi-track piano-roll to a pretty_midi.PrettyMIDI object.
+
+    Parameters
+    ----------
+    piano_rolls : list of np.ndarray of int (or bool)
+        The size of each item is (num_time_step, num_pitches). If dtype is
+        int, the values represent the velocity. If dtype is bool, the
+        parameter 'velocity' is used for all notes.
+    program_nums : list of int
+        MIDI program number, in [0, 127], of the corresponding piano-roll.
+        The length should be the same as the parameter 'piano_rolls'.
+    is_drum : list of bool
+        Indicates whether the corresponding piano-roll is a drum track. The
+        length should be the same as the parameter 'piano_rolls'.
+    velocity : int
+        Velocity of notes, in [0, 127].
+    tempo: float
+        Tempo in beat per minute (bpm).
+    beat_resolution: int
+        The resolution of a beat used in the input piano-roll.
+
+    Returns
+    -------
+    pm : pretty_midi.PrettyMIDI
+        The converted result, a pretty_midi.PrettyMIDI object.
     """
     if len(piano_rolls) != len(program_nums):
         raise ValueError("piano_rolls and program_nums should have the same length")
