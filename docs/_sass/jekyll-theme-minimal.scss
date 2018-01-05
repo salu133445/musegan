@@ -35,6 +35,21 @@ h4, h5, h6 {
   margin:0 auto;
 }
 
+.video-container {
+  position:relative;
+  height:0;
+  overflow:hidden;
+  padding-bottom:56.25%;
+}
+ 
+.video-container iframe {
+  position: absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
 .subpage-link {
   font-size:16px;
   color:#267CB9;
@@ -110,6 +125,10 @@ dt {
 
 th {
   color:#444;
+}
+
+ul {
+  padding:20px;
 }
 
 img {
