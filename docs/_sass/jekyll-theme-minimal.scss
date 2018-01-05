@@ -5,12 +5,11 @@ body {
   background-color: #fff;
   padding:50px;
   font: 14px/1.5 "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color:#727272;
+  color:#333;
   font-weight:400;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color:#222;
   margin:0 0 20px;
 }
 
@@ -19,6 +18,7 @@ p, ul, ol, table, pre, dl {
 }
 
 h1, h2, h3 {
+  color:#111;
   line-height:1.1;
 }
 
@@ -26,16 +26,12 @@ h1 {
   font-size:28px;
 }
 
-h2 {
-  color:#393939;
-}
-
-h3, h4, h5, h6 {
-  color:#494949;
+h4, h5, h6 {
+  color:#222;
 }
 
 .wrapper {
-  width:860px;
+  width:1100px;
   margin:0 auto;
 }
 
@@ -47,7 +43,7 @@ h3, h4, h5, h6 {
 
 footer small a {
   font-size:11px;
-  color:#777;
+  color:#555;
   margin-top:-0.3em;
 }
 
@@ -63,12 +59,12 @@ a:hover, a:focus {
 
 a small {
   font-size:11px;
-  color:#777;
+  color:#555;
   margin-top:-0.3em;
 }
 
 a:hover small {
-  color:#777;
+  color:#555;
 }
 
 blockquote {
@@ -121,7 +117,7 @@ img {
 }
 
 header {
-  width:270px;
+  width:250px;
   float:left;
   position:fixed;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -169,7 +165,7 @@ header ul a strong {
 }
 
 section {
-  width:500px;
+  width:750px;
   float:right;
 }
 
@@ -189,6 +185,22 @@ footer {
   float:right;
   padding-bottom:50px;
   -webkit-font-smoothing:subpixel-antialiased;
+}
+
+@media print, screen and (max-width: 1200px) {
+
+  div.wrapper {
+    width:860px;
+  }
+
+  header {
+    width:270px;
+  }
+
+  section {
+    width:500px;
+  }
+  
 }
 
 @media print, screen and (max-width: 960px) {
