@@ -127,10 +127,6 @@ th {
   color:#444;
 }
 
-ul {
-  padding:20px;
-}
-
 img {
   max-width:100%;
 }
@@ -220,6 +216,10 @@ footer {
     width:560px;
   }
   
+  ul {
+    padding-left:20px;
+  }
+
 }
 
 @media print, screen and (max-width: 960px) {
@@ -233,10 +233,6 @@ footer {
     float:none;
     position:static;
     width:auto;
-  }
-
-  header {
-    padding-right:320px;
   }
 
   section {
@@ -301,5 +297,9 @@ footer {
     padding:0.4in;
     font-size:12pt;
     color:#444;
+  }
+
+  ul {
+    padding-left:20px;
   }
 }
