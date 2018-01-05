@@ -57,17 +57,15 @@ def converter(filepath):
     """Given the midi_filepath, convert it to piano-rolls and save the
     piano-rolls along with other side products. Return a key value pair for
     storing midi info to a dictionary."""
-    # get the msd_id and midi_md5
-    midi_md5 = os.path.splitext(os.path.basename(filepath))[0]
-    if settings['dataset'] == 'matched':
-        msd_id = os.path.basename(os.path.dirname(filepath))
     # convert the midi file into piano-rolls
     try:
         piano_rolls, onset_rolls, info_dict = midi_to_pianorolls(filepath, beat_resolution=settings['beat_resolution'])
     except Exception as err:
         return None
-    # get the path to save the results
+    # get the msd_id, midi_md5 and the path to save the results
+    midi_md5 = os.path.splitext(os.path.basename(filepath))[0]
     if settings['dataset'] == 'matched':
+        msd_id = os.path.basename(os.path.dirname(filepath))
         result_dir = get_lpd_dir(midi_md5, msd_id)
     else:
         result_dir = get_lpd_dir(midi_md5)
