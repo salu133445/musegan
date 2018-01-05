@@ -181,7 +181,7 @@ hr {
 }
 
 footer {
-  width:500px;
+  width:750px;
   float:right;
   padding-bottom:50px;
   -webkit-font-smoothing:subpixel-antialiased;
@@ -194,11 +194,11 @@ footer {
   }
 
   header {
-    width:270px;
+    width:250px;
   }
 
-  section {
-    width:500px;
+  section, footer {
+    width:560px;
   }
   
 }
