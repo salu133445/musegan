@@ -4,7 +4,8 @@ import json
 import warnings
 import numpy as np
 from config import settings
-from utils import get_lpd_dir, save_npz, make_sure_path_exists
+from utils import make_sure_path_exists, get_lpd_file_dir
+from utils import save_npz, save_dict_to_json
 from midi2pianoroll import midi_to_pianorolls
 
 if settings['multicore'] > 1:
@@ -48,11 +49,6 @@ def get_piano_roll_statistics(piano_roll, onset_array, midi_data):
             'rhythm complexity': rhythm_complexity,
             'pitch complexity': pitch_complexity}
 
-def save_dict_to_json(data, filepath):
-    """Save the data dictionary to the given filepath."""
-    with open(filepath, 'w') as outfile:
-        json.dump(data, outfile)
-
 def converter(filepath):
     """Given the midi_filepath, convert it to piano-rolls and save the
     piano-rolls along with other side products. Return a key value pair for
@@ -60,15 +56,15 @@ def converter(filepath):
     # convert the midi file into piano-rolls
     try:
         piano_rolls, onset_rolls, info_dict = midi_to_pianorolls(filepath, beat_resolution=settings['beat_resolution'])
-    except Exception as err:
+    except:
         return None
-    # get the msd_id, midi_md5 and the path to save the results
+    # get the msd_id and midi_md5 the path to save the results
     midi_md5 = os.path.splitext(os.path.basename(filepath))[0]
     if settings['dataset'] == 'matched':
         msd_id = os.path.basename(os.path.dirname(filepath))
-        result_dir = get_lpd_dir(midi_md5, msd_id)
+        result_dir = get_lpd_file_dir(midi_md5, msd_id)
     else:
-        result_dir = get_lpd_dir(midi_md5)
+        result_dir = get_lpd_file_dir(midi_md5)
     # save the piano-rolls an the onset-rolls into files
     make_sure_path_exists(result_dir)
     save_npz(os.path.join(result_dir, 'piano_rolls.npz'), sparse_matrices=piano_rolls)
@@ -103,14 +99,14 @@ def main():
             midi_dict[key] = {}
         for kv_pair in kv_pairs:
             midi_dict[kv_pair[0]].update(kv_pair[1])
-        save_dict_to_json(midi_dict, os.path.join(settings['lpd_path'], 'midis.json'))
     else:
         midi_dict = {}
         for midi_filepath in midi_filepaths:
             kv_pair = converter(midi_filepath)
-            midi_dict[kv_pair[0]] = kv_pair[1]
-        # save the midi dict into a json file
-        save_dict_to_json(midi_dict, os.path.join(settings['lpd_path'], 'midis.json'))
+            if kv_pair is not None:
+                midi_dict[kv_pair[0]] = kv_pair[1]
+    # save the midi dict into a json file
+    save_dict_to_json(midi_dict, os.path.join(settings['lpd_path'], 'midis.json'))
     print('{} MIDI files have been converted to multi-track piano-rolls.'.format(len(midi_dict)))
 
 if __name__ == "__main__":
