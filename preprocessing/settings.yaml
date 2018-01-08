@@ -1,8 +1,15 @@
 # local path
 lmd_dir: '/home/salu133445/NAS/salu133445/midinet/lmd/'
 lpd_dir: '/home/salu133445/NAS/salu133445/midinet/lpd/'
+msd_meta_filepath: '/home/salu133445/NAS/salu133445/midinet/lpd/msd_meta.json'
+match_score_filepath: '/home/salu133445/NAS/salu133445/midinet/lpd/match_scores.json'
 
 # parameters
-dataset: 'full' # 'matched'
+use_matched_dataset: true # true to use 'lpd-matched', false to use 'lpd-full'
 beat_resolution: 24
-multicore: 30
+multicore: 1
+
+# cleansing parameters
+cleansing:
+  use_merged_dataset: false # true to use 'lpd-5-matched', false to use 'lpd-matched'
+  time_signatures: ['4/4'] # '3/4', '2/4'
