@@ -11,5 +11,5 @@ Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "**MuseGAN: Mult
 
 - data conversion
 - data preprocessing
-- (data cleansing)  *will soon be released*
+- data cleansing
 - (main code)  *will be released in the near future*
