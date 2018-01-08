@@ -13,7 +13,7 @@ Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "**MuseGAN: Mult
 ```python
 import tensorflow as tf
 from musegan.core import MuseGAN
-from musegan.components import *
+from musegan.components import NowbarHybrid
 from config import *
 
 # initialize a tensorflow session
