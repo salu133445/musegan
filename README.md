@@ -11,6 +11,7 @@ Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "**MuseGAN: Mult
 ### Usage
 
 ```python
+import tensorflow as tf
 from musegan.core import MuseGAN
 from musegan.components import *
 from config import *
