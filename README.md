@@ -7,7 +7,8 @@ Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "**MuseGAN: Mult
 
 \**These authors contributed equally to this work.*
 
-![image] (https://github.com/salu133445/musegan/blob/master/docs/figs/train.gif)
+![image](https://github.com/salu133445/musegan/blob/master/docs/figs/train.gif)
+
 ### Usage
 
 ```python
