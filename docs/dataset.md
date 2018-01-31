@@ -24,6 +24,8 @@ Note that instruments out of the list are considered as part of the strings
 \* These files are matched to entries in the Million Song Dataset (MSD).
 To make use of the metadata from MSD, we refer users to the [demo page](http://colinraffel.com/projects/lmd/) of LMD.
 
+- [midis.json](https://drive.google.com/file/d/1MqDdl6o6rCVJ5qPhbXicij-IkXr7Jyhk/view?usp=drivesdk): a json file that contains useful information of the MIDI files, which is collected during the conversion and used to create lpd-cleansed and lpd-5-cleansed.
+
 ## Using LPD
 
 The multi-track piano-rolls in LPD are stored in a special format for efficient I/O and to save space.
