@@ -1,15 +1,22 @@
 # local path
-lmd_dir: '/home/salu133445/NAS/salu133445/midinet/lmd/'
-lpd_dir: '/home/salu133445/NAS/salu133445/midinet/lpd/'
-msd_meta_filepath: '/home/salu133445/NAS/salu133445/midinet/lpd/msd_meta.json'
-match_score_filepath: '/home/salu133445/NAS/salu133445/midinet/lpd/match_scores.json'
+lmd:
+  full: '/home/salu133445/NAS/salu133445/midinet/lmd/lmd_full/'
+  matched: '/home/salu133445/NAS/salu133445/midinet/lmd/lmd_matched'
+
+lpd:
+  full: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_full/'
+  matched: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_matched/'
+  cleansed: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_cleansed/'
+
+lpd-5:
+  full: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_5_full/'
+  matched: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_5_matched/'
+  cleansed: '/home/salu133445/NAS/salu133445/midinet/lpd/lpd_5_cleansed/'
+
+match_scores: '/home/salu133445/NAS/salu133445/midinet/lmd/match_scores.json'
+midi_dict: '/home/salu133445/NAS/salu133445/midinet/lpd/midis.json'
 
 # parameters
-use_matched_dataset: true # true to use 'lpd-matched', false to use 'lpd-full'
-beat_resolution: 24
-multicore: 1
-
-# cleansing parameters
-cleansing:
-  use_merged_dataset: false # true to use 'lpd-5-matched', false to use 'lpd-matched'
-  time_signatures: ['4/4'] # '3/4', '2/4'
+multicore: 30 # 1 for disable multiprocessing, >1 to enable multiprocessing
+beat_resolution: 24 # resolution of a beat (in time step)
+time_signatures: ['4/4'] # '3/4', '2/4'
