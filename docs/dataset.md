@@ -27,8 +27,7 @@ To make use of the metadata from MSD, we refer users to the [demo page](http://c
 ## Using LPD
 
 The multi-track piano-rolls in LPD are stored in a special format for efficient I/O and to save space.
-Please use [Pypianoroll](https://pypi.python.org/pypi/pypianoroll) to load the data properly.
-The documentation for Pypianoroll is available [here](https://salu133445.github.io/pypianoroll/index.html).
+Please use [Pypianoroll](https://salu133445.github.io/pypianoroll/) to load the data properly.
 
 ### License
 
