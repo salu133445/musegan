@@ -8,17 +8,16 @@
 </p>
 
 MuseGAN is a project on music generation.
-In essence, we aim to generate *multi-track polyphonic* music with harmonic and rhythmic structure, multi-track interdependency and temporal structure.
+In essence, we aim to generate polyphonic music of multiple tracks (instruments) with harmonic and rhythmic structure, multi-track interdependency and temporal structure.
 To our knowledge, our work represents the first approach that deal with these issues altogether.
 
-The models are trained with a large collection of [multi-track piano-rolls](#multitrack) in an unsupervised approach.
+The models are trained with [Lakh Pianoroll Dataset](datset.md) (LPD), a new [multi-track piano-roll](data.md#multitrack) dataset, in an unsupervised approach.
 The proposed models are able to generate music either from scratch, or by accompanying a track given by user.
 Specifically, we use the model to generate pop song phrases consisting of bass, drums, guitar, piano and strings tracks.
 
-Listen to some of the best phrases.
+Listen to some of the best phrases. ([More results](results.md))
 
 {% include audio_player.html filename="best_samples.mp3" %}
 
-It's an open source project.
-All the source code is available at [Github](https://github.com/salu133445/musegan).
+It's an open source project on [Github](https://github.com/salu133445/musegan).
 You can play with it if you're interested.
