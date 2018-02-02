@@ -1,12 +1,21 @@
 '''
 Model Configuration
 '''
+from __future__ import absolute_import
+from __future__ import division
 from __future__ import print_function
+
 import numpy as np
 from shutil import copyfile
 import os
+import SharedArray as sa
 import tensorflow as tf
+import glob
+
 print('[*] config...')
+
+# class Dataset:
+TRACK_NAMES = ['bass', 'drums', 'guitar', 'piano', 'strings']
 
 def get_colormap():
     colormap = np.array([[1., 0., 0.],
@@ -16,76 +25,146 @@ def get_colormap():
                          [0., .5, 1.]])
     return tf.constant(colormap, dtype=tf.float32, name='colormap')
 
-# class Dataset:
-TRACK_NAMES = ['bass', 'drums', 'guitar', 'piano', 'strings']
-TRACK_DIM = 5
-class NowBarConfig:
+###########################################################################
+# Training
+###########################################################################
+
+class TrainingConfig:
+    is_eval = True
+    batch_size = 64
+    epoch = 20
+    iter_to_save = 100
+    sample_size = 64
+    print_batch = True
+    drum_filter = np.tile([1,0.3,0,0,0,0.3], 16)
+    scale_mask = [1., 0., 1., 0., 1., 1., 0., 1., 0., 1., 0., 1.]
+    inter_pair = [(0,2), (0,3), (0,4), (2,3), (2,4), (3,4)]
     track_names = TRACK_NAMES
     track_dim = len(track_names)
+    eval_map = np.array([
+                    [1, 1, 1, 1, 1],  # metric_is_empty_bar
+                    [1, 1, 1, 1, 1],  # metric_num_pitch_used
+                    [1, 0, 1, 1, 1],  # metric_too_short_note_ratio
+                    [1, 0, 1, 1, 1],  # metric_polyphonic_ratio
+                    [1, 0, 1, 1, 1],  # metric_in_scale
+                    [0, 1, 0, 0, 0],  # metric_drum_pattern
+                    [1, 0, 1, 1, 1]   # metric_num_chroma_used
+                ])
+
+    exp_name = 'exp'
+    gpu_num = '1'
+
+
+###########################################################################
+# Model Config
+###########################################################################
+
+class ModelConfig:
     output_w = 96
     output_h = 84
-    acc_idx = 4
-    is_bn = True
-    z_inter_dim = 64
-    z_intra_dim = 64
-    colormap = get_colormap()
     lamda = 10
+    batch_size = 64
     beta1 = 0.5
     beta2 = 0.9
-    lr = 0.001
+    lr = 2e-4
+    is_bn = True
+    colormap = get_colormap()
 
-# general setting
-IS_TRAIN = True
-IS_RETRAIN = True
-GEN_TEST = False
+# image
+class MNISTConfig(ModelConfig):
+    output_w = 28
+    output_h = 28
+    z_dim = 74
+    output_dim = 1
 
-# gpu setting
-GPU_NUM = '0'
-DATA_X_TRA_NAME = 'tra_X_bars'
-DATA_X_VAL_NAME = 'val_X_bars'
-DATA_Y_TRA_NAME = 'tra_y_bars'
-DATA_Y_VAL_NAME = 'val_y_bars'
-BATCH_SIZE = 64
-EXP_NAME = 'try2'
+# RNN
+class RNNConfig(ModelConfig):
+    track_names = ['All']
+    track_dim = 1
+    output_bar = 4
+    z_inter_dim = 128
+    output_dim = 5
+    acc_idx = None
+    state_size = 128
 
-# training settings
-EPOCH = 10
-TRAIN_SIZE = np.inf
-SAMPLE_SIZE = 64
-PRINT_BATCH = True
-SAVE_IMAGE_SUMMARY = False
-Z_DIM = 64
+# onebar
+class OneBarHybridConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    acc_idx = None
+    z_inter_dim = 64
+    z_intra_dim = 64
+    output_dim = 1
 
-if SAMPLE_SIZE >= 64  and SAMPLE_SIZE %8 == 0:
-    SAMPLE_SHAPE = [8, SAMPLE_SIZE//8]
-elif SAMPLE_SIZE >= 48  and SAMPLE_SIZE %6 == 0:
-    SAMPLE_SHAPE = [6, SAMPLE_SIZE//6]
-elif SAMPLE_SIZE >= 24 and SAMPLE_SIZE %4 == 0:
-    SAMPLE_SHAPE = [4, SAMPLE_SIZE//4]
-elif SAMPLE_SIZE >= 15 and SAMPLE_SIZE %3 == 0:
-    SAMPLE_SHAPE = [3, SAMPLE_SIZE//3]
-elif SAMPLE_SIZE >= 8 and SAMPLE_SIZE %2 == 0:
-    SAMPLE_SHAPE = [2, SAMPLE_SIZE//2]
+class OneBarJammingConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    acc_idx = None
+    z_intra_dim = 128
+    output_dim = 1
 
-# directory settings
-DIR_CHECKPOINT = 'checkpoint'
-DIR_SAMPLE = 'samples'
-DIR_LOG = 'logs'
+class OneBarComposerConfig(ModelConfig):
+    track_names = ['All']
+    track_dim = 1
+    acc_idx = None
+    z_inter_dim = 128
+    output_dim = 5
 
-# model settings
-OUTPUT_BAR = 8
+# nowbar
 
-# Directory settings
-DIR_CHECKPOINT = os.path.join(EXP_NAME, DIR_CHECKPOINT)
-DIR_SAMPLE = os.path.join(EXP_NAME, DIR_SAMPLE)
-DIR_LOG = os.path.join(EXP_NAME, DIR_LOG)
+class NowBarHybridConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    acc_idx = 4
+    z_inter_dim = 64
+    z_intra_dim = 64
+    output_dim = 1
 
-if not os.path.exists(DIR_CHECKPOINT):
-    os.makedirs(DIR_CHECKPOINT)
-if not os.path.exists(DIR_SAMPLE):
-    os.makedirs(DIR_SAMPLE)
-if not os.path.exists(DIR_LOG):
-    os.makedirs(DIR_LOG)
+class NowBarJammingConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    acc_idx = 4
+    z_intra_dim = 128
+    output_dim = 1
 
-# save config file
-copyfile('./config.py', DIR_LOG+'/config.py')
+class NowBarComposerConfig(ModelConfig):
+    track_names = ['All']
+    track_dim = 1
+    acc_idx = 4
+    z_inter_dim = 128
+    output_dim = 5
+
+# Temporal
+class TemporalHybridConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    output_bar = 4
+    z_inter_dim = 32
+    z_intra_dim = 32
+    acc_idx = None
+    output_dim = 1
+
+class TemporalJammingConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    track_dim = 5
+    output_bar = 4
+    z_intra_dim = 64
+    output_dim = 1
+
+class TemporalComposerConfig(ModelConfig):
+    track_names = ['All']
+    track_dim = 1
+    output_bar = 4
+    z_inter_dim = 64
+    acc_idx = None
+    output_dim = 5
+
+class NowBarTemporalHybridConfig(ModelConfig):
+    track_names = TRACK_NAMES
+    acc_idx = 4
+    track_dim = 5
+    output_bar = 4
+    z_inter_dim = 32
+    z_intra_dim = 32
+    acc_idx = 4
+    output_dim = 1

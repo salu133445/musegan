@@ -5,7 +5,6 @@ from __future__ import print_function
 ## 193 settings
 import warnings
 import matplotlib
-matplotlib.use('Agg')
 import SharedArray as sa
 import tensorflow as tf
 
@@ -199,20 +198,18 @@ class Metrics(object):
     def eval(self, batch, output_type=0, quiet=False, save_fig=False, fig_dir='./'):
         """
         Evaluate one batch of bars according to eval_map and eval_pair
-
         Args:
             batch (tensor): The input tensor.
             output_type (int): 0 for scalar (mean of list), 1 for list
             quiet (bool): if true, print the values
             save_fig (bool): if true, plot figures and save them under 'fig_dir'
             fig_dir (str): dir to store images
-
         Returns:
            score_matrix: result of eval map
            score_pair_matrix: result of eval pair
-
         """
 
+        batch =  np.reshape(batch,(-1, 96, 84, 5))
         num_batch = len(batch)
         score_matrix = np.zeros((self.metrics_num, self.track_num, num_batch)) * np.nan
         score_pair_matrix = np.zeros((self.pair_num, num_batch)) * np.nan
@@ -256,8 +253,6 @@ class Metrics(object):
             print('# Data Size:', batch.shape, '       # num of Metrics:', np.sum(self.eval_map))
             self.print_metrics_mat(score_matrix_mean)
             self.print_metrics_pair(score_pair_matrix_mean)
-
-
 
         # save figures and save info as npy files
         if save_fig:
