@@ -1,11 +1,13 @@
-# Results
+Results
+=======
 
-## Best Samples
+Best Samples
+------------
+
 {% include audio_player.html filename="best_samples.mp3" %}
 
----
-
-## Piano-roll Visualizations
+Piano-roll Visualizations
+-------------------------
 
 ![evolution](figs/evolution.png)
 <p align="center">Evolution of the generated piano-rolls as a function of update steps</p>
@@ -13,30 +15,36 @@
 ![hybrid](figs/hybrid.png)
 <p align="center">Randomly-picked generation result (piano-rolls), generating from scratch</p>
 
----
+Generation From Scratch
+-----------------------
 
-## Generation From Scratch
-**(no cherry-picking)**
+(no cherry-picking)
 
-### the *composer* model
+**the *composer* model**
+
 {% include audio_player.html filename="from_scratch_composer.mp3" %}
 
-### the *jamming* model
+**the *jamming* model**
+
 {% include audio_player.html filename="from_scratch_jamming.mp3" %}
 
-### the *hybrid* model
+**the *hybrid* model**
+
 {% include audio_player.html filename="from_scratch_hybrid.mp3" %}
 
----
+Track-conditional Generation
+----------------------------
 
-## Track-conditional Generation
-**(no cherry-picking)**
+(no cherry-picking)
 
-### the *composer* model
+**the *composer* model**
+
 {% include audio_player.html filename="track_conditional_composer.mp3" %}
 
-### the *jamming* model
+**the *jamming* model**
+
 {% include audio_player.html filename="track_conditional_jamming.mp3" %}
 
-### the *hybrid* model
+**the *hybrid* model**
+
 {% include audio_player.html filename="track_conditional_hybrid.mp3" %}

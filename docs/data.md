@@ -1,6 +1,8 @@
-# Data Representation
+Data Representation
+===================
 
-## Piano-rolls
+Piano-rolls
+-----------
 
 Piano-roll is a music storing format which represents a music piece by a score-like matrix.
 The vertical axis represents note pitch, and the horizontal axis represents time.
@@ -15,7 +17,8 @@ For example, a bar in 4/4 time with only one track can be represented as a 96 x 
 <img src="figs/pianoroll-example.png" alt="pianoroll-example" style="max-height:200px; display:block; margin:auto">
 <p align="center">Example piano-roll</p>
 
-## <a name="multitrack"></a>Multi-track Piano-rolls
+Multi-track Piano-rolls<a name="multitrack"></a>
+-----------------------
 
 We represent a multi-track music piece with a *multi-track piano-roll*, which is a set of piano-rolls where each piano-roll represents one specific track of the original music piece.
 That is, a M-track music piece will be converted into a set of M piano-rolls.

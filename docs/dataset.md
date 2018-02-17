@@ -1,6 +1,8 @@
-# Dataset
+Dataset
+=======
 
-## Lakh Pianoroll Dataset (LPD)
+Lakh Pianoroll Dataset (LPD)
+----------------------------
 
 The Lakh Pianoroll Dataset (LPD) is a collection of 174,154 unique [multi-track piano-rolls](data.md#multitrack) derived from the MIDI files in [Lakh MIDI Dataset](http://colinraffel.com/projects/lmd/) (LMD).
 
@@ -26,12 +28,14 @@ To make use of the metadata from MSD, we refer users to the [demo page](http://c
 
 - [midis.json](https://drive.google.com/file/d/1MqDdl6o6rCVJ5qPhbXicij-IkXr7Jyhk/view?usp=drivesdk): a json file that contains useful information of the MIDI files, which is collected during the conversion and used to create lpd-cleansed and lpd-5-cleansed.
 
-## Using LPD
+Using LPD
+---------
 
 The multi-track piano-rolls in LPD are stored in a special format for efficient I/O and to save space.
 Please use [Pypianoroll](https://salu133445.github.io/pypianoroll/) to load the data properly.
 
-### License
+License
+-------
 
 Lakh Pianoroll Dataset is a derivative of [Lakh MIDI dataset](http://colinraffel.com/projects/lmd/) by [Colin Raffel](http://colinraffel.com), used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Lakh Pianoroll Dataset is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) by [Hao-Wen Dong](https://salu133445.github.io/) and [Wen-Yi Hsiao](https://github.com/wayne391).
 

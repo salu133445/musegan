@@ -15,6 +15,7 @@ Paper
 
 Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "**MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment**," in *AAAI Conference on Artificial Intelligence (AAAI)*, 2018.
 [[arxiv](http://arxiv.org/abs/1709.06298)]
+[[slides](https://github.com/salu133445/musegan/blob/master/docs/pdf/musegan-aaai2018-slides.pdf)]
 
 \**These authors contributed equally to this work.*
 
@@ -53,10 +54,10 @@ with tf.Session(config=config) as sess:
     path_test = 'train.npy'
     input_data.add_data(path_test, key='test')
     # generate samples
-    musean.gen_test(input_data, is_eval=True)
-
+    musegan.gen_test(input_data, is_eval=True)
 ```
 
 Latent Space Interpolation
 --------------------------
+
 ![image](https://github.com/salu133445/musegan/blob/master/docs/figs/train.gif)
