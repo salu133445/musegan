@@ -17,7 +17,7 @@ For example, a bar in 4/4 time with only one track can be represented as a 96 x 
 <img src="figs/pianoroll-example.png" alt="pianoroll-example" style="max-height:200px; display:block; margin:auto">
 <p align="center">Example piano-roll</p>
 
-Multi-track Piano-rolls<a name="multitrack"></a>
+Multi-track Piano-rolls
 -----------------------
 
 We represent a multi-track music piece with a *multi-track piano-roll*, which is a set of piano-rolls where each piano-roll represents one specific track of the original music piece.

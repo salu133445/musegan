@@ -5,7 +5,7 @@ MuseGAN
 In essence, we aim to generate polyphonic music of multiple tracks (instruments) with harmonic and rhythmic structure, multi-track interdependency and temporal structure.
 To our knowledge, our work represents the first approach that deal with these issues altogether.
 
-The models are trained with [Lakh Pianoroll Dataset](https://salu133445.github.io/musegan/datset) (LPD), a new [multi-track piano-roll](https://salu133445.github.io/musegan/dataset#multitrack) dataset, in an unsupervised approach.
+The models are trained with [Lakh Pianoroll Dataset](https://salu133445.github.io/musegan/datset) (LPD), a new multi-track piano-roll dataset, in an unsupervised approach.
 The proposed models are able to generate music either from scratch, or by accompanying a track given by user.
 Specifically, we use the model to generate pop song phrases consisting of bass, drums, guitar, piano and strings tracks.
 Sample results are available [here](https://salu133445.github.io/musegan/results).
