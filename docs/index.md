@@ -1,9 +1,10 @@
 <img src="figs/logo.png" alt="logo" width="200" height="200" />
 
 <p style="color:#222;">
+  <em><a href="pdf/musegan-aaai2018-slides.pdf">NEWS: The slides for the oral representation at AAAI 2018 have been uploaded.<span style="color:#727272"> &mdash; Feb 1th, 2018</span></a></em><br>
   <em>NEWS: <strong>Please come to find us at AAAI!</strong> (oral presentation at 11:30, Feb 5th at Grand Salon A, Hilton Riverside, New Orleans)<span style="color:#727272"> &mdash; Feb 1th, 2018</span></em><br>
-  <em>NEWS: The Lakh Pianoroll Dataset is back!<span style="color:#727272"> &mdash; Feb 1th, 2018</span></em><br>
-  <em>NEWS: A new version of the paper has been uploaded.<span style="color:#727272"> &mdash; Nov 27th, 2017</span></em><br>
+  <em><a href="datset.md">NEWS: The Lakh Pianoroll Dataset is back!<span style="color:#727272"> &mdash; Feb 1th, 2018</span></a></em><br>
+  <em><a href="http://arxiv.org/abs/1709.06298">NEWS: A new version of the paper has been uploaded.<span style="color:#727272"> &mdash; Nov 27th, 2017</span></a></em><br>
   <em>NEWS: Our paper has been accepted by <strong>AAAI2018</strong>.<span style="color:#727272"> &mdash; Nov 9th, 2017</span></em>
 </p>
 
