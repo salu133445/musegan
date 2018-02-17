@@ -1,10 +1,10 @@
 <img src="figs/logo.png" alt="logo" width="200" height="200" />
 
 <p style="color:#222;">
-  <em><a href="pdf/musegan-aaai2018-slides.pdf">NEWS: The slides for the oral representation at AAAI 2018 have been uploaded.<span style="color:#727272"> &mdash; Feb 1th, 2018</span></a></em><br>
-  <em>NEWS: <strong>Please come to find us at AAAI!</strong> (oral presentation at 11:30, Feb 5th at Grand Salon A, Hilton Riverside, New Orleans)<span style="color:#727272"> &mdash; Feb 1th, 2018</span></em><br>
-  <em><a href="datset.md">NEWS: The Lakh Pianoroll Dataset is back!<span style="color:#727272"> &mdash; Feb 1th, 2018</span></a></em><br>
-  <em><a href="http://arxiv.org/abs/1709.06298">NEWS: A new version of the paper has been uploaded.<span style="color:#727272"> &mdash; Nov 27th, 2017</span></a></em><br>
+  <em><a class="invisible-link" href="pdf/musegan-aaai2018-slides.pdf">NEWS: The slides for the oral representation at AAAI 2018 have been uploaded.<span style="color:#727272"> &mdash; Feb 17th, 2018</span></a></em><br>
+  <em>NEWS: <strong>Please come to find us at AAAI!</strong> (oral presentation at 11:30, Feb 5th at Grand Salon A, Hilton Riverside, New Orleans)<span style="color:#727272"> &mdash; Feb 1st, 2018</span></em><br>
+  <em><a class="invisible-link" href="dataset.md">NEWS: The Lakh Pianoroll Dataset is back!<span style="color:#727272"> &mdash; Feb 1st, 2018</span></a></em><br>
+  <em><a class="invisible-link" href="http://arxiv.org/abs/1709.06298">NEWS: A new version of the paper has been uploaded.<span style="color:#727272"> &mdash; Nov 27th, 2017</span></a></em><br>
   <em>NEWS: Our paper has been accepted by <strong>AAAI2018</strong>.<span style="color:#727272"> &mdash; Nov 9th, 2017</span></em>
 </p>
 
@@ -12,7 +12,7 @@ MuseGAN is a project on music generation.
 In essence, we aim to generate polyphonic music of multiple tracks (instruments) with harmonic and rhythmic structure, multi-track interdependency and temporal structure.
 To our knowledge, our work represents the first approach that deal with these issues altogether.
 
-The models are trained with [Lakh Pianoroll Dataset](datset.md) (LPD), a new [multi-track piano-roll](data.md#multitrack) dataset, in an unsupervised approach.
+The models are trained with [Lakh Pianoroll Dataset](dataset.md) (LPD), a new [multi-track piano-roll](data.md#multitrack) dataset, in an unsupervised approach.
 The proposed models are able to generate music either from scratch, or by accompanying a track given by user.
 Specifically, we use the model to generate pop song phrases consisting of bass, drums, guitar, piano and strings tracks.
 

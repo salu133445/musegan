@@ -41,7 +41,7 @@ h4, h5, h6 {
   overflow:hidden;
   padding-bottom:56.25%;
 }
- 
+
 .video-container iframe {
   position: absolute;
   top:0;
@@ -54,6 +54,10 @@ h4, h5, h6 {
   font-size:16px;
   color:#267CB9;
   text-decoration:none;
+}
+
+.invisible-link {
+  color:#333;
 }
 
 footer small a {
@@ -215,7 +219,7 @@ footer {
   section, footer {
     width:560px;
   }
-  
+
   ul {
     padding-left:20px;
   }
