@@ -34,13 +34,17 @@ with tf.Session(config=config) as sess:
     ###  prerequisites ###
     # step 1. initialize the training configuration
     t_config = TrainingConfig
+    
     # step 2. select the desired model
     model = NowbarHybrid(NowBarHybridConfig)
+    
     # step 3. initialize the input data object
     input_data = InputDataNowBarHybrid(model)
+    
     # step 4. load training data
     path_train = 'train.npy'
     input_data.add_data(path_train, key='train')
+    
     # step 5. initialize the museGAN object
     musegan = MuseGAN(sess, t_config, model)
 
@@ -50,16 +54,18 @@ with tf.Session(config=config) as sess:
     ### load and generate samples ###
     # load pretrained model
     musegan.load(musegan.dir_ckpt)
+    
     # add testing data
     path_test = 'train.npy'
     input_data.add_data(path_test, key='test')
+    
     # generate samples
     musegan.gen_test(input_data, is_eval=True)
 ```
 Training Data
 --------------------------
- * [Bar]()
- * [Phrase]()
+ * [Bar](https://drive.google.com/file/d/1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde/view)
+ * [Phrase](https://drive.google.com/file/d/1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC/view?usp=sharing)
 <!-- 
 Latent Space Interpolation
 --------------------------
