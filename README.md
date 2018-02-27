@@ -29,7 +29,7 @@ from musegan.components import NowbarHybrid
 from config import *
 
 # initialize a tensorflow session
-with tf.Session(config=config) as sess:
+with tf.Session() as sess:
 
     ###  prerequisites ###
     # step 1. initialize the training configuration
