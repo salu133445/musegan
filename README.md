@@ -56,8 +56,15 @@ with tf.Session(config=config) as sess:
     # generate samples
     musegan.gen_test(input_data, is_eval=True)
 ```
-
+Training Data
+--------------------------
+ * [Bar]()
+ * [Phrase]()
+<!-- 
 Latent Space Interpolation
 --------------------------
-
+--!>
+<!-- 
 ![image](https://github.com/salu133445/musegan/blob/master/docs/figs/train.gif)
+--!>
+
