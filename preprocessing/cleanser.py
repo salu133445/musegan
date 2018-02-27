@@ -61,7 +61,6 @@ def main():
                         make_sure_path_exists(song_dir)
                         dst = os.path.join(song_dir, midi_md5 + '.npz')
                         copyfile(src, dst)
-                        counter += 1
                         break
 
 if __name__ == "__main__":
