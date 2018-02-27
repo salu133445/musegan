@@ -6,6 +6,7 @@ import argparse
 import warnings
 from pypianoroll import Multitrack, Track
 from config import settings
+import pretty_midi
 if settings['multicore'] > 1:
     import joblib
 
