@@ -64,10 +64,10 @@ with tf.Session(config=config) as sess:
 ```
 Training Data
 --------------------------
- * [Phrase](https://drive.google.com/file/d/1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde/view): "tra_phr.npy" (4.79 G)   
+ * [Phrase](https://drive.google.com/file/d/1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde/view): "tra_phr.npy" (7.54 G)   
  Training data for phrases. The shape of this tnesor is (50266, 384, 84, 5). 
  
- * [Bar](https://drive.google.com/file/d/1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC/view?usp=sharing): "tra_bar.npy" (7.54 G)    
+ * [Bar](https://drive.google.com/file/d/1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC/view?usp=sharing): "tra_bar.npy" (4.79 G)    
  Training data for bars. The shape of this tnesor is (127734, 96, 84, 5). 
  
 <!-- 
