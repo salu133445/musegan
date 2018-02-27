@@ -31,7 +31,7 @@ from config import *
 # initialize a tensorflow session
 with tf.Session() as sess:
 
-    ###  prerequisites ###
+    ### prerequisites ###
     # step 1. initialize the training configuration
     t_config = TrainingConfig
     
@@ -48,7 +48,7 @@ with tf.Session() as sess:
     # step 5. initialize the museGAN object
     musegan = MuseGAN(sess, t_config, model)
 
-    ###  training ###
+    ### training ###
     musegan.train(input_data)
 
     ### load and generate samples ###
@@ -62,19 +62,11 @@ with tf.Session() as sess:
     # generate samples
     musegan.gen_test(input_data, is_eval=True)
 ```
-Training Data
---------------------------
- * [Phrase](https://drive.google.com/file/d/1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde/view): "tra_phr.npy" (7.54 G)   
- Training data for phrases. The shape of this tnesor is (50266, 384, 84, 5). 
- 
- * [Bar](https://drive.google.com/file/d/1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC/view?usp=sharing): "tra_bar.npy" (4.79 G)    
- Training data for bars. The shape of this tnesor is (127734, 96, 84, 5). 
- 
-<!-- 
-Latent Space Interpolation
---------------------------
---!>
-<!-- 
-![image](https://github.com/salu133445/musegan/blob/master/docs/figs/train.gif)
---!>
 
+Training Data
+-------------
+- [tra_phr.npy](https://drive.google.com/file/d/1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde/view) (7.54 G):
+A numpy array that contains the training data for phrases. Its shape is (50266, 384, 84, 5). 
+ 
+- [tra_bar.npy](https://drive.google.com/file/d/1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC/view?usp=sharing) (4.79 G):
+A numpy array that contains the training data for bars. Its shape is (127734, 96, 84, 5). 
