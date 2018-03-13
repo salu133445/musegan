@@ -108,7 +108,7 @@ class Nowbar(Model):
             X_hat = epsilon * self.input_real + (1 - epsilon) * self.input_fake
             _, D_hat = BD(X_hat, reuse=True)
 
-            self.d_loss = tf.reduce_mean(self.D_real) - tf.reduce_mean(self.D_fake)
+            self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
             self.g_loss = tf.reduce_mean(self.D_fake)
 
             gp = tf.gradients(D_hat, X_hat)[0]
@@ -279,7 +279,7 @@ class Temporal(Model):
             self.D_hat = PD(self.D_hat_h5_r, reuse=True)
 
             #loss
-            self.d_loss = tf.reduce_mean(self.D_real) - tf.reduce_mean(self.D_fake)
+            self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
             self.g_loss = tf.reduce_mean(self.D_fake)
 
             gp = tf.gradients(self.D_hat, X_hat)[0]
@@ -322,7 +322,7 @@ class TemporalHybrid(Temporal):
                     tz_inter_v = tf.squeeze(tf.slice(self.z_inter_v_hat, [0, 0, bidx], [-1, -1, 1]), axis=2)
                     tz_intra_v = tf.squeeze(tf.slice(self.z_intra_v_hat[tidx], [0, 0, bidx], [-1, -1, 1]), axis=2)
                     tz_inter_i = self.z_inter_i
-                    tz_intra_i = tf.squeeze(tf.slice(self.z_intra_i, [0, 0, bidx], [-1, -1, 1]), axis=2)
+                    tz_intra_i = tf.squeeze(tf.slice(self.z_intra_i, [0, 0, tidx], [-1, -1, 1]), axis=2)
 
                     self.z_final[bidx][tidx] = tf.concat([tz_inter_v, tz_intra_v, tz_inter_i, tz_intra_i], 1)
 
@@ -365,7 +365,7 @@ class TemporalJamming(Temporal):
             for bidx in range(config.output_bar):
                 for tidx in range(config.track_dim):
                     tz_intra_v = tf.squeeze(tf.slice(self.z_intra_v_hat[tidx], [0, 0, bidx], [-1, -1, 1]), axis=2)
-                    tz_intra_i = tf.squeeze(tf.slice(self.z_intra_i, [0, 0, bidx], [-1, -1, 1]), axis=2)
+                    tz_intra_i = tf.squeeze(tf.slice(self.z_intra_i, [0, 0, tidx], [-1, -1, 1]), axis=2)
 
                     self.z_final[bidx][tidx] = tf.concat([ tz_intra_v, tz_intra_i], 1)
 
@@ -514,7 +514,7 @@ class ImageMNIST(Model):
             X_hat = epsilon * self.input_real + (1 - epsilon) * self.input_fake
             D_hat = D(X_hat, reuse=True)
 
-            self.d_loss = tf.reduce_mean(self.D_real) - tf.reduce_mean(self.D_fake)
+            self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
             self.g_loss = tf.reduce_mean(self.D_fake)
 
             gp = tf.gradients(D_hat, X_hat)[0]
