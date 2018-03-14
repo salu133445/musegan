@@ -109,13 +109,13 @@ class Nowbar(Model):
             _, D_hat = BD(X_hat, reuse=True)
 
             self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
-            self.g_loss = tf.reduce_mean(self.D_fake)
+            self.g_loss = - tf.reduce_mean(self.D_fake)
 
             gp = tf.gradients(D_hat, X_hat)[0]
             gp = tf.sqrt(tf.reduce_sum(tf.square(gp), axis=1))
-            gp = tf.reduce_mean(tf.square(gp - 1.0) * config.lamda)
+            gp = tf.reduce_mean(tf.square(gp - 1.0))
 
-            self.d_loss += gp
+            self.d_loss += gp * config.lamda
             self.d_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)
 
 class NowbarHybrid(Nowbar):
@@ -280,13 +280,13 @@ class Temporal(Model):
 
             #loss
             self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
-            self.g_loss = tf.reduce_mean(self.D_fake)
+            self.g_loss = - tf.reduce_mean(self.D_fake)
 
             gp = tf.gradients(self.D_hat, X_hat)[0]
             gp = tf.sqrt(tf.reduce_sum(tf.square(gp), axis=1))
-            gp = tf.reduce_mean(tf.square(gp - 1.0) * config.lamda)
+            gp = tf.reduce_mean(tf.square(gp - 1.0))
 
-            self.d_loss += gp
+            self.d_loss += gp * config.lamda
             self.d_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)
 
 class TemporalHybrid(Temporal):
