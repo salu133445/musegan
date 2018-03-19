@@ -284,14 +284,6 @@ class Temporal(Model):
             self.D_real = PD(self.D_real_h5_r, reuse=False)
             self.D_fake = PD(self.D_fake_h5_r, reuse=True)
 
-            # random interpolation
-            epsilon = tf.random_uniform([], 0.0, 1.0)
-            X_hat = epsilon * self.input_real + (1 - epsilon) * self.input_fake
-
-            self.D_hat_h5, _ = BD(X_hat, reuse=True)
-            self.D_hat_h5_r  = tf.reshape(self.D_hat_h5, [-1, config.output_bar, 128])
-            self.D_hat = PD(self.D_hat_h5_r, reuse=True)
-
             ## compute gradient panelty
             # reshape data
             re_real = tf.reshape(self.input_real, [-1, config.output_bar * config.output_w * config.output_h * config.track_dim])
