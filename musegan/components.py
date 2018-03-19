@@ -103,19 +103,33 @@ class Nowbar(Model):
             _, self.D_real = BD(self.input_real, reuse=False)
             _, self.D_fake = BD(self.input_fake, reuse=True)
 
-            epsilon = tf.random_uniform([], 0.0, 1.0)
+            ## compute gradient panelty
+            # reshape data
+            re_real = tf.reshape(self.input_real, [-1, config.output_w * config.output_h * config.track_dim])
+            re_fake = tf.reshape(self.input_fake, [-1, config.output_w * config.output_h * config.track_dim])
 
-            X_hat = epsilon * self.input_real + (1 - epsilon) * self.input_fake
-            _, D_hat = BD(X_hat, reuse=True)
+            # sample alpha from uniform
+            alpha = tf.random_uniform(
+                                shape=[config.batch_size,1],
+                                minval=0.,
+                                maxval=1.)
+            differences = re_fake - re_real
+            interpolates = re_real + (alpha*differences)
 
+            # feed interpolate into D
+            X_hat = tf.reshape(interpolates, [-1, config.output_w, config.output_h, config.track_dim])
+            _, self.D_hat = BD(X_hat, reuse=True)
+
+            # compute gradients panelty
+            gradients = tf.gradients(self.D_hat, [interpolates])[0]
+            slopes = tf.sqrt(1e-8 + tf.reduce_sum(tf.square(gradients), reduction_indices=[1]))
+            gradient_penalty = tf.reduce_mean((slopes-1.)**2) * config.lamda
+
+            #loss
             self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
-            self.g_loss = - tf.reduce_mean(self.D_fake)
+            self.g_loss = -tf.reduce_mean(self.D_fake)
+            self.d_loss += gradient_penalty
 
-            gp = tf.gradients(D_hat, X_hat)[0]
-            gp = tf.sqrt(tf.reduce_sum(tf.square(gp), axis=1))
-            gp = tf.reduce_mean(tf.square(gp - 1.0))
-
-            self.d_loss += gp * config.lamda
             self.d_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)
 
 class NowbarHybrid(Nowbar):
@@ -278,15 +292,37 @@ class Temporal(Model):
             self.D_hat_h5_r  = tf.reshape(self.D_hat_h5, [-1, config.output_bar, 128])
             self.D_hat = PD(self.D_hat_h5_r, reuse=True)
 
+            ## compute gradient panelty
+            # reshape data
+            re_real = tf.reshape(self.input_real, [-1, config.output_bar * config.output_w * config.output_h * config.track_dim])
+            re_fake = tf.reshape(self.input_fake, [-1, config.output_bar * config.output_w * config.output_h * config.track_dim])
+
+            # sample alpha from uniform
+            print(re_real.get_shape()[0])
+            alpha = tf.random_uniform(
+                                shape=[config.batch_size,1],
+                                minval=0.,
+                                maxval=1.)
+
+            differences = re_fake - re_real
+            interpolates = re_real + (alpha*differences)
+
+            # feed interpolate into D
+            X_hat = tf.reshape(interpolates, [-1, config.output_w, config.output_h, config.track_dim])
+            self.D_hat_h5, _ = BD(X_hat, reuse=True)
+            self.D_hat_h5_r  = tf.reshape(self.D_hat_h5, [-1, config.output_bar, 128])
+            self.D_hat = PD(self.D_hat_h5_r, reuse=True)
+
+            # compute gradients panelty
+            gradients = tf.gradients(self.D_hat, [interpolates])[0]
+            slopes = tf.sqrt(1e-8 + tf.reduce_sum(tf.square(gradients), reduction_indices=[1]))
+            gradient_penalty = tf.reduce_mean((slopes-1.)**2) * config.lamda
+
             #loss
             self.d_loss = tf.reduce_mean(self.D_fake) - tf.reduce_mean(self.D_real)
-            self.g_loss = - tf.reduce_mean(self.D_fake)
+            self.g_loss = -tf.reduce_mean(self.D_fake)
+            self.d_loss += gradient_penalty
 
-            gp = tf.gradients(self.D_hat, X_hat)[0]
-            gp = tf.sqrt(tf.reduce_sum(tf.square(gp), axis=1))
-            gp = tf.reduce_mean(tf.square(gp - 1.0))
-
-            self.d_loss += gp * config.lamda
             self.d_vars = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, scope=scope.name)
 
 class TemporalHybrid(Temporal):
