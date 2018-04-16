@@ -1,58 +1,81 @@
-# Preparing for Training Data
+# Source code for preparing the training data
 
-Following the intructions to build "*.npy" files for training.
-When selecting data, we employ some tricky technichs and the details are elobrated in each steps.
-Note that theses pre-processing codes are for *refernece only*.
-We didn't re-orgnaize them so it's a little messy.
-However, we think let the codes opened can help researchers to get familiar with the field of music generation more quickly.
+> Note that the source code is not well-organized. But we think simply releasing
+the code can still be useful.
 
+## Step 1 - Collect qualified piano-rolls
 
+```console
+python tracks_parsing.py
+```
 
-### Step 1. run "tracks_parsing.py"
+Given a list of qualified MSD ids (`Rock_C_id` here), this file merge the data
+into five tracks: *Bass*, *Drums*, *Guitar*, *Piano* and *Strings*. Instruments
+out of the five categories are considered as part of the strings.
 
-Given a *msd_id* list (Rock_C_id here), This file can parse the crawled data into five tracks: paino, drum, guitar, bass and other. If there are more than two the same types of instrument, they will be compressed into one. Additionally, the type "other" includes "string" or any other types of instrument.
+- Multiple tracks in LMD => {Drum, Piano, Guitar, Bass, Others}
+- 2844 selected in 6646
 
-* LMD_dataset => {drum, piano, guitar, bass other}
-* placed in "tracks" folder with intruments name
-* tracks/(instru_name)/(msd_id).npz
-    Ex: "tracks/Drum/TRAAEEH128E0795DFE.npz"
-* 2844 selected in 6646
+The collected piano-rolls are placed in `tracks/` folder with names
+"[instrument_name]/[msd_id].npz", e.g. `Drum/TRAAEEH128E0795DFE.npz`.
 
-### Step 2. run "song_analysis.py"
-There are several tasks in this file:
-* Generate Piano Roll for segmentation (in .mat for matlab)
-    * "Piano_Roll": (128 x ?) mat matrix
+## Step 2 - Prepare files for structure analysis
 
-* Search Non-Empty Bar and label them
-    * "act_all":   list of bool. activation of instruments > thres (3 here)
-    * "act_instr": 2d np array in shape (numOfBar, 5). If the bar of epecific track is not empty, it will be denoted to 1.
+```console
+python "song_analysis.py"
+```
 
-All new created folders are placed in the *"trakcs"* folder
+This python file does the following.
 
-### Step 3. run "main_seg.m" & "main_lab.m"
-**Segmentation** and **Labeling**. The algorithm we used is "Structural Feature" [1] [2]. The algorithm is originally working on raw audio. However, we found it also works well on symbolic data.
+- Generate Piano Roll for segmentation
+  - `Piano_Roll.mat`: (128 x ?) mat matrix
 
+- Search Non-Empty Bar and label them
+  - `act_instr/[msd_id].npy`: 2D numpy array of shape (num_bar, 5). Indicate
+    whether the corresponding instrument is activated (non-empty) in each bar.
+  - `act_all/[msd_id].npy`: list of bool. Indicate whether the number of
+    activated instruments is larger than a threshold (3 here).
 
-The codes are modified from my old project (in matlab):
-https://github.com/wayne391/Music-Structure-Analysis-in-Matlab <br/>
-For python, you can use [MSAF](https://github.com/urinieto/msaf).
+The results are placed in the `trakcs/` folder.
 
-the results are placed in the *"structure"* folder
+## Step 3 - Segment and label the collected piano-rolls
 
+```console
+matlab main_seg.m
+matlab main_lab.m"
+```
 
-### Step 4. run "Gen_data_bar.py"
-Output 6 tracks: Original(5) + 'act_instr'
-This step file to generate 6 important npy data for NN. The bars are filtered by act_all".
+These files perform the segmentation and labeling, respectively. The algorithm
+we employed is called *Structural Feature* [1, 2]. Although it is designed for
+raw audios, we found it works well on symbolic data (i.e. piano-rolls) as well.
+For python user, you can use [MSAF](https://github.com/urinieto/msaf) to perform
+structure analysis as well.
 
+*The code is modified from Wayne's previous project &mdash;
+[Music-Structure-Analysis-in-Matlab](https://github.com/wayne391/Music-Structure-Analysis-in-Matlab) [3].*
 
+The analysis results are placed in the `structure/` folder.
 
-### References
-[1] Unsupervised Detection of Music Boundaries by Time Series Structure Features.
+## Step 4 - Collect the training data
 
-[2] Unsupervised Music Structure Annotation by Time Series Structure Features and Segment Similarity.
+```console
+python gen_data_bar.py
+```
 
+This file collect the training data for the five tracks and generate an
+additional `act_instr` track which indicates the instrument activations.
+The training data is filtered by `act_all` and collected following some rules
+on top of the analysis results obtained in Step 3.
 
+## References
 
+[1] Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
+"**Unsupervised Detection of Music Boundaries by Time Series Structure
+Features**, in *AAAI Conference on Artificial Intelligence* (AAAI), 2012
 
+[2] Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
+"**Unsupervised Music Structure Annotation by Time Series Structure Features and
+Segment Similarity**",
+in *IEEE Transactions on Multimedia*, vol. 16, no. 5, pp. 1229-1240, 2014.
 
-
+[3] https://github.com/wayne391/Music-Structure-Analysis-in-Matlab
