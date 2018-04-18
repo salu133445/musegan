@@ -1,4 +1,5 @@
-<img src="figs/logo.png" alt="logo" width="200" height="200" />
+<img src="figs/logo.png" alt="logo" width="200" height="200" style="margin-left:0 margin-right:0"/>
+
 
 <p style="color:#222;">
   <em><a class="invisible-link" href="pdf/musegan-aaai2018-slides.pdf">NEWS: The slides for the oral representation at AAAI 2018 have been uploaded.<span style="color:#727272"> &mdash; Feb 17th, 2018</span></a></em><br>
