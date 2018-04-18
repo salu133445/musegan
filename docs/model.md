@@ -105,4 +105,4 @@ vectors), together with the time-independent random vectors, *z* and
 <i>G<sub>bar</sub></i>, which then generates piano-rolls sequentially.
 
 ![musegan](figs/musegan.png)
-<p class="caption">System diagram of MuseGAN</p>
+<p class="caption">System diagram</p>
