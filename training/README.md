@@ -27,10 +27,11 @@ python "song_analysis.py"
 
 This python file does the following.
 
-- Generate Piano Roll for segmentation
-  - `Piano_Roll.mat`: (128 x ?) mat matrix
+- Convert piano-rolls to .mat format
+  - `Piano_Roll.mat`: matrix for running segmentation in MATLAB. The shape is
+    (128, T).
 
-- Search Non-Empty Bar and label them
+- Create activation labels
   - `act_instr/[msd_id].npy`: 2D numpy array of shape (num_bar, 5). Indicate
     whether the corresponding instrument is activated (non-empty) in each bar.
   - `act_all/[msd_id].npy`: list of bool. Indicate whether the number of
@@ -42,7 +43,7 @@ The results are placed in the `trakcs/` folder.
 
 ```console
 matlab main_seg.m
-matlab main_lab.m"
+matlab main_lab.m
 ```
 
 These files perform the segmentation and labeling, respectively. The algorithm
@@ -69,13 +70,14 @@ on top of the analysis results obtained in Step 3.
 
 ## References
 
-[1] Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
-"**Unsupervised Detection of Music Boundaries by Time Series Structure
-Features**, in *AAAI Conference on Artificial Intelligence* (AAAI), 2012
+1. Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
+   "**Unsupervised Detection of Music Boundaries by Time Series Structure
+   Features**,
+   in *AAAI Conference on Artificial Intelligence* (AAAI), 2012
 
-[2] Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
-"**Unsupervised Music Structure Annotation by Time Series Structure Features and
-Segment Similarity**",
-in *IEEE Transactions on Multimedia*, vol. 16, no. 5, pp. 1229-1240, 2014.
+2. Joan Serrá, Meinard Müller, Peter Grosche and Josep Ll. Arcos,
+   "**Unsupervised Music Structure Annotation by Time Series Structure Features and
+   Segment Similarity**",
+   in *IEEE Transactions on Multimedia*, vol. 16, no. 5, pp. 1229-1240, 2014.
 
-[3] https://github.com/wayne391/Music-Structure-Analysis-in-Matlab
+3. https://github.com/wayne391/Music-Structure-Analysis-in-Matlab
