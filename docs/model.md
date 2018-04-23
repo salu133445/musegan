@@ -63,7 +63,7 @@ noise vector to a sequence of some latent vectors, which is expected to carry
 temporal information and used by <i>G<sub>bar</sub></i> to generate
 piano-rolls sequentially (i.e. bar by bar).
 
-<img src="figs/temporal1.png" alt="from_scratch_model" style="width:100%; max-width:300px; display:block;">
+<img src="figs/temporal1.png" alt="from_scratch_model" style="width:100%; max-width:500px; display:block;">
 <p class="caption">Generation from Scratch</p>
 
 ### Track-conditional Generation
@@ -81,7 +81,7 @@ condition to the space of *z*.
 intra-track features from the given track, since intra-track features are
 supposed not to be useful for generating the other tracks.
 
-<img src="figs/temporal2.png" alt="track_conditional_model" style="width:100%; max-width:300px; display:block;">
+<img src="figs/temporal2.png" alt="track_conditional_model" style="width:100%; max-width:500px; display:block;">
 <p class="caption">Track-conditional Generation</p>
 
 ## MuseGAN
@@ -90,9 +90,9 @@ MuseGAN, an integration and extension of the proposed multi-track and temporal
 models, takes as input four different types of random vectors:
 
 - an *inter-track time-independent* random vector (*z*)
-- an *intra-track time-independent* random vector (<i>z<sub>i</sub></i>)
-- *inter-track time-dependent* random vectors (<i>z<sub>t</sub></i>)
-- *intra-track time-dependent* random vectors (<i>z<sub>i, t</sub></i>)
+- an *inter-track time-dependent* random vectors (<i>z<sub>t</sub></i>)
+- *M intra-track time-independent* random vector (<i>z<sub>i</sub></i>)
+- *M intra-track time-dependent* random vectors (<i>z<sub>i, t</sub></i>)
 
 For track *i* (*i* = 1 &hellip; *M*), the *shared* temporal structure generator
 <i>G<sub>temp</sub></i> and the *private* temporal structure generator
