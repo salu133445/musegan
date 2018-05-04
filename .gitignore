@@ -101,4 +101,11 @@ ENV/
 .mypy_cache/
 
 # vscode
-.vscode/*
+/.vscode/
+
+# Experiments
+/data/
+/preprocessing/
+/exp/
+logs/
+BACKUP/
