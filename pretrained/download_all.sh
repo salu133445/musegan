@@ -1,5 +1,8 @@
 #!/bin/bash
-sh download.sh musegan lastfm_alternative_g_hybrid_d_proposed
+for model in composer jamming hybrid
+do
+  sh download.sh musegan lastfm_alternative_g_${model}_d_proposed
+done
 
 for postfix in proposed ablated baseline
 do

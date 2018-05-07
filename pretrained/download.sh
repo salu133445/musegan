@@ -11,6 +11,12 @@ esac
 case $1 in
   "musegan"|"MuseGAN")
     case $filename in
+      "lastfm_alternative_g_composer_d_proposed.tar.gz")
+        fileid=1QzTL4So-oRWrif4gVKqQM5yQ48y2X5gM
+        ;;
+      "lastfm_alternative_g_jamming_d_proposed.tar.gz")
+        fileid=1-Q_krj4VKOWbpFU1jTdfihKYxV6hKmlm
+        ;;
       "lastfm_alternative_g_hybrid_d_proposed.tar.gz")
         fileid=1b1bwTzW09QPFbRn2Hy9X8yU1fbTc3S1k
         ;;

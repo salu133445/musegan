@@ -12,6 +12,8 @@ This will download a particular pretrained model to the current working
 directory. Available files are listed as follows:
 
 - MuseGAN (`musegan`)
+  - `lastfm_alternative_g_composer_d_proposed.tar.gz`
+  - `lastfm_alternative_g_jamming_d_proposed.tar.gz`
   - `lastfm_alternative_g_hybrid_d_proposed.tar.gz`
 
 - BinaryMuseGAN (`bmusegan`)
