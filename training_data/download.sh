@@ -21,5 +21,10 @@ case $filename in
     ;;
 esac
 
-wget -O $filename --no-check-certificate \
-  "https://drive.google.com/uc?export=download&id="$fileid
+confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies \
+  --no-check-certificate \
+  "https://docs.google.com/uc?export=download&id=$fileid" -O- | sed -rn \
+  's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
+wget -O $filename --load-cookies /tmp/cookies.txt \
+  "https://docs.google.com/uc?export=download&confirm=$confirm&id=$fileid"
+rm -rf /tmp/cookies.txt
