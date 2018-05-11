@@ -38,6 +38,27 @@ tracks: *Drums*, *Piano*, *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and
 
 ## Run the code
 
+### Prepare Training Data
+
+- Prepare your own data or download our training data
+
+  The array will be reshaped to (-1, `num_bar`, `num_timestep`, `num_pitch`,
+  `num_track`). These variables are defined in `config.py`.
+
+  - [`lastfm_alternative_5b_phrase.npy`](https://drive.google.com/uc?export=download&id=1F7J5n9uOPqViBYpoPT5GvE4PjCWhOyWc) (2.1 GB)
+    contains 12,444 four-bar phrases from 2,074 songs with *alternative* tags.
+    The shape is (2074, 6, 4, 96, 84, 5). The five tracks are *Drums*, *Piano*,
+    *Guitar*, *Bass* and *Strings*.
+  - [`lastfm_alternative_8b_phrase.npy`](https://drive.google.com/uc?export=download&id=1x3CeSqE6ElWa6V7ueNl8FKPFmMoyu4ED) (3.6 GB)
+    contains 13,746 four-bar phrases from 2,291 songs with *alternative* tags.
+    The shape is (2291, 6, 4, 96, 84, 8). The eight tracks are *Drums*, *Piano*,
+    *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and *Synth Pad*.
+  - Download the data with this [script](training_data/download.sh).
+
+- (optional) Save the training data to shared memory with this [script](training_data/store_to_sa.py).
+
+- Specify training data path and location in `config.py`. (see below)
+
 ### Configuration
 
 Modify `config.py` for configuration.
@@ -62,25 +83,6 @@ manually (so that you won't overwrite a trained model).
 ```sh
 python main.py
 ```
-
-## Training Data
-
-- Prepare your own data
-
-  The array will be reshaped to (-1, `num_bar`, `num_timestep`, `num_pitch`,
-  `num_track`). These variables are defined in `config.py`.
-
-- Download our training data with this [script](training_data/download.sh) or
-  download it manually.
-
-  - [`lastfm_alternative_5b_phrase.npy`](https://drive.google.com/uc?export=download&id=1F7J5n9uOPqViBYpoPT5GvE4PjCWhOyWc) (2.1 GB)
-    contains 12,444 four-bar phrases from 2,074 songs with *alternative* tags.
-    The shape is (2074, 6, 4, 96, 84, 5). The five tracks are *Drums*, *Piano*,
-    *Guitar*, *Bass* and *Strings*.
-  - [`lastfm_alternative_8b_phrase.npy`](https://drive.google.com/uc?export=download&id=1x3CeSqE6ElWa6V7ueNl8FKPFmMoyu4ED) (3.6 GB)
-    contains 13,746 four-bar phrases from 2,291 songs with *alternative* tags.
-    The shape is (2291, 6, 4, 96, 84, 8). The eight tracks are *Drums*, *Piano*,
-    *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and *Synth Pad*.
 
 ## Papers
 
