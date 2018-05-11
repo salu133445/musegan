@@ -42,7 +42,7 @@ SETUP = {
     # Prefix for the experiment name. Useful when training with different
     # training data to avoid replacing the previous experiment outputs.
 
-    'training_data': 'lastfm_alternative_8b_phrase',
+    'training_data': 'lastfm_alternative_8b_phrase.npy',
     # Path to the training data. The training data can be loaded from a npy
     # file in the hard disk or from the shared memory using SharedArray package.
     # Note that the data will be reshaped to (-1, num_bar, num_timestep,
@@ -51,7 +51,7 @@ SETUP = {
 
     'training_data_location': 'hd',
     # Location of the training data. 'hd' to load from a npy file stored in the
-    # hard disk. 'sa' to load from shared array using SharedArray package.
+    # hard disk. 'sa' to load from shared memory using SharedArray package.
 
     'gpu': '0',
     # The GPU index in os.environ['CUDA_VISIBLE_DEVICES'] to use.
