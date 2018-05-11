@@ -43,13 +43,13 @@ SETUP = {
     # training data to avoid replacing the previous experiment outputs.
 
     'training_data': 'lastfm_alternative_8b_phrase',
-    # Filename of the training data. The training data can be loaded from a npy
+    # Path to the training data. The training data can be loaded from a npy
     # file in the hard disk or from the shared memory using SharedArray package.
     # Note that the data will be reshaped to (-1, num_bar, num_timestep,
     # num_pitch, num_track) and remember to set these variable to proper values,
     # which are defined in `CONFIG['model']`.
 
-    'training_data_location': 'sa',
+    'training_data_location': 'hd',
     # Location of the training data. 'hd' to load from a npy file stored in the
     # hard disk. 'sa' to load from shared array using SharedArray package.
 
