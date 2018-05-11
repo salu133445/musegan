@@ -3,7 +3,6 @@
 import importlib
 import numpy as np
 import tensorflow as tf
-import SharedArray as sa
 from config import CONFIG
 MODELS = importlib.import_module(
     '.'.join(('musegan', CONFIG['exp']['model'], 'models')))
@@ -14,6 +13,7 @@ def load_data():
 
     # Load data from SharedArray
     if CONFIG['data']['training_data_location'] == 'sa':
+        import SharedArray as sa
         x_train = sa.attach(CONFIG['data']['training_data'])
 
     # Load data from hard disk
