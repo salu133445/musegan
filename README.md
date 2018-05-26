@@ -88,14 +88,18 @@ python main.py
 
 - Hao-Wen Dong and Yi-Hsuan Yang,
   "Convolutional Generative Adversarial Networks with Binary Neurons for
-  Polyphonic Music Generation",
-  *arXiv preprint, arXiv:1804.09399*, 2018.
+  Polyphonic Music Generation,"
+  to appear at *International Society for Music Information Retrieval Conference*
+  (ISMIR), 2018.
+  [[website](https://salu133445.github.io/bmusegan/)]
   [[arxiv](https://arxiv.org/abs/1804.09399)]
+  [[slides](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmacw2018-slides.pdf)]
 
 - Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
   "MuseGAN: Multi-track Sequential Generative Adversarial Networks for
   Symbolic Music Generation and Accompaniment,"
   in *AAAI Conference on Artificial Intelligence* (AAAI), 2018.
+  [[website](https://salu133445.github.io/musegan/)]
   [[arxiv](http://arxiv.org/abs/1709.06298)]
   [[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
 
