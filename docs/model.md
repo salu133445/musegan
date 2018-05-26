@@ -94,6 +94,8 @@ models, takes as input four different types of random vectors:
 - *M intra-track time-independent* random vector (<i>z<sub>i</sub></i>)
 - *M intra-track time-dependent* random vectors (<i>z<sub>i, t</sub></i>)
 
+![musegan](figs/musegan-generator.png)
+
 For track *i* (*i* = 1 &hellip; *M*), the *shared* temporal structure generator
 <i>G<sub>temp</sub></i> and the *private* temporal structure generator
 <i>G<sub>temp, i</sub></i> take the time-dependent random vectors,
