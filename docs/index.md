@@ -22,11 +22,10 @@ Listen to some of the best phrases.
 
 The models are trained with
 [Lakh Pianoroll Dataset](https://salu133445.github.io/lakh-pianoroll-dataset/)
-(LPD), a new [multi-track piano-roll](https://salu133445.github.io/musegan/data)
-dataset, in an unsupervised approach. The proposed models are able to generate
-music either from scratch, or by accompanying a track given by user.
-Specifically, we use the model to generate pop song phrases consisting of bass,
-drums, guitar, piano and strings tracks.
+(LPD), a new multi-track piano-roll dataset, in an unsupervised approach. The
+proposed models are able to generate music either from scratch, or by
+accompanying a track given by user. Specifically, we use the model to generate
+pop song phrases consisting of bass, drums, guitar, piano and strings tracks.
 
 It's an open source project on [Github](https://github.com/salu133445/musegan).
 You can play with it if you're interested.
