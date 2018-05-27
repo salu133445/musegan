@@ -33,8 +33,11 @@ Hence, the size of the target output tensor is 4 (bar) &times; 96 (time step)
 - [tra_bar.npy](https://drive.google.com/uc?id=1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC&export=download)
   (4.79 GB) contains 127,734 bars. The shape is (127734, 96, 84, 5).
 
+Here are two examples of five-track piano-roll of four-bar long seen in our
+training data. The tracks are (from top to bottom): <i>Bass</i>, <i>Drums</i>,
+<i>Guitar</i>, <i>Strings</i>, <i>Piano</i>.
+
 <img src="figs/train_samples.png" alt="train_samples" style="max-height:200px; display:block; margin:auto">
-<p class="caption">Two examples of five-track piano-roll of four-bar long seen in our training data.<br>The tracks are (from top to bottom): <i>Bass</i>,<i>Drums</i>, <i>Guitar</i>, <i>Strings</i>, <i>Piano</i>.</p>
 
 ## Reference
 
