@@ -5,7 +5,7 @@
 Run
 
 ```sh
-sh download.sh [filename]
+./download.sh [filename]
 ```
 
 This will download the training data to the current working directory. Available
@@ -25,7 +25,7 @@ training data are listed as follows:
 Run
 
 ```sh
-sh download_all.sh
+./download_all.sh
 ```
 
 This will download all training data to the current working directory.
