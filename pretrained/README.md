@@ -5,7 +5,7 @@
 Run
 
 ```sh
-sh download.sh [model] [filename]
+./download.sh [model] [filename]
 ```
 
 This will download a particular pretrained model to the current working
@@ -26,7 +26,7 @@ directory. Available files are listed as follows:
 Run
 
 ```sh
-sh download_all.sh
+./download_all.sh
 ```
 
 This will download all pretrained models to the current working directory.
