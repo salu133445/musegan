@@ -31,12 +31,12 @@ SETUP = {
     # The model to use. Currently support MuseGAN and BinaryMuseGAN models.
 
     'exp_name': None,
-    # The experiment name. Also the name of the folder that will be created
-    # in './exp/' and all the experiment-related files are saved in that
-    # folder. None to determine automatically. The automatically-
-    # determined experiment name is based only on the values defined in the
-    # dictionary `SETUP`, so remember to provide the experiment name manually
-    # (so that you won't overwrite a trained model).
+    # The experiment name. A folder with the same name will be created in 'exp/'
+    # directory where all the experiment-related files will be saved. None to
+    # determine automatically. Note that the automatically-determined experiment
+    # name is based only on the values defined in the dictionary `SETUP`, so
+    # remember to provide the experiment name manually when you modify any other
+    # configuration variable (so that you won't overwrite a trained model).
 
     'prefix': 'lastfm_alternative',
     # Prefix for the experiment name. Useful when training with different
