@@ -18,7 +18,7 @@ def load_data():
 
     # Load data from hard disk
     elif CONFIG['data']['training_data_location'] == 'hd':
-        if os.path.isabs(CONFIG['data']['training_data_location']):
+        if os.path.isabs(CONFIG['data']['training_data']):
             x_train = np.load(CONFIG['data']['training_data'])
         else:
             filepath = os.path.abspath(os.path.join(
