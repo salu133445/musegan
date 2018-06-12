@@ -277,8 +277,8 @@ def eval_dataset(filepath, result_dir, location, config):
         data = data.reshape(-1, config['num_timestep'], config['num_pitch'],
                             config['num_track'])
 
-    return data
-    
+        return data
+
     print('[*] Loading data...')
     data = load_data(filepath, location)
 
