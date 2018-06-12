@@ -37,7 +37,7 @@ def get_image_grid(images, shape, grid_width=0, grid_color=0,
     if frame:
         return np.pad(merged, ((0, grid_width), (0, grid_width)), 'constant',
                       constant_values=grid_color)
-    return merged[:-grid_width, :-grid_width]
+    return merged[grid_width:, grid_width:]
 
 def save_image(filepath, phrases, shape, inverted=True, grid_width=3,
                grid_color=0, frame=True):
