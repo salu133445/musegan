@@ -3,8 +3,6 @@
 import os
 import warnings
 import numpy as np
-import matplotlib.pyplot as plt
-import SharedArray as sa
 
 def get_tonal_matrix(r1=1.0, r2=1.0, r3=0.5):
     """Compute and return a tonal matrix for computing the tonal distance [1].
@@ -99,6 +97,7 @@ def tonal_dist(chroma1, chroma2, tonal_matrix=None):
 
 def plot_histogram(hist, fig_dir=None, title=None, max_hist_num=None):
     """Plot the histograms of the statistics"""
+    import matplotlib.pyplot as plt
     hist = hist[~np.isnan(hist)]
     u_value = np.unique(hist)
 
@@ -252,17 +251,38 @@ def eval_dataset(filepath, result_dir, location, config):
     given directory.
 
     """
-    print('[*] Loading dataset...')
-    if location == 'sa':
-        data = sa.attach(filepath)
-    elif location == 'hd':
-        data = sa.attach(filepath)
-    else:
-        raise ValueError("Unrecognized value for `location`")
+    def load_data(filepath, location):
+        """Load and return the training data."""
+        print('[*] Loading data...')
+
+        # Load data from SharedArray
+        if location == 'sa':
+            import SharedArray as sa
+            data = sa.attach(filepath)
+
+        # Load data from hard disk
+        elif location == 'hd':
+            if os.path.isabs(filepath):
+                data = np.load(filepath)
+            else:
+                root = os.path.dirname(os.path.dirname(
+                    os.path.realpath(__file__)))
+                data = np.load(os.path.abspath(os.path.join(
+                    root, 'training_data', filepath)))
+
+        else:
+            raise ValueError("Unrecognized value for `location`")
+
+        # Reshape data
+        data = data.reshape(-1, config['num_timestep'], config['num_pitch'],
+                            config['num_track'])
+
+    return data
+    
+    print('[*] Loading data...')
+    data = load_data(filepath, location)
 
     print('[*] Running evaluation')
-    data = data.reshape(-1, config['num_timestep'], config['num_pitch'],
-                        config['num_track'])
     metrics = Metrics(config)
     _ = metrics.eval(data, verbose=True,
                      mat_path=os.path.join(result_dir, 'score_matrices.npy'),
