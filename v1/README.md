@@ -76,10 +76,3 @@ with tf.Session() as sess:
     input_data.add_data(path_test, key='test')
     musegan.gen_test(input_data, is_eval=True)
 ```
-
-## Training Data
-
-- [tra_phr.npy](https://drive.google.com/uc?id=1-bQCO6ZxpIgdMM7zXhNJViovHjtBKXde&export=download)
-  (7.54 GB) contains 50,266 four-bar phrases. The shape is (50266, 384, 84, 5).
-- [tra_bar.npy](https://drive.google.com/uc?id=1Xxj6WU82fcgY9UtBpXJGOspoUkMu58xC&export=download)
-  (4.79 GB) contains 127,734 bars. The shape is (127734, 96, 84, 5).
