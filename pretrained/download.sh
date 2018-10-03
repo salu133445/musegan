@@ -25,6 +25,7 @@ case $1 in
         exit 1
         ;;
     esac
+    ;;
   "bmusegan"|"binarymusegan"|"BinaryMuseGAN")
     case $filename in
       "lastfm_alternative_first_stage_d_proposed.tar.gz")
@@ -41,6 +42,7 @@ case $1 in
         exit 1
         ;;
     esac
+    ;;
   *)
     echo "Unrecognizeable model name"
     exit 1
