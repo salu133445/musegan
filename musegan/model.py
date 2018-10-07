@@ -32,12 +32,14 @@ class Model(object):
         """Return the adversarial losses for the generator and the
         discriminator."""
         if self.config['gan']['type'] == 'gan':
-            adv_loss_d = tf.losses.sigmoid_cross_entropy(
-                tf.ones_like(self.D_real.tensor_out),
-                self.D_real.tensor_out)
+            d_loss_real = tf.losses.sigmoid_cross_entropy(
+                tf.ones_like(self.D_real.tensor_out), self.D_real.tensor_out)
+            d_loss_fake = tf.losses.sigmoid_cross_entropy(
+                tf.zeros_like(self.D_fake.tensor_out), self.D_fake.tensor_out)
+
+            adv_loss_d = d_loss_real + d_loss_fake
             adv_loss_g = tf.losses.sigmoid_cross_entropy(
-                tf.zeros_like(self.D_fake.tensor_out),
-                self.D_fake.tensor_out)
+                tf.ones_like(self.D_fake.tensor_out), self.D_fake.tensor_out)
 
         if (self.config['gan']['type'] == 'wgan'
                 or self.config['gan']['type'] == 'wgan-gp'):
