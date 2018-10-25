@@ -147,7 +147,9 @@ class Model(object):
         if checkpoint_dir is None:
             checkpoint_dir = self.config['checkpoint_dir']
         print('[*] Loading checkpoint...')
-        checkpoint_path = tf.train.latest_checkpoint(checkpoint_dir)
+        with open(os.path.join(checkpoint_dir, 'checkpoint')) as f:
+            checkpoint_name = os.path.basename(f.readline().split()[1])
+        checkpoint_path = os.path.join(checkpoint_dir, checkpoint_name)
         if checkpoint_path is None:
             raise ValueError("Checkpoint not found")
         self.saver.restore(self.sess, checkpoint_path)
