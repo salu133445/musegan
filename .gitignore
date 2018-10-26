@@ -104,8 +104,8 @@ ENV/
 /.vscode/
 
 # Experiments
-/data/
-/preprocessing/
-/exp/
+.backup/
+.recycle/
 logs/
-BACKUP/
+data/
+exp/
