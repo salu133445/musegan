@@ -32,12 +32,14 @@ class Model(object):
         """Return the adversarial losses for the generator and the
         discriminator."""
         if self.config['gan']['type'] == 'gan':
-            adv_loss_d = tf.losses.sigmoid_cross_entropy(
-                tf.ones_like(self.D_real.tensor_out),
-                self.D_real.tensor_out)
+            d_loss_real = tf.losses.sigmoid_cross_entropy(
+                tf.ones_like(self.D_real.tensor_out), self.D_real.tensor_out)
+            d_loss_fake = tf.losses.sigmoid_cross_entropy(
+                tf.zeros_like(self.D_fake.tensor_out), self.D_fake.tensor_out)
+
+            adv_loss_d = d_loss_real + d_loss_fake
             adv_loss_g = tf.losses.sigmoid_cross_entropy(
-                tf.zeros_like(self.D_fake.tensor_out),
-                self.D_fake.tensor_out)
+                tf.ones_like(self.D_fake.tensor_out), self.D_fake.tensor_out)
 
         if (self.config['gan']['type'] == 'wgan'
                 or self.config['gan']['type'] == 'wgan-gp'):
@@ -145,7 +147,11 @@ class Model(object):
         if checkpoint_dir is None:
             checkpoint_dir = self.config['checkpoint_dir']
         print('[*] Loading checkpoint...')
-        checkpoint_path = tf.train.latest_checkpoint(checkpoint_dir)
+        with open(os.path.join(checkpoint_dir, 'checkpoint')) as f:
+            checkpoint_name = os.path.basename(
+                f.readline().split()[1].strip('"'))
+        checkpoint_path = os.path.realpath(
+            os.path.join(checkpoint_dir, checkpoint_name))
         if checkpoint_path is None:
             raise ValueError("Checkpoint not found")
         self.saver.restore(self.sess, checkpoint_path)

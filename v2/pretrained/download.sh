@@ -25,6 +25,7 @@ case $1 in
         exit 1
         ;;
     esac
+    ;;
   "bmusegan"|"binarymusegan"|"BinaryMuseGAN")
     case $filename in
       "lastfm_alternative_first_stage_d_proposed.tar.gz")
@@ -41,6 +42,7 @@ case $1 in
         exit 1
         ;;
     esac
+    ;;
   *)
     echo "Unrecognizeable model name"
     exit 1
@@ -51,6 +53,6 @@ confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies \
   --no-check-certificate \
   "https://docs.google.com/uc?export=download&id=$fileid" -O- | sed -rn \
   's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')
-wget -O $filename --load-cookies /tmp/cookies.txt \
+wget -O "$filename" --load-cookies /tmp/cookies.txt \
   "https://docs.google.com/uc?export=download&confirm=$confirm&id=$fileid"
 rm -rf /tmp/cookies.txt
