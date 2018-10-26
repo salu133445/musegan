@@ -31,7 +31,7 @@ Hence, the size of the target output tensor is 4 (bar) &times; 96 (time step)
 The following are two sample pianorolls seen in our training data. The tracks
 are (from top to bottom): _Bass_, _Drums_, _Guitar_, _Strings_, _Piano_.
 
-<img src="figs/train_samples.png" alt="train_samples" style="max-height:200px; display:block; margin:auto">
+<img src="figs/train_samples.png" alt="train_samples" style="max-width:400px; display:block; margin:auto">
 
 ## Reference
 
