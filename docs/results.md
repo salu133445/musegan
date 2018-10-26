@@ -2,10 +2,10 @@
 
 ## Pianoroll Visualizations
 
-![evolution](figs/evolution.png)
+<img src="figs/evolution.png" alt="evolution" style="max-width:none;">
 <p class="caption">Evolution of the generated pianorolls as a function of update steps</p>
 
-![hybrid](figs/hybrid.png)
+<img src="figs/hybrid.png" alt="hybrid" style="max-width:none;">
 <p class="caption">Randomly-chosen generated pianorolls (generated from scratch)</p>
 
 ## Audio Samples

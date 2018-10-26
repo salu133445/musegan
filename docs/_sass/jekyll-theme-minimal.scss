@@ -49,7 +49,7 @@ footer {
 }
 
 .subpage-links {
-  padding: 0 0 20px;
+  margin: 0 0 20px;
 }
 
 // Video player
@@ -60,7 +60,7 @@ footer {
   margin-right: auto;
   width: 100%;
   max-width: 600px;
-  padding: 0 0 20px;
+  margin: 0 0 20px;
 }
 
 .video-inner-container {
@@ -160,7 +160,7 @@ table {
 }
 
 table audio, table .video-container {
-  padding: 0;
+  margin: 0;
 }
 
 th, td {
@@ -276,16 +276,16 @@ footer hr {
     position: absolute;
     right: 5px;
     top: 5px;
-    padding: 5px 10px;
+    margin: 5px 10px;
     cursor: pointer;
   }
 
   .subpage-links {
-    padding: 0;
+    margin: 0;
   }
 
   .icon-link {
-    padding: 2px;
+    margin: 2px;
   }
 
   #main-menu-checkbox:checked ~ .main-menu {

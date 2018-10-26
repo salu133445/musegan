@@ -7,7 +7,7 @@ proposed three multitrack models according to three common compositional
 approaches. For the temporal model, we proposed one for generation from scratch
 and the other for accompanying a track given a priori by the user.
 
-## Modeling Multi-track Interdependency
+## Modeling Multitrack Interdependency
 
 In our experience, there are two common ways to create music.
 
@@ -88,7 +88,7 @@ supposed not to be useful for generating the other tracks.
 
 ## MuseGAN
 
-MuseGAN, an integration and extension of the proposed multi-track and temporal
+MuseGAN, an integration and extension of the proposed multitrack and temporal
 models, takes as input four different types of random vectors:
 
 - an _inter-track time-independent_ random vector (_z_)
@@ -108,6 +108,6 @@ vectors), together with the time-independent random vectors, _z_ and
 <i>z<sub>i</sub></i>, are concatenated and fed to the bar generator
 <i>G<sub>bar</sub></i>, which then generates pianorolls sequentially.
 
-The following the whole system diagram.
+The following is the whole system diagram.
 
-![musegan](figs/musegan.png)
+<img src="figs/musegan.png" alt="system" style="max-width:none;">
