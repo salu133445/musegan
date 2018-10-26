@@ -1,7 +1,5 @@
 # MuseGAN
 
-<img src="docs/figs/logo.png" alt="logo" style="width:100%; max-width:200px;"/>
-
 [MuseGAN](https://salu133445.github.io/musegan/) is a project on music
 generation. In a nutshell, we aim to generate polyphonic music of multiple
 tracks (instruments). The proposed models are able to generate music either from
