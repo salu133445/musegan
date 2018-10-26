@@ -5,7 +5,7 @@
 We use the _cleansed_ version of
 [Lakh Pianoroll Dataset](https://salu133445.github.io/lakh-pianoroll-dataset/)
 (LPD). LPD contains 174,154 unique
-[multi-track pianorolls](https://salu133445.github.io/lakh-pianoroll-dataset/representation)
+[multitrack pianorolls](https://salu133445.github.io/lakh-pianoroll-dataset/representation)
 derived from the MIDI files in the
 [Lakh MIDI Dataset](http://colinraffel.com/projects/lmd/) (LMD),
 while the cleansed version contains 21,425 pianorolls that
