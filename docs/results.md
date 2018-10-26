@@ -1,35 +1,38 @@
 # Results
 
-## Best Samples
+## Pianoroll Visualizations
+
+![evolution](figs/evolution.png)
+<p class="caption">Evolution of the generated pianorolls as a function of update steps</p>
+
+![hybrid](figs/hybrid.png)
+<p class="caption">Randomly-chosen generated pianorolls (generated from scratch)</p>
+
+## Audio Samples
+
+> __Note that all the audio samples presented below have been downsampled to 4
+time steps per beat (originally 24 time steps per beat).__
+
+### Best samples
 
 {% include audio_player.html filename="best_samples.mp3" %}
 
-## Piano-roll Visualizations
+### Generation from scratch
 
-![evolution](figs/evolution.png)
-<p class="caption">Evolution of the generated piano-rolls as a function of update steps</p>
+> No cherry-picking. Some might sound unpleasant. __Lower the volume first!__
 
-![hybrid](figs/hybrid.png)
-<p class="caption">Randomly-picked generation result (piano-rolls), generating from scratch</p>
+| Model    | Sample                                                               |
+|:--------:|:--------------------------------------------------------------------:|
+| composer | {% include audio_player.html filename="from_scratch_composer.mp3" %} |
+| jamming  | {% include audio_player.html filename="from_scratch_jamming.mp3" %}  |
+| hybrid   | {% include audio_player.html filename="from_scratch_hybrid.mp3" %}   |
 
-## Generation From Scratch
+### Track-conditional generation
 
-> **Lower the volume first!**
-No cherry-picking involved for all models. Some might sound unpleasant.
+> No cherry-picking. Some might sound unpleasant. __Lower the volume first!__
 
-| Model      | Sample |
-|:----------:|:------:|
-| *composer* | {% include audio_player.html filename="from_scratch_composer.mp3" %} |
-| *jamming*  | {% include audio_player.html filename="from_scratch_jamming.mp3" %} |
-| *hybrid*   | {% include audio_player.html filename="from_scratch_hybrid.mp3" %} |
-
-## Track-conditional Generation
-
-> **Lower the volume first!**
-No cherry-picking involved for all models. Some might sound unpleasant.
-
-| Model      | Sample |
-|:----------:|:------:|
-| *composer* | {% include audio_player.html filename="track_conditional_composer.mp3" %} |
-| *jamming*  | {% include audio_player.html filename="track_conditional_jamming.mp3" %} |
-| *hybrid*   | {% include audio_player.html filename="track_conditional_hybrid.mp3" %} |
+| Model    | Sample                                                                    |
+|:--------:|:-------------------------------------------------------------------------:|
+| composer | {% include audio_player.html filename="track_conditional_composer.mp3" %} |
+| jamming  | {% include audio_player.html filename="track_conditional_jamming.mp3" %}  |
+| hybrid   | {% include audio_player.html filename="track_conditional_hybrid.mp3" %}   |
