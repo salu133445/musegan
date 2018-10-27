@@ -40,11 +40,11 @@ footer {
 }
 
 // Header
-header .title a {
+.title a {
   color: #111;
 }
 
-header .author-names {
+.author-names {
   margin: 0 0 5px;
 }
 
@@ -309,16 +309,20 @@ footer hr {
   }
 
   // Others
-  header .title {
+  .title {
     padding: 0 50px 0 0;
   }
 
-  header .author-affiliations {
-    margin: 0 0 5px;
+  .author-info {
+    font-size: small;
   }
 
-  header .author-info br {
+  .author-info br {
     display: none;
+  }
+
+  .author-affiliations {
+    margin: 0 0 5px;
   }
 
   hr {
@@ -371,7 +375,7 @@ footer hr {
 }
 
 @media print, screen and (max-height: 600px) {
-  header .author-info br {
+  .author-info br {
     display: none;
   }
 
