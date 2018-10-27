@@ -254,7 +254,7 @@ footer hr {
     top: 50px;
     z-index: 998;
     display: block;
-    padding: 10px 15px;
+    padding: 5px 10px;
     color: #333;
     cursor: pointer;
   }
@@ -265,12 +265,11 @@ footer hr {
 
   .main-menu {
     position: absolute;
-    right: 50px;
-    top: 50px;
+    right: 55px;
+    top: 55px;
     z-index: 999;
     display: none;
     min-width: 120px;
-    padding: 5px;
     background: #eee;
   }
 
@@ -285,8 +284,8 @@ footer hr {
   .main-menu-close {
     display: block;
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0;
+    top: 0;
     padding: 5px 10px;
     cursor: pointer;
   }
@@ -362,8 +361,8 @@ footer hr {
   }
 
   .menu-toggle, .main-menu {
-    right: 15px;
-    top: 15px;
+    right: 20px;
+    top: 20px;
   }
 }
 
@@ -376,6 +375,15 @@ footer hr {
 @media print, screen and (max-height: 480px) {
   body {
     padding: 15px;
+  }
+
+  footer {
+    padding-bottom: 15px;
+  }
+
+  .menu-toggle, .main-menu {
+    right: 20px;
+    top: 20px;
   }
 
   .main-menu .subpage-links {
