@@ -313,6 +313,10 @@ footer hr {
     padding: 0 50px 0 0;
   }
 
+  header .author-affiliations {
+    margin: 0 0 5px;
+  }
+
   header .author-info br {
     display: none;
   }
@@ -367,8 +371,12 @@ footer hr {
 }
 
 @media print, screen and (max-height: 600px) {
-  header .author-affiliations {
+  header .author-info br {
     display: none;
+  }
+
+  .main-menu .subpage-links {
+    margin: 0;
   }
 }
 
@@ -384,10 +392,6 @@ footer hr {
   .menu-toggle, .main-menu {
     right: 20px;
     top: 20px;
-  }
-
-  .main-menu .subpage-links {
-    margin: 0;
   }
 }
 
