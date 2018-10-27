@@ -374,6 +374,10 @@ footer hr {
 }
 
 @media print, screen and (max-height: 480px) {
+  body {
+    padding: 15px;
+  }
+
   .main-menu .subpage-links {
     margin: 0;
   }
