@@ -40,15 +40,15 @@ footer {
 }
 
 // Header
-.title a {
+header .title a {
   color: #111;
 }
 
-.author-names {
+header .author-names {
   margin: 0 0 5px;
 }
 
-.subpage-links {
+.main-menu .subpage-links {
   margin: 0 0 20px;
 }
 
@@ -271,6 +271,7 @@ footer hr {
   }
 
   .main-menu .icon-link {
+    display: block;
     padding: 5px 10px;
   }
 
@@ -287,7 +288,7 @@ footer hr {
     cursor: pointer;
   }
 
-  .subpage-links {
+  .main-menu .subpage-links {
     margin: 0;
   }
 
@@ -306,11 +307,11 @@ footer hr {
   }
 
   // Others
-  .title {
+  header .title {
     padding: 0 50px 0 0;
   }
 
-  .author-info br {
+  header .author-info br {
     display: none;
   }
 
@@ -364,13 +365,13 @@ footer hr {
 }
 
 @media print, screen and (max-height: 600px) {
-  .author-affiliations {
+  header .author-affiliations {
     display: none;
   }
 }
 
 @media print, screen and (max-height: 480px) {
-  .subpage-links {
+  .main-menu .subpage-links {
     margin: 0;
   }
 }

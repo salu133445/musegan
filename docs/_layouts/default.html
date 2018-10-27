@@ -8,11 +8,6 @@
 
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-    {% if page.type == 'publication' %}
-      <link rel="stylesheet" href="assests/publication.css">
-    {% endif %}
-
     <meta name="viewport" content="width=device-width">
   </head>
   <body>
@@ -39,17 +34,17 @@
           <label for="main-menu-checkbox" class="main-menu-close"><i class="fas fa-times fa-fw"></i></label>
 
           <div class="subpage-links">
-            <div class="icon-link"><a href="{{ site.github.url }}"><i class="fas fa-home fa-fw"></i><span class="icon-text"> Home</span></a></div>
-            <div class="icon-link"><a href="abstract"><i class="fas fa-align-left fa-fw"></i><span class="icon-text"> Abstract</span></a></div>
-            <div class="icon-link"><a href="model"><i class="fas fa-lightbulb fa-fw"></i><span class="icon-text"> Model</span></a></div>
-            <div class="icon-link"><a href="data"><i class="fas fa-database fa-fw"></i><span class="icon-text"> Data</span></a></div>
-            <div class="icon-link"><a href="results"><i class="fas fa-headphones-alt fa-fw"></i><span class="icon-text"> Results</span></a></div>
-            <div class="icon-link"><a href="papers"><i class="fas fa-book fa-fw"></i><span class="icon-text"> Papers</span></a></div>
+            {% include icon_link.html text="Home" icon="fas fa-home fa-fw" href="{{ site.github.url }}" %}
+            {% include icon_link.html text="Abstract" icon="fas fa-align-left fa-fw" href="abstract" %}
+            {% include icon_link.html text="Model" icon="fas fa-lightbulb fa-fw" href="model" %}
+            {% include icon_link.html text="Data" icon="fas fa-database fa-fw" href="data" %}
+            {% include icon_link.html text="Results" icon="fas fa-headphones-alt fa-fw" href="results" %}
+            {% include icon_link.html text="Papers" icon="fas fa-book fa-fw" href="papers" %}
           </div>
 
           <div class="external-links">
-            <div class="icon-link"><a href="{{ site.github.repository_url }}"><i class="fab fa-github fa-fw"></i><span class="icon-text"> Github</span></a></div>
-            <div class="icon-link"><a href="http://musicai.citi.sinica.edu.tw/"><i class="fas fa-globe-asia fa-fw"></i><span class="icon-text"> Music AI Lab</span></a></div>
+            {% include icon_link.html text="Github" icon="fab fa-github fa-fw" href="{{ site.github.repository_url }}" %}
+            {% include icon_link.html text="Music AI Lab" icon="fas fa-globe-asia fa-fw" href="http://musicai.citi.sinica.edu.tw/" %}
           </div>
         </nav>
       </header>
