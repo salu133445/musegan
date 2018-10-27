@@ -66,7 +66,7 @@ We provide several shell scripts for easy managing the experiments. (See
 
    ```sh
    # Set up a new experiment
-   ./scripts/setup_exp.sh "./exp/my_experiment" "Some notes on my experiment"
+   ./scripts/setup_exp.sh "./exp/my_experiment/" "Some notes on my experiment"
    ```
 
 2. Modify the configuration and model parameter files for experimental settings.
@@ -75,13 +75,13 @@ We provide several shell scripts for easy managing the experiments. (See
 
      ```sh
      # Train the model
-     ./scripts/run_train.sh "./exp/my_experiment" "0"
+     ./scripts/run_train.sh "./exp/my_experiment/" "0"
      ```
    or run the experiment (training + inference + interpolation):
 
      ```sh
      # Run the experiment
-     ./scripts/run_exp.sh "./exp/my_experiment" "0"
+     ./scripts/run_exp.sh "./exp/my_experiment/" "0"
      ```
 
 ### Use pretrained models
@@ -94,21 +94,31 @@ We provide several shell scripts for easy managing the experiments. (See
    ```
 
    You can also download the pretrained models manually
-   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=1xEJV3ED_iVuR8FDGLZ0mOOlsFeGw7AiX)).
+   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=17qJ6jDElLMukwQBZjDEnJctpkyDsd09g)).
 
 2. You can either perform inference from a trained model:
 
    ```sh
    # Run inference from a pretrained model
-   ./scripts/run_inference.sh "./exp/default" "0"
+   ./scripts/run_inference.sh "./exp/default/" "0"
    ```
 
    or perform interpolation from a trained model:
 
    ```sh
    # Run interpolation from a pretrained model
-   ./scripts/run_interpolation.sh "./exp/default" "0"
+   ./scripts/run_interpolation.sh "./exp/default/" "0"
    ```
+
+## Sample Results
+
+Some sample results can be found in `./exp/` directory. More samples can be
+downloaded from the following links.
+
+- [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1OUWv581V9hWPiPGb_amXBdJX-_qoNDi9) (54.7 MB):
+  sample inference and interpolation results
+- [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1sr68zXGUrX-eC9FGga_Kl58YxZ5R2bc4) (18.7 MB):
+  sample generated results at different steps
 
 ## Papers
 
