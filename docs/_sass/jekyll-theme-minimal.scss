@@ -52,6 +52,10 @@ header .author-names {
   margin: 0 0 20px;
 }
 
+.main-menu .link-button:hover, .main-menu .link-button:focus {
+  background: #eee;
+}
+
 // Video player
 .video-container {
   display: block;
@@ -274,7 +278,7 @@ footer hr {
     padding: 5px 10px;
   }
 
-  .main-menu .link-button:hover, .main-menu .link-button:focus, .main-menu-close:hover {
+  .main-menu-close:hover {
     background: #ddd;
   }
 
