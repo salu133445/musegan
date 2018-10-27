@@ -310,7 +310,7 @@ footer hr {
     padding: 0 50px 0 0;
   }
 
-  .author-info {
+  .author-info br {
     display: none;
   }
 
@@ -364,7 +364,7 @@ footer hr {
 }
 
 @media print, screen and (max-height: 600px) {
-  .author-info {
+  .author-affiliations {
     display: none;
   }
 }
