@@ -248,10 +248,13 @@ footer hr {
   }
 
   // Menu
-  .menu-toggle {
+  .menu-toggle, .main-menu {
     position: absolute;
     right: 55px;
     top: 55px;
+  }
+
+  .menu-toggle {
     z-index: 998;
     display: block;
     padding: 5px 10px;
@@ -264,9 +267,6 @@ footer hr {
   }
 
   .main-menu {
-    position: absolute;
-    right: 55px;
-    top: 55px;
     z-index: 999;
     display: none;
     min-width: 120px;
@@ -396,6 +396,12 @@ footer hr {
   .menu-toggle, .main-menu {
     right: 20px;
     top: 20px;
+  }
+}
+
+@media print, screen and (max-height: 450px) {
+  header {
+    font-size: small;
   }
 }
 
