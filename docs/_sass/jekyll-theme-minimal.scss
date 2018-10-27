@@ -397,10 +397,8 @@ footer hr {
     right: 20px;
     top: 20px;
   }
-}
 
-@media print, screen and (max-height: 450px) {
-  header {
+  .author-info {
     font-size: small;
   }
 }
