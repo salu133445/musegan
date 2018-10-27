@@ -270,6 +270,10 @@ footer hr {
     background: #eee;
   }
 
+  .main-menu .icon-link {
+    padding: 5px 10px;
+  }
+
   .main-menu .icon-link:hover, .main-menu .icon-link:focus, .main-menu-close:hover {
     background: #ddd;
   }
@@ -285,10 +289,6 @@ footer hr {
 
   .subpage-links {
     margin: 0;
-  }
-
-  .icon-link {
-    padding: 5px 10px;
   }
 
   #main-menu-checkbox:checked ~ .main-menu {
