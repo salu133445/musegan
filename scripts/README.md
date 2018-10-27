@@ -22,7 +22,7 @@ We provide several shell scripts for easy managing the experiments.
 ```
 
 This command will download the training data to the default data directory
-(`[REPO_DIR]/data/`).
+(`./data/`).
 
 ## Save the training data to shared memory
 
@@ -40,47 +40,47 @@ package.
 ```
 
 This command will download the pretrained models to the default experiment
-directory (`[REPO_DIR]/exp/`).
+directory (`./exp/`).
 
 ## Set up a new experiment with default settings
 
 ```sh
-./scripts/setup_exp.sh "./exp/my_experiment" "Some notes"
+./scripts/setup_exp.sh "./exp/my_experiment/" "Some notes"
 ```
 
 This command will create a new experiment directory at the given path
-(`"./exp/my_experiment"`), copy the default configuration and model parameter
+(`"./exp/my_experiment/"`), copy the default configuration and model parameter
 files to that folder and save the experiment note (`"Some notes"`) as a text
 file in that folder.
 
 ## Train a model
 
 ```sh
-./scripts/run_train.sh "./exp/my_experiment" "0"
+./scripts/run_train.sh "./exp/my_experiment/" "0"
 ```
 
 This command will look for the configuration and model parameter files in the
-given experiment directory (`"./exp/my_experiment"`) and train a model according
+given experiment directory (`"./exp/my_experiment/"`) and train a model according
 to the configurations and parameters on the specified GPU (`"0"`).
 
 ## Run inference from a trained model
 
 ```sh
-./scripts/run_inference.sh "./exp/my_experiment" "0"
+./scripts/run_inference.sh "./exp/my_experiment/" "0"
 ```
 
 This command will look for the configuration and model parameter files in the
-given experiment directory (`"./exp/my_experiment"`) and run inference from the
+given experiment directory (`"./exp/my_experiment/"`) and run inference from the
 trained model on the specified GPU (`"0"`).
 
 ## Run interpolation from a trained model
 
 ```sh
-./scripts/run_interpolation.sh "./exp/my_experiment" "0"
+./scripts/run_interpolation.sh "./exp/my_experiment/" "0"
 ```
 
 This command will look for the configuration and model parameter files in the
-given experiment directory (`"./exp/my_experiment"`) and run inference from the
+given experiment directory (`"./exp/my_experiment/"`) and run inference from the
 trained model on the specified GPU (`"0"`).
 
 ## Run an experiment (train + inference + interpolation)
@@ -90,17 +90,17 @@ train a model and then we run inference and interpolation from the trained
 model. In this case, you can simply run the following command.
 
 ```sh
-./scripts/run_exp.sh "./exp/my_experiment" "0"
+./scripts/run_exp.sh "./exp/my_experiment/" "0"
 ```
 
 This command will look for the configuration and model parameter files in the
-given experiment directory (`"./exp/my_experiment"`) and run the experiment
+given experiment directory (`"./exp/my_experiment/"`) and run the experiment
 (train, inference and interpolation) on the specified GPU (`"0"`).
 
 ## Rerun an experiment (train + inference + interpolation)
 
 ```sh
-./scripts/rerun_exp.sh "./exp/my_experiment" "0"
+./scripts/rerun_exp.sh "./exp/my_experiment/" "0"
 ```
 
 This command will remove everything in the experiment directory except the
