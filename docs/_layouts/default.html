@@ -34,7 +34,7 @@
           <label for="main-menu-checkbox" class="main-menu-close"><i class="fas fa-times fa-fw"></i></label>
 
           <div class="subpage-links">
-            <div class="link-button">{% include icon_link.html text="Home" icon="fas fa-home fa-fw" href="{{ site.github.url }}" %}</div>
+            <div class="link-button">{% include icon_link.html text="Home" icon="fas fa-home fa-fw" href=site.github.url %}</div>
             <div class="link-button">{% include icon_link.html text="Abstract" icon="fas fa-align-left fa-fw" href="abstract" %}</div>
             <div class="link-button">{% include icon_link.html text="Model" icon="fas fa-lightbulb fa-fw" href="model" %}</div>
             <div class="link-button">{% include icon_link.html text="Data" icon="fas fa-database fa-fw" href="data" %}</div>
@@ -43,7 +43,7 @@
           </div>
 
           <div class="external-links">
-            <div class="link-button">{% include icon_link.html text="Github" icon="fab fa-github fa-fw" href="{{ site.github.repository_url }}" %}</div>
+            <div class="link-button">{% include icon_link.html text="Github" icon="fab fa-github fa-fw" href=site.github.repository_url %}</div>
             <div class="link-button">{% include icon_link.html text="Music AI Lab" icon="fas fa-globe-asia fa-fw" href="http://musicai.citi.sinica.edu.tw/" %}</div>
           </div>
         </nav>
