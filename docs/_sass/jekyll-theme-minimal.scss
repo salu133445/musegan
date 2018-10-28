@@ -94,6 +94,22 @@ footer {
   text-align: center;
 }
 
+.switch-on-hover .hide-on-hover {
+  display: inline-block;
+}
+
+.switch-on-hover .show-on-hover {
+  display: none;
+}
+
+.switch-on-hover:hover .hide-on-hover {
+  display: none;
+}
+
+.switch-on-hover:hover .show-on-hover {
+  display: inline-block;
+}
+
 // Main components
 h1, h2, h3, h4, h5, h6 {
   margin: 0 0 20px;
