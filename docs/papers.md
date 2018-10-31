@@ -24,7 +24,7 @@ __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic M
   {% include icon_link.html text="code" icon="fab fa-github" href="https://github.com/salu133445/musegan" %}
 </span>
 
-__MuseGAN: Demonstration of a Convolutional GAN Based Model for GeneratingMulti-track Piano-rolls__<br>
+__MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
 <span style="font-size:smaller;">
   Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
   in _ISMIR Late-Breaking Demos Session_, 2017. (non-refereed two-page extended abstract)<br>
