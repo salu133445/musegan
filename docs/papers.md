@@ -7,7 +7,7 @@ __Convolutional Generative Adversarial Networks with Binary Neurons for Polyphon
   {% include icon_link.html text="website" icon="fas fa-globe-asia" href="https://salu133445.github.io/bmusegan/" %}&nbsp;
   {% include icon_link.html text="arxiv" icon="fas fa-archive" href="https://arxiv.org/abs/1804.09399" %}&nbsp;
   {% include icon_link.html text="paper" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf" %}&nbsp;
-  {% include icon_link.html text="slides(long)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-tmacw2018-slides.pdf" %}&nbsp;
+  {% include icon_link.html text="slides(long)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf" %}&nbsp;
   {% include icon_link.html text="slides(short)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf" %}&nbsp;
   {% include icon_link.html text="poster" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf" %}&nbsp;
   {% include icon_link.html text="code" icon="fab fa-github" href="https://github.com/salu133445/bmusegan" %}
