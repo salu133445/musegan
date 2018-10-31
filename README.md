@@ -130,7 +130,7 @@ Retrieval Conference_ (ISMIR), 2018.<br>
 [[website](https://salu133445.github.io/bmusegan)]
 [[arxiv](https://arxiv.org/abs/1804.09399)]
 [[paper](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf)]
-[[slides(long)](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmacw2018-slides.pdf)]
+[[slides(long)](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf)]
 [[slides(short)](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf)]
 [[poster](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf)]
 [[code](https://github.com/salu133445/bmusegan)]
