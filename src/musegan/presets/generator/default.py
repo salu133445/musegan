@@ -28,7 +28,7 @@ class Generator:
 
             # Pitch-time private network
             with tf.variable_scope('pitch_time_private'):
-                s1 = [tconv_layer(h, 32, (1, 1, 12), (1, 1, 12))     # 4, 16, 12
+                s1 = [tconv_layer(h, 32, (1, 1, 12), (1, 1, 12))     # 4, 16, 84
                       for _ in range(self.n_tracks)]
                 s1 = [tconv_layer(s1[i], 16, (1, 3, 1), (1, 3, 1))   # 4, 48, 84
                       for i in range(self.n_tracks)]
