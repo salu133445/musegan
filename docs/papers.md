@@ -7,7 +7,7 @@ __Convolutional Generative Adversarial Networks with Binary Neurons for Polyphon
   {% include icon_link.html text="website" icon="fas fa-globe-asia" href="https://salu133445.github.io/bmusegan/" %}&nbsp;
   {% include icon_link.html text="arxiv" icon="fas fa-archive" href="https://arxiv.org/abs/1804.09399" %}&nbsp;
   {% include icon_link.html text="paper" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf" %}&nbsp;
-  {% include icon_link.html text="slides(long)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-tmacw2018-slides.pdf" %}&nbsp;
+  {% include icon_link.html text="slides(long)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf" %}&nbsp;
   {% include icon_link.html text="slides(short)" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf" %}&nbsp;
   {% include icon_link.html text="poster" icon="fas fa-file-pdf" href="https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf" %}&nbsp;
   {% include icon_link.html text="code" icon="fab fa-github" href="https://github.com/salu133445/bmusegan" %}
@@ -24,7 +24,7 @@ __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic M
   {% include icon_link.html text="code" icon="fab fa-github" href="https://github.com/salu133445/musegan" %}
 </span>
 
-__MuseGAN: Demonstration of a Convolutional GAN Based Model for GeneratingMulti-track Piano-rolls__<br>
+__MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
 <span style="font-size:smaller;">
   Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
   in _ISMIR Late-Breaking Demos Session_, 2017. (non-refereed two-page extended abstract)<br>
