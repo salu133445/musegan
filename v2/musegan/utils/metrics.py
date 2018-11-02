@@ -89,9 +89,11 @@ def tonal_dist(chroma1, chroma2, tonal_matrix=None):
         tonal_matrix = get_tonal_matrix()
         warnings.warn("`tonal matrix` not specified. Use default tonal matrix",
                       RuntimeWarning)
-    chroma1 = chroma1 / np.sum(chroma1)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=RuntimeWarning)
+        chroma1 = chroma1 / np.sum(chroma1)
+        chroma2 = chroma2 / np.sum(chroma2)
     result1 = np.matmul(tonal_matrix, chroma1)
-    chroma2 = chroma2 / np.sum(chroma2)
     result2 = np.matmul(tonal_matrix, chroma2)
     return np.linalg.norm(result1 - result2)
 
