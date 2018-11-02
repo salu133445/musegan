@@ -7,7 +7,7 @@ save_checkpoint_steps: 10000 # set to 0 to disable saving checkpoints
 evaluate_steps: 100 # set to 0 to disable evaluation
 
 # Data
-data_source: 'sa' # 'npy', 'npz', 'filenames', 'dir'
+data_source: 'sa' # 'sa', 'npy', 'npz'
 data_root: ~
 data_filename: train_x_lpd_5_phr
 use_random_transpose: false # randomly transpose the piano-rolls at training
