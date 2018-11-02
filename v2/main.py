@@ -86,7 +86,7 @@ def main():
                     gan.train(x_train, CONFIG['train'])
 
                 # Second stage training
-                if CONFIG['train']['training_phase'] == 'two_stage':
+                if CONFIG['train']['training_phase'] == 'second_stage':
 
                     # Load first-stage pretrained model
                     gan.load_latest(CONFIG['exp']['first_stage_dir'])
