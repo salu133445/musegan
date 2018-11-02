@@ -34,31 +34,39 @@ class Model:
 
             # Build the model graph
             LOGGER.info("Building model.")
-            self.gen = load_component(
-                'generator', params['nets']['generator'], 'Generator')(
-                    params['data_shape'][-1])
+            if params['is_accompaniment']:
+                self.gen = load_component(
+                    'generator', params['nets']['generator'], 'Generator')(
+                        n_tracks=params['data_shape'][-1] - 1,
+                        condition_track_idx=params['condition_track_idx'])
+            else:
+                self.gen = load_component(
+                    'generator', params['nets']['generator'], 'Generator')(
+                        n_tracks=params['data_shape'][-1])
             self.dis = load_component(
                 'discriminator', params['nets']['discriminator'],
                 'Discriminator')(
-                    params['data_shape'][-1], params['beat_resolution'])
+                    n_tracks=params['data_shape'][-1],
+                    beat_resolution=params['beat_resolution'])
 
             # Save components to a list for showing statistics
             self.components = [self.gen, self.dis]
 
-    def __call__(self, x=None, z=None, y=None, mode=None, params=None,
+    def __call__(self, x=None, z=None, y=None, c=None, mode=None, params=None,
                  config=None):
         if mode == 'train':
             if x is None:
                 raise TypeError("`x` must not be None for 'train' mode.")
-            return self.get_train_nodes(x, z, y, params, config)
+            return self.get_train_nodes(x, z, y, c, params, config)
         elif mode == 'predict':
             if z is None:
                 raise TypeError("`z` must not be None for 'predict' mode.")
-            return self.get_predict_nodes(z, y, params, config)
+            return self.get_predict_nodes(z, y, c, params, config)
         raise ValueError("Unrecognized mode received. Expect 'train' or "
                          "'predict' but get {}".format(mode))
 
-    def get_train_nodes(self, x, z=None, y=None, params=None, config=None):
+    def get_train_nodes(self, x, z=None, y=None, c=None, params=None,
+                        config=None):
         """Return a dictionary of graph nodes for training."""
         LOGGER.info("Building training nodes.")
         with tf.variable_scope(self.name, reuse=tf.AUTO_REUSE) as scope:
@@ -83,12 +91,19 @@ class Model:
                 'slope', [], tf.float32, tf.constant_initializer(1.0),
                 trainable=False)
 
-            # --- Decoder and encoder outputs ----------------------------------
+            # --- Generator output ---------------------------------------------
             if params['use_binary_neurons']:
-                nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
-                    nodes['z'], y, True, nodes['slope'])
+                if params['is_accompaniment']:
+                    nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
+                        nodes['z'], y, c, True, nodes['slope'])
+                else:
+                    nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
+                        nodes['z'], y, True, nodes['slope'])
             else:
-                nodes['fake_x'] = self.gen(nodes['z'], y, True, nodes['slope'])
+                if params['is_accompaniment']:
+                    nodes['fake_x'] = self.gen(nodes['z'], y, c, True)
+                else:
+                    nodes['fake_x'] = self.gen(nodes['z'], y, True)
 
             # --- Slope annealing ----------------------------------------------
             if config['use_slope_annealing']:
@@ -100,7 +115,7 @@ class Model:
                     tf.GraphKeys.UPDATE_OPS,
                     tf.assign(nodes['slope'], scheduled_slope))
 
-            # --- Discriminator outputs ----------------------------------------
+            # --- Discriminator output -----------------------------------------
             nodes['dis_real'] = self.dis(x, y, True)
             nodes['dis_fake'] = self.dis(nodes['fake_x'], y, True)
 
@@ -182,7 +197,8 @@ class Model:
 
         return nodes
 
-    def get_predict_nodes(self, z=None, y=None, params=None, config=None):
+    def get_predict_nodes(self, z=None, y=None, c=None, params=None,
+                          config=None):
         """Return a dictionary of graph nodes for training."""
         LOGGER.info("Building prediction nodes.")
         with tf.variable_scope(self.name, reuse=tf.AUTO_REUSE):
@@ -194,12 +210,19 @@ class Model:
                 'slope', [], tf.float32, tf.constant_initializer(1.0),
                 trainable=False)
 
-            # --- Decoder and encoder outputs ----------------------------------
+            # --- Generator output ---------------------------------------------
             if params['use_binary_neurons']:
-                nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
-                    nodes['z'], y, False, nodes['slope'])
+                if params['is_accompaniment']:
+                    nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
+                        nodes['z'], y, c, False, nodes['slope'])
+                else:
+                    nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
+                        nodes['z'], y, False, nodes['slope'])
             else:
-                nodes['fake_x'] = self.gen(nodes['z'], y, False, nodes['slope'])
+                if params['is_accompaniment']:
+                    nodes['fake_x'] = self.gen(nodes['z'], y, c, False)
+                else:
+                    nodes['fake_x'] = self.gen(nodes['z'], y, False)
 
             # ============================ Save ops ============================
             def _get_filepath(folder_name, name, suffix, ext):

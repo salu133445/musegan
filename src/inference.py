@@ -7,6 +7,7 @@ import numpy as np
 import scipy.stats
 import tensorflow as tf
 from musegan.config import LOGLEVEL, LOG_FORMAT
+from musegan.data import load_data, get_samples
 from musegan.model import Model
 from musegan.utils import make_sure_path_exists, load_yaml, update_not_none
 LOGGER = logging.getLogger("musegan.inference")
@@ -67,11 +68,6 @@ def setup():
 
     return params, config
 
-def get_inputs(config, params):
-    """Return inputs to the generator."""
-    return scipy.stats.truncnorm.rvs(config['lower'], config['upper'], size=(
-        (config['rows'] * config['columns']), params['latent_dim']))
-
 def main():
     """Main function."""
     # Setup
@@ -81,35 +77,51 @@ def main():
     LOGGER.info("Using configurations:\n%s", pformat(config))
 
     # ============================== Placeholders ==============================
-    x_placeholder = tf.placeholder(
+    placeholder_x = tf.placeholder(
         tf.float32, shape=([None] + params['data_shape']))
-    z_placeholder = tf.placeholder(
+    placeholder_z = tf.placeholder(
         tf.float32, shape=(None, params['latent_dim']))
-    suffix_placeholder = tf.placeholder(tf.string)
+    placeholder_c = tf.placeholder(
+        tf.float32, shape=([None] + params['data_shape'][:-1] + [1]))
+    placeholder_suffix = tf.placeholder(tf.string)
 
     # ================================= Model ==================================
-    model = Model(params)
-    _ = model(
-        x=x_placeholder, z=z_placeholder, mode='train', params=params,
-        config=config)
-
     # Create sampler configurations
     sampler_config = {
         'result_dir': config['result_dir'],
         'image_grid': (config['rows'], config['columns']),
-        'suffix': suffix_placeholder, 'midi': config['midi'],
+        'suffix': placeholder_suffix, 'midi': config['midi'],
         'colormap': np.array(config['colormap']).T,
         'collect_save_arrays_op': config['save_array_samples'],
         'collect_save_images_op': config['save_image_samples'],
         'collect_save_pianorolls_op': config['save_pianoroll_samples']}
-    predict_nodes = model(
-        z=z_placeholder, mode='predict', params=params, config=sampler_config)
+
+    # Build model
+    model = Model(params)
+    if params['is_accompaniment']:
+        _ = model(
+            x=placeholder_x, c=placeholder_c, z=placeholder_z, mode='train',
+            params=params, config=config)
+        predict_nodes = model(
+            c=placeholder_c, z=placeholder_z, mode='predict', params=params,
+            config=sampler_config)
+    else:
+        _ = model(
+            x=placeholder_x, z=placeholder_z, mode='train', params=params,
+            config=config)
+        predict_nodes = model(
+            z=placeholder_z, mode='predict', params=params,
+            config=sampler_config)
 
     # Get sampler op
     sampler_op = tf.group([
         predict_nodes[key] for key in (
             'save_arrays_op', 'save_images_op', 'save_pianorolls_op')
         if key in predict_nodes])
+
+    # ================================== Data ==================================
+    if params['is_accompaniment']:
+        data = load_data(config['data_source'], config['data_filename'])
 
     # ========================== Session Preparation ===========================
     # Get tensorflow session config
@@ -133,9 +145,19 @@ def main():
 
         # Run sampler op
         for i in range(config['runs']):
-            sess.run(sampler_op, feed_dict={
-                z_placeholder: get_inputs(config, params),
-                suffix_placeholder: str(i)})
+            feed_dict_sampler = {
+                placeholder_z: scipy.stats.truncnorm.rvs(
+                    config['lower'], config['upper'], size=(
+                        (config['rows'] * config['columns']),
+                        params['latent_dim'])),
+                placeholder_suffix: str(i)}
+            if params['is_accompaniment']:
+                sample_x = get_samples(
+                    (config['rows'] * config['columns']), data,
+                    use_random_transpose=config['use_random_transpose'])
+                feed_dict_sampler[placeholder_c] = np.expand_dims(
+                    sample_x[..., params['condition_track_idx']], -1)
+            sess.run(sampler_op, feed_dict=feed_dict_sampler)
 
 if __name__ == "__main__":
     main()

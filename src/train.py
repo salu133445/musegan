@@ -7,8 +7,7 @@ import numpy as np
 import scipy.stats
 import tensorflow as tf
 from musegan.config import LOGLEVEL, LOG_FORMAT
-from musegan.data import load_data, load_filenames
-from musegan.data import get_dataset, get_dataset_from_filenames
+from musegan.data import load_data, get_dataset, get_samples
 from musegan.metrics import get_save_metric_ops
 from musegan.model import Model
 from musegan.utils import make_sure_path_exists, load_yaml
@@ -52,6 +51,9 @@ def setup():
 
     # Load parameters
     params = load_yaml(args.params)
+    if params['is_accompaniment'] and params['condition_track_idx'] is None:
+        raise TypeError("`condition_track_idx` cannot be None type in "
+                        "accompaniment mode.")
 
     # Load training configurations
     config = load_yaml(args.config)
@@ -87,29 +89,16 @@ def load_training_data(params, config):
     else:
         labels = None
 
-    if config['data_source'] in ('sa', 'npy', 'npz'):
-        # Load data
-        LOGGER.info("Loading training data.")
-        data = load_data(config['data_source'], config['data_filename'])
-        LOGGER.info("Training data size: %d", len(data))
+    # Load data
+    LOGGER.info("Loading training data.")
+    data = load_data(config['data_source'], config['data_filename'])
+    LOGGER.info("Training data size: %d", len(data))
 
-        # Build dataset
-        LOGGER.info("Building dataset.")
-        dataset = get_dataset(
-            data, labels, config['batch_size'], params['data_shape'],
-            config['use_random_transpose'], config['n_jobs'])
-
-    elif config['data_source'] in ('filenames', 'dir'):
-        # Load filenames
-        filenames = load_filenames(
-            config['data_source'], config['data_filename'], config['data_root'])
-        LOGGER.info("Training data size: %d", len(filenames))
-
-        # Build dataset
-        LOGGER.info("Building dataset.")
-        dataset = get_dataset_from_filenames(
-            filenames, labels, config['batch_size'], params['data_shape'],
-            config['use_random_transpose'], config['n_jobs'])
+    # Build dataset
+    LOGGER.info("Building dataset.")
+    dataset = get_dataset(
+        data, labels, config['batch_size'], params['data_shape'],
+        config['use_random_transpose'], config['n_jobs'])
 
     # Create iterator
     if params['is_conditional']:
@@ -122,7 +111,7 @@ def load_training_data(params, config):
 def load_or_create_samples(params, config):
     """Load or create the samples used as the sampler inputs."""
     # Load sample_z
-    LOGGER.info("Loading samples.")
+    LOGGER.info("Loading sample_z.")
     sample_z_path = os.path.join(config['model_dir'], 'sample_z.npy')
     if os.path.exists(sample_z_path):
         sample_z = np.load(sample_z_path)
@@ -143,12 +132,34 @@ def load_or_create_samples(params, config):
         make_sure_path_exists(config['model_dir'])
         np.save(sample_z_path, sample_z)
 
-    if params['is_conditional']:
-        raise ValueError("Not supported yet.")
-    else:
-        sample_y = None
+    if params['is_accompaniment']:
+        # Load sample_x
+        LOGGER.info("Loading sample_x.")
+        sample_x_path = os.path.join(config['model_dir'], 'sample_x.npy')
+        if os.path.exists(sample_x_path):
+            sample_x = np.load(sample_x_path)
+            if sample_x.shape[1:] != params['data_shape']:
+                LOGGER.info("Loaded sample_x has wrong shape")
+                resample = True
+            else:
+                resample = False
+        else:
+            LOGGER.info("File for sample_x not found")
+            resample = True
 
-    return sample_z, sample_y
+        # Draw new sample_x
+        if resample:
+            LOGGER.info("Drawing new sample_x.")
+            data = load_data(config['data_source'], config['data_filename'])
+            sample_x = get_samples(
+                np.prod(config['sample_grid']), data,
+                use_random_transpose = config['use_random_transpose'])
+            make_sure_path_exists(config['model_dir'])
+            np.save(sample_x_path, sample_x)
+    else:
+        sample_x = None
+
+    return sample_x, None, sample_z
 
 def main():
     """Main function."""
@@ -165,7 +176,14 @@ def main():
     # ================================= Model ==================================
     # Build model
     model = Model(params)
-    train_nodes = model(x=train_x, mode='train', params=params, config=config)
+    if params['is_accompaniment']:
+        train_c = tf.expand_dims(
+            train_x[..., params['condition_track_idx']], -1)
+        train_nodes = model(
+            x=train_x, c=train_c, mode='train', params=params, config=config)
+    else:
+        train_nodes = model(
+            x=train_x, mode='train', params=params, config=config)
 
     # Log number of parameters in the model
     def get_n_params(var_list):
@@ -183,7 +201,7 @@ def main():
     # ================================ Sampler =================================
     if config['save_samples_steps'] > 0:
         # Get sampler inputs
-        sample_z, sample_y = load_or_create_samples(params, config)
+        sample_x, sample_y, sample_z = load_or_create_samples(params, config)
 
         # Create sampler configurations
         sampler_config = {
@@ -199,9 +217,16 @@ def main():
         # Get prediction nodes
         placeholder_z = tf.placeholder(tf.float32, shape=sample_z.shape)
         placeholder_y = None
-        predict_nodes = model(
-            z=placeholder_z, y=placeholder_y, mode='predict', params=params,
-            config=sampler_config)
+        if params['is_accompaniment']:
+            c_shape = np.append(sample_x.shape[:-1], 1)
+            placeholder_c = tf.placeholder(tf.float32, shape=c_shape)
+            predict_nodes = model(
+                z=placeholder_z, y=placeholder_y, c=placeholder_c,
+                mode='predict', params=params, config=sampler_config)
+        else:
+            predict_nodes = model(
+                z=placeholder_z, y=placeholder_y, mode='predict', params=params,
+                config=sampler_config)
 
         # Get sampler op
         sampler_op = tf.group([
@@ -291,19 +316,27 @@ def main():
             if ((config['save_samples_steps'] > 0)
                     and (step % config['save_samples_steps'] == 0)):
                 LOGGER.info("Running sampler")
+                feed_dict_sampler = {placeholder_z: sample_z}
+                if params['is_accompaniment']:
+                    feed_dict_sampler[placeholder_c] = np.expand_dims(
+                        sample_x[..., params['condition_track_idx']], -1)
                 if step < 3000:
-                    sess.run(sampler_op_no_pianoroll, feed_dict={
-                        placeholder_z: sample_z})
+                    sess.run(
+                        sampler_op_no_pianoroll, feed_dict=feed_dict_sampler)
                 else:
-                    sess.run(sampler_op, feed_dict={placeholder_z: sample_z})
+                    sess.run(sampler_op, feed_dict=feed_dict_sampler)
 
             # Run evaluation
             if ((config['evaluate_steps'] > 0)
                     and (step % config['evaluate_steps'] == 0)):
                 LOGGER.info("Running evaluation")
-                sess.run(save_metrics_op, feed_dict={
+                feed_dict_evaluation = {
                     placeholder_z: scipy.stats.truncnorm.rvs(-2, 2, size=(
-                        np.prod(config['sample_grid']), params['latent_dim']))})
+                        np.prod(config['sample_grid']), params['latent_dim']))}
+                if params['is_accompaniment']:
+                    feed_dict_evaluation[placeholder_c] = np.expand_dims(
+                        sample_x[..., params['condition_track_idx']], -1)
+                sess.run(save_metrics_op, feed_dict=feed_dict_evaluation)
 
             # Stop training if stopping criterion suggests
             if sess.should_stop():
