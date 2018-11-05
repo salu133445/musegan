@@ -1,0 +1,10 @@
+data_shape: [4, 48, 84, 5] # (n_bars, n_timesteps, n_pitches, n_tracks)
+beat_resolution: 12 # number of time steps used to represent a beat
+latent_dim: 128
+is_conditional: false
+is_accompaniment: true
+condition_track_idx: 3
+use_binary_neurons: false
+nets:
+  generator: accompaniment
+  discriminator: default

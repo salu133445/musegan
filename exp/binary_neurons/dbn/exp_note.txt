@@ -1,0 +1,1 @@
+Generator using deterministic binary neurons at the output layer
