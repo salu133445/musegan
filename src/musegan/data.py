@@ -9,15 +9,13 @@ LOGGER = logging.getLogger(__name__)
 # --- Data loader --------------------------------------------------------------
 def load_data_from_npy(filename):
     """Load and return the training data from a npy file."""
-    data = np.load(filename)
-    return data * 2. - 1.
+    return np.load(filename)
 
 def load_data_from_npz(filename):
     """Load and return the training data from a npz file (sparse format)."""
     with np.load(filename) as f:
-        data = np.empty(f['shape'], np.float32)
-        data.fill(-1.)
-        data[[x for x in f['nonzero']]] = 1.
+        data = np.zeros(f['shape'], np.bool_)
+        data[[x for x in f['nonzero']]] = True
     return data
 
 def load_data(data_source, data_filename):
