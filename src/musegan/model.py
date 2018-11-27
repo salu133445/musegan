@@ -183,7 +183,7 @@ class Model:
 
             # =========================== Summaries ============================
             LOGGER.info("Building summaries.")
-            if config['save_samples_steps'] > 0:
+            if config['save_summaries_steps'] > 0:
                 with tf.name_scope('losses'):
                     tf.summary.scalar('gen_loss', nodes['gen_loss'])
                     tf.summary.scalar('dis_loss', nodes['dis_loss'])
