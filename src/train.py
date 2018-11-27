@@ -55,7 +55,7 @@ def setup():
         raise TypeError("`condition_track_idx` cannot be None type in "
                         "accompaniment mode.")
 
-    # Load training configurations
+    # Load configurations
     config = load_yaml(args.config)
     update_not_none(config, vars(args))
 
@@ -66,7 +66,7 @@ def setup():
         if target['end'] is None:
             target['end'] = config['steps']
 
-    # Setup experiment directories and update them to params
+    # Setup experiment directories and update them to configuration dictionary
     setup_dirs(config)
 
     # Setup loggers
@@ -88,8 +88,6 @@ def load_training_data(params, config):
         raise ValueError("Not supported yet.")
     else:
         labels = None
-
-    # Load data
     LOGGER.info("Loading training data.")
     data = load_data(config['data_source'], config['data_filename'])
     LOGGER.info("Training data size: %d", len(data))
@@ -278,6 +276,7 @@ def main():
         # ============================== Training ==============================
         if step >= config['steps']:
             LOGGER.info("Global step has already exceeded total steps.")
+            step_logger.close()
             return
 
         # Training iteration
