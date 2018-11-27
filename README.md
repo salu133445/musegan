@@ -94,7 +94,7 @@ We provide several shell scripts for easy managing the experiments. (See
    ```
 
    You can also download the pretrained models manually
-   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=1mZCq8o87Zjf2sL1KMcQ1dO7JbCDSRgoX)).
+   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=1gySWtj5_19jGrwIYd_YT11bide8DJHyN)).
 
 2. You can either perform inference from a trained model:
 
