@@ -2,23 +2,24 @@
 
 We provide several shell scripts for easy managing the experiments.
 
-| File                   | Description                                              |
-|------------------------|----------------------------------------------------------|
-| `download_data.sh`     | Download the training data                               |
-| `process_data.sh`      | Save the training data to shared memory                  |
-| `download_models.sh`   | Download the pretrained models                           |
-| `setup_exp.sh`         | Set up a new experiment with default settings            |
-| `run_train.sh`         | Train a model                                            |
-| `run_inference.sh`     | Run inference from a trained model                       |
-| `run_interpolation.sh` | Run interpolation from a trained model                   |
-| `run_exp.sh`           | Run an experiment (training + inference + interpolation) |
+| File                   | Description                                                |
+|------------------------|------------------------------------------------------------|
+| `download_data.sh`     | Download the training data                                 |
+| `process_data.sh`      | Save the training data to shared memory                    |
+| `download_models.sh`   | Download the pretrained models                             |
+| `setup_exp.sh`         | Set up a new experiment with default settings              |
+| `run_train.sh`         | Train a model                                              |
+| `run_inference.sh`     | Run inference from a trained model                         |
+| `run_interpolation.sh` | Run interpolation from a trained model                     |
+| `run_exp.sh`           | Run an experiment (training + inference + interpolation)   |
+| `rerun_exp.sh`         | Rerun an experiment (training + inference + interpolation) |
 
 > __Below we assume the working directory is the repository root.__
 
 ## Download the training data
 
 ```sh
-./scripts/process_data.sh
+./scripts/download_data.sh
 ```
 
 This command will download the training data to the default data directory
