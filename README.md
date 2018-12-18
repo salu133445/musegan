@@ -137,7 +137,7 @@ Retrieval Conference_ (ISMIR), 2018.<br>
 
 __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
 Music Generation and Accompaniment__<br>
-Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang,
 (\*equal contribution)<br>
 in _Proceedings of the 32nd AAAI Conference on Artificial Intelligence_
 (AAAI), 2018.<br>
@@ -149,9 +149,9 @@ in _Proceedings of the 32nd AAAI Conference on Artificial Intelligence_
 
 __MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating
 Multi-track Piano-rolls__<br>
-Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang
 (\*equal contribution)<br>
-in _ISMIR Late-Breaking Demos Session_, 2017.
-(non-refereed two-page extended abstract)<br>
+in _Late-Breaking Demos of the 18th International Society for Music Information
+Retrieval Conference_ (ISMIR), 2017. (two-page extended abstract)<br>
 [[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
 [[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
