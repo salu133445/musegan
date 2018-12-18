@@ -15,7 +15,7 @@ __Convolutional Generative Adversarial Networks with Binary Neurons for Polyphon
 
 __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment__<br>
 <span style="font-size:smaller;">
-  Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
+  Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
   in _Proceedings of the 32nd AAAI Conference on Artificial Intelligence_ (AAAI), 2018.<br>
   {% include icon_link.html text="website" icon="fas fa-globe-asia" href="https://salu133445.github.io/musegan/" %}&nbsp;
   {% include icon_link.html text="arxiv" icon="fas fa-archive" href="http://arxiv.org/abs/1709.06298" %}&nbsp;
@@ -26,8 +26,8 @@ __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic M
 
 __MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
 <span style="font-size:smaller;">
-  Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
-  in _ISMIR Late-Breaking Demos Session_, 2017. (non-refereed two-page extended abstract)<br>
+  Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
+  in _Late-Breaking Demos of the 18th International Society for Music Information Retrieval Conference_ (ISMIR), 2017. (two-page extended abstract)<br>
   {% include icon_link.html text="paper" icon="fas fa-file-pdf" href="https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf" %}&nbsp;
   {% include icon_link.html text="poster" icon="fas fa-file-pdf" href="https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf" %}
 </span>
