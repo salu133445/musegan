@@ -29,7 +29,7 @@ def backup_src(dst):
 def load_yaml(filename):
     """Load a yaml file and return as a Python object."""
     with open(filename) as f:
-        return yaml.load(f)
+        return yaml.safe_load(f)
 
 def update_not_none(dict1, dict2):
     """Update the values of keys in `dict1` with the values of the same key from
