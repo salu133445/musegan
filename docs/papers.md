@@ -18,7 +18,7 @@ __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic M
   Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang, and Yi-Hsuan Yang (\*equal contribution)<br>
   in _Proceedings of the 32nd AAAI Conference on Artificial Intelligence_ (AAAI), 2018.<br>
   {% include icon_link.html text="website" icon="fas fa-globe-asia" href="https://salu133445.github.io/musegan/" %}&nbsp;
-  {% include icon_link.html text="arxiv" icon="fas fa-archive" href="http://arxiv.org/abs/1709.06298" %}&nbsp;
+  {% include icon_link.html text="arxiv" icon="fas fa-archive" href="https://arxiv.org/abs/1709.06298" %}&nbsp;
   {% include icon_link.html text="paper" icon="fas fa-file-pdf" href="https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf" %}&nbsp;
   {% include icon_link.html text="slides" icon="fas fa-file-pdf" href="https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf" %}&nbsp;
   {% include icon_link.html text="code" icon="fab fa-github" href="https://github.com/salu133445/musegan" %}
