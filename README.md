@@ -90,7 +90,7 @@ We provide several shell scripts for easy managing the experiments. (See
 
    ```sh
    # Download the pretrained models
-   ./scripts/download_pretrained_models.sh
+   ./scripts/download_models.sh
    ```
 
    You can also download the pretrained models manually
