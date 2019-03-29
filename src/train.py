@@ -51,7 +51,7 @@ def setup():
 
     # Load parameters
     params = load_yaml(args.params)
-    if params['is_accompaniment'] and params['condition_track_idx'] is None:
+    if params.get('is_accompaniment') and params.get('condition_track_idx') is None:
         raise TypeError("`condition_track_idx` cannot be None type in "
                         "accompaniment mode.")
 
@@ -130,7 +130,7 @@ def load_or_create_samples(params, config):
         make_sure_path_exists(config['model_dir'])
         np.save(sample_z_path, sample_z)
 
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         # Load sample_x
         LOGGER.info("Loading sample_x.")
         sample_x_path = os.path.join(config['model_dir'], 'sample_x.npy')
@@ -174,7 +174,7 @@ def main():
     # ================================= Model ==================================
     # Build model
     model = Model(params)
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         train_c = tf.expand_dims(
             train_x[..., params['condition_track_idx']], -1)
         train_nodes = model(
@@ -215,7 +215,7 @@ def main():
         # Get prediction nodes
         placeholder_z = tf.placeholder(tf.float32, shape=sample_z.shape)
         placeholder_y = None
-        if params['is_accompaniment']:
+        if params.get('is_accompaniment'):
             c_shape = np.append(sample_x.shape[:-1], 1)
             placeholder_c = tf.placeholder(tf.float32, shape=c_shape)
             predict_nodes = model(
@@ -316,7 +316,7 @@ def main():
                     and (step % config['save_samples_steps'] == 0)):
                 LOGGER.info("Running sampler")
                 feed_dict_sampler = {placeholder_z: sample_z}
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     feed_dict_sampler[placeholder_c] = np.expand_dims(
                         sample_x[..., params['condition_track_idx']], -1)
                 if step < 3000:
@@ -332,7 +332,7 @@ def main():
                 feed_dict_evaluation = {
                     placeholder_z: scipy.stats.truncnorm.rvs(-2, 2, size=(
                         np.prod(config['sample_grid']), params['latent_dim']))}
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     feed_dict_evaluation[placeholder_c] = np.expand_dims(
                         sample_x[..., params['condition_track_idx']], -1)
                 sess.run(save_metrics_op, feed_dict=feed_dict_evaluation)

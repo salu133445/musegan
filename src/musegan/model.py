@@ -34,7 +34,7 @@ class Model:
 
             # Build the model graph
             LOGGER.info("Building model.")
-            if params['is_accompaniment']:
+            if params.get('is_accompaniment'):
                 self.gen = load_component(
                     'generator', params['nets']['generator'], 'Generator')(
                         n_tracks=params['data_shape'][-1] - 1,
@@ -93,14 +93,14 @@ class Model:
 
             # --- Generator output ---------------------------------------------
             if params['use_binary_neurons']:
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
                         nodes['z'], y, c, True, nodes['slope'])
                 else:
                     nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
                         nodes['z'], y, True, nodes['slope'])
             else:
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     nodes['fake_x'] = self.gen(nodes['z'], y, c, True)
                 else:
                     nodes['fake_x'] = self.gen(nodes['z'], y, True)
@@ -212,14 +212,14 @@ class Model:
 
             # --- Generator output ---------------------------------------------
             if params['use_binary_neurons']:
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
                         nodes['z'], y, c, False, nodes['slope'])
                 else:
                     nodes['fake_x'], nodes['fake_x_preactivated'] = self.gen(
                         nodes['z'], y, False, nodes['slope'])
             else:
-                if params['is_accompaniment']:
+                if params.get('is_accompaniment'):
                     nodes['fake_x'] = self.gen(nodes['z'], y, c, False)
                 else:
                     nodes['fake_x'] = self.gen(nodes['z'], y, False)

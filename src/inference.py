@@ -98,7 +98,7 @@ def main():
 
     # Build model
     model = Model(params)
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         _ = model(
             x=placeholder_x, c=placeholder_c, z=placeholder_z, mode='train',
             params=params, config=config)
@@ -120,7 +120,7 @@ def main():
         if key in predict_nodes])
 
     # ================================== Data ==================================
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         data = load_data(config['data_source'], config['data_filename'])
 
     # ========================== Session Preparation ===========================
@@ -151,7 +151,7 @@ def main():
                         (config['rows'] * config['columns']),
                         params['latent_dim'])),
                 placeholder_suffix: str(i)}
-            if params['is_accompaniment']:
+            if params.get('is_accompaniment'):
                 sample_x = get_samples(
                     (config['rows'] * config['columns']), data,
                     use_random_transpose=config['use_random_transpose'])
