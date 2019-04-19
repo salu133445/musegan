@@ -140,7 +140,7 @@ def main():
 
     # Build model
     model = Model(params)
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         _ = model(
             x=placeholder_x, c=placeholder_c, z=placeholder_z, mode='train',
             params=params, config=config)
@@ -162,7 +162,7 @@ def main():
         if key in predict_nodes])
 
     # ================================== Data ==================================
-    if params['is_accompaniment']:
+    if params.get('is_accompaniment'):
         data = load_data(config['data_source'], config['data_filename'])
 
     # ========================== Session Preparation ===========================
@@ -190,7 +190,7 @@ def main():
             feed_dict_sampler = {
                 placeholder_z: get_input_z(config, params),
                 placeholder_suffix: str(i)}
-            if params['is_accompaniment']:
+            if params.get('is_accompaniment'):
                 sample_x = get_samples(
                     1, data,
                     use_random_transpose=config['use_random_transpose'])
