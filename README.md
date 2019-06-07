@@ -110,6 +110,23 @@ We provide several shell scripts for easy managing the experiments. (See
    ./scripts/run_interpolation.sh "./exp/default/" "0"
    ```
 
+## Outputs
+
+By default, samples will be generated alongside the training. You can disable
+this behavior by setting `save_samples_steps` to zero in the configuration file
+(`config.yaml`). The generated will be stored in the following three formats by
+default.
+
+- `.npy`: raw numpy arrays
+- `.png`: image files
+- `.npz`: multitrack pianoroll files that can be loaded by the
+  _[Pypianoroll](https://salu133445.github.io/pypianoroll/index.html)_
+  package
+
+You can disable saving in a specific format by setting `save_array_samples`,
+`save_image_samples` and `save_pianoroll_samples` to `False`  in the
+configuration file.
+
 ## Sample Results
 
 Some sample results can be found in `./exp/` directory. More samples can be
