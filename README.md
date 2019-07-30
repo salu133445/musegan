@@ -127,6 +127,16 @@ You can disable saving in a specific format by setting `save_array_samples`,
 `save_image_samples` and `save_pianoroll_samples` to `False`  in the
 configuration file.
 
+The generated pianorolls are stored in .npz format to save space and processing
+time. You can use the following code to write them into MIDI files.
+
+```python
+from pypianoroll import Multitrack
+
+m = Multitrack('./test.npz')
+m.write('./test.mid')
+```
+
 ## Sample Results
 
 Some sample results can be found in `./exp/` directory. More samples can be
