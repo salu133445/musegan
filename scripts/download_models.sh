@@ -15,7 +15,7 @@ if [ ! -d "$DIR/../exp" ]; then
   mkdir "$DIR/../exp"
 fi
 download "$DIR/../exp/pretrained_models.tar.gz" \
-  "1mZCq8o87Zjf2sL1KMcQ1dO7JbCDSRgoX"
+  "1gySWtj5_19jGrwIYd_YT11bide8DJHyN"
 echo "Decompressing archive."
 if tar zxf "$DIR/../exp/pretrained_models.tar.gz" -C "$DIR/../exp"; then
     rm "$DIR/../exp/pretrained_models.tar.gz"
