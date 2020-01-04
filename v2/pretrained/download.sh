@@ -12,13 +12,13 @@ case $1 in
   "musegan"|"MuseGAN")
     case $filename in
       "lastfm_alternative_g_composer_d_proposed.tar.gz")
-        fileid=1QzTL4So-oRWrif4gVKqQM5yQ48y2X5gM
+        fileid=1-KgUFsVvRXSWtpiB5zrRjTvFnss-6E5T
         ;;
       "lastfm_alternative_g_jamming_d_proposed.tar.gz")
-        fileid=1-Q_krj4VKOWbpFU1jTdfihKYxV6hKmlm
+        fileid=1D0vwE-DaPafRd5HM849Qbs3VmqSZI5I3
         ;;
       "lastfm_alternative_g_hybrid_d_proposed.tar.gz")
-        fileid=1b1bwTzW09QPFbRn2Hy9X8yU1fbTc3S1k
+        fileid=1mFG3LwazgQ3YgoXoEm_blta8p5Gf2LaR
         ;;
       *)
         echo "File not found"
@@ -29,13 +29,13 @@ case $1 in
   "bmusegan"|"binarymusegan"|"BinaryMuseGAN")
     case $filename in
       "lastfm_alternative_first_stage_d_proposed.tar.gz")
-        fileid=12tEzs-Qa-qi59hLJB8TlD-vcZgVEQZu6
+        fileid=16LKWjiEjDjgiTjMLFcgnzZdCT-v8fp3T
         ;;
       "lastfm_alternative_first_stage_d_ablated.tar.gz")
-        fileid=1GolkoE2ktmHF2Pt7POd8TBBYZARu6ih8
+        fileid=1YyKAiPV0AuGuQB1K05dQAkPnsRMAqjtJ
         ;;
       "lastfm_alternative_first_stage_d_baseline.tar.gz")
-        fileid=1qWWWU6UTMJvzdK6y4bvh3PRXF5Xbk09v
+        fileid=1ZVASqhTApVWSvtM0N-952BAEbfUqRTfK
         ;;
       *)
         echo "File not found"
@@ -44,7 +44,7 @@ case $1 in
     esac
     ;;
   *)
-    echo "Unrecognizeable model name"
+    echo "Unrecognizable model name"
     exit 1
     ;;
 esac

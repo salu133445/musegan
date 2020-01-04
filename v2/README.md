@@ -33,8 +33,8 @@ time.
 We trained the network with
 [Lakh Pianoroll Dataset](https://salu133445.github.io/lakh-pianoroll-dataset/)
 (LPD). We use the model to generate four-bar musical phrases consisting of eight
-tracks: *Drums*, *Piano*, *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and
-*Synth Pad*. Audio samples are available
+tracks: _Drums_, _Piano_, _Guitar_, _Bass_, _Ensemble_, _Reed_, _Synth Lead_ and
+_Synth Pad_. Audio samples are available
 [here](https://salu133445.github.io/bmusegan/samples).
 
 ## Run the code
@@ -46,14 +46,14 @@ tracks: *Drums*, *Piano*, *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and
   The array will be reshaped to (-1, `num_bar`, `num_timestep`, `num_pitch`,
   `num_track`). These variables are defined in `config.py`.
 
-  - [`lastfm_alternative_5b_phrase.npy`](https://drive.google.com/uc?export=download&id=1F7J5n9uOPqViBYpoPT5GvE4PjCWhOyWc) (2.1 GB)
-    contains 12,444 four-bar phrases from 2,074 songs with *alternative* tags.
-    The shape is (2074, 6, 4, 96, 84, 5). The five tracks are *Drums*, *Piano*,
-    *Guitar*, *Bass* and *Strings*.
-  - [`lastfm_alternative_8b_phrase.npy`](https://drive.google.com/uc?export=download&id=1x3CeSqE6ElWa6V7ueNl8FKPFmMoyu4ED) (3.6 GB)
-    contains 13,746 four-bar phrases from 2,291 songs with *alternative* tags.
-    The shape is (2291, 6, 4, 96, 84, 8). The eight tracks are *Drums*, *Piano*,
-    *Guitar*, *Bass*, *Ensemble*, *Reed*, *Synth Lead* and *Synth Pad*.
+  - [`lastfm_alternative_5b_phrase.npy`](https://drive.google.com/uc?export=download&id=1QKKWJ9t7K8nwYRD_AbNQDUie4xSiv1ph) (2.1 GB)
+    contains 12,444 four-bar phrases from 2,074 songs with _alternative_ tags.
+    The shape is (2074, 6, 4, 96, 84, 5). The five tracks are _Drums_, _Piano_,
+    _Guitar_, _Bass_ and _Strings_.
+  - [`lastfm_alternative_8b_phrase.npy`](https://drive.google.com/uc?export=download&id=1f9NKbhIxIbedHR370sc_hF9730985Xre) (3.6 GB)
+    contains 13,746 four-bar phrases from 2,291 songs with _alternative_ tags.
+    The shape is (2291, 6, 4, 96, 84, 8). The eight tracks are _Drums_, _Piano_,
+    _Guitar_, _Bass_, _Ensemble_, _Reed_, _Synth Lead_ and _Synth Pad_.
   - Download the data with this [script](training_data/download.sh).
 
 - (optional) Save the training data to shared memory with this [script](training_data/store_to_sa.py).
@@ -90,7 +90,7 @@ python main.py
 - Hao-Wen Dong and Yi-Hsuan Yang,
   "Convolutional Generative Adversarial Networks with Binary Neurons for
   Polyphonic Music Generation,"
-  to appear at *International Society for Music Information Retrieval Conference*
+  to appear at _International Society for Music Information Retrieval Conference_
   (ISMIR), 2018.
   [[website](https://salu133445.github.io/bmusegan/)]
   [[arxiv](https://arxiv.org/abs/1804.09399)]
@@ -99,7 +99,7 @@ python main.py
 - Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
   "MuseGAN: Multi-track Sequential Generative Adversarial Networks for
   Symbolic Music Generation and Accompaniment,"
-  in *AAAI Conference on Artificial Intelligence* (AAAI), 2018.
+  in _AAAI Conference on Artificial Intelligence_ (AAAI), 2018.
   [[website](https://salu133445.github.io/musegan/)]
   [[arxiv](http://arxiv.org/abs/1709.06298)]
   [[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
@@ -107,9 +107,9 @@ python main.py
 - Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
   "MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating
   Multi-track Piano-rolls,"
-  in *ISMIR Late-Breaking and Demo Session*, 2017.
+  in _ISMIR Late-Breaking and Demo Session_, 2017.
   (non-peer reviewed two-page extended abstract)
   [[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
   [[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
 
-\* *These authors contributed equally to this work.*
+\* _These authors contributed equally to this work._

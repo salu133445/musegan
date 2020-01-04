@@ -51,7 +51,7 @@ Sample results are available
 ```
 
 You can also download the training data manually
-([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=12Z440hxJSGCIhCSYaX5tbvsQA61WD_RH)).
+([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S)).
 
 ## Scripts
 
@@ -94,7 +94,7 @@ We provide several shell scripts for easy managing the experiments. (See
    ```
 
    You can also download the pretrained models manually
-   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=1gySWtj5_19jGrwIYd_YT11bide8DJHyN)).
+   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=19RYAbj_utCDMpU7PurkjsH4e_Vy8H-Uy)).
 
 2. You can either perform inference from a trained model:
 
@@ -142,9 +142,9 @@ m.write('./test.mid')
 Some sample results can be found in `./exp/` directory. More samples can be
 downloaded from the following links.
 
-- [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1OUWv581V9hWPiPGb_amXBdJX-_qoNDi9) (54.7 MB):
+- [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1BsNtc8_mpLK5l2F5jncIkHbTcJqtZu2w) (54.7 MB):
   sample inference and interpolation results
-- [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1sr68zXGUrX-eC9FGga_Kl58YxZ5R2bc4) (18.7 MB):
+- [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
   sample generated results at different steps
 
 ## Papers

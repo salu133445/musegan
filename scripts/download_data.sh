@@ -15,4 +15,4 @@ if [ ! -d "$DIR/../data" ]; then
   mkdir "$DIR/../data"
 fi
 download "$DIR/../data/train_x_lpd_5_phr.npz" \
-  "12Z440hxJSGCIhCSYaX5tbvsQA61WD_RH"
+  "14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S"
