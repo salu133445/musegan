@@ -4,9 +4,13 @@ verify_ssl = true
 url = "https://pypi.org/simple"
 
 [requires]
-python_version = "3.5"
 
 [dev-packages]
+pylint = "*"
+flake8 = "*"
+black = "*"
+flake8-docstrings = "*"
+flake8-bugbear = "*"
 
 [packages]
 absl-py = "==0.4.1"
