@@ -53,6 +53,16 @@ Sample results are available
 You can also download the training data manually
 ([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S)).
 
+> As pianoroll matrices are generally sparse, we store only the indices of
+nonzero elements and the array shape into a npz file to save space, and later
+restore the original array. To save some training data `data` into this format,
+simply run
+`np.savez_compressed("data.npz", shape=data.shape, nonzero=data.nonzero())`
+
+For strategies on preparing new training data from a collection of MIDI files,
+please see
+[here](https://github.com/wayne391/symbolic-musical-datasets/tree/master/5-track-pianoroll).
+
 ## Scripts
 
 We provide several shell scripts for easy managing the experiments. (See
