@@ -13,6 +13,8 @@ strings tracks.
 Sample results are available
 [here](https://salu133445.github.io/musegan/results).
 
+> Looking for a PyTorch version? Check out [this repository](https://github.com/salu133445/ismir2019tutorial).
+
 ## Prerequisites
 
 > __Below we assume the working directory is the repository root.__
