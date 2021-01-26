@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script download the training data.
+# This script downloads the training data.
 # Usage: download_data.sh
 #
 # Make sure `gdown` is installed, otherwise install it by `pip install gdown`.

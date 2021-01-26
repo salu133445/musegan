@@ -1,7 +1,7 @@
 #!/bin/bash
-# This script run an experiment (training, inference and interpolation). It
+# This script runs an experiment (training, inference and interpolation). It
 # first looks for the configuration and model parameter files in the experiment
-# directory and then run the experiment on the specified GPU.
+# directory and then runs the experiment on the specified GPU.
 # Usage: ./run_exp.sh [EXP_DIR] [GPU_NUM]
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 if [ ! -f "$1/params.yaml" ]; then

@@ -1,7 +1,7 @@
 #!/bin/bash
-# This script rerun an experiment (training, inference and interpolation). It
+# This script rerusn an experiment (training, inference and interpolation). It
 # will remove everything in the experiment directory except the configuration
-# and model parameter files and then rerun the experiment on the specified GPU.
+# and model parameter files and then reruns the experiment on the specified GPU.
 # Usage: ./rerun_exp.sh [EXP_DIR] [GPU_NUM]
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" > /dev/null && pwd )"
 if [ ! -f "$1/params.yaml" ]; then
