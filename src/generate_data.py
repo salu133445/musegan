@@ -1,6 +1,6 @@
 import numpy as np
 import os
-from pypianoroll import Multitrack, read, Track
+from pypianoroll import Multitrack, Track
 import json
 import pickle
 import argparse
@@ -55,8 +55,8 @@ def check_which_family(track):
     return instr_act
 
 def segment_quality(pianoroll, thres_pitch, thres_beats):
-    pitch_sum = sum(np.sum(pianoroll, axis=0) > 0)
-    beat_sum = sum(np.sum(pianoroll, axis=1) > 0)
+    pitch_sum = sum(np.sum(pianoroll.pianoroll, axis=0) > 0)
+    beat_sum = sum(np.sum(pianoroll.pianoroll, axis=1) > 0)
     score = pitch_sum + beat_sum
     return (pitch_sum >= thres_pitch) and (beat_sum >= thres_beats), (pitch_sum, beat_sum)
 
@@ -87,7 +87,7 @@ if __name__ == "__main__":
         raise argparse.ArgumentTypeError("outfile is not valid")
     for file in (Path(dir).rglob("*.mid") if recursive else glob(f"{dir}/*.mid")):
         print(f"Processing {file}")
-        multitrack = read(file)
+        multitrack = Multitrack(file)
         downbeat = multitrack.downbeat
 
         num_bar = len(downbeat) // resol
@@ -126,7 +126,7 @@ if __name__ == "__main__":
 
             hop_iter = np.random.randint(0, 1) + hop_size
             song_ok_segments.append(Multitrack(
-                tracks=best_instr, resolution=12))
+                tracks=best_instr, beat_resolution=12))
 
         cnt_ok_segment = len(song_ok_segments)
         if cnt_ok_segment > 6:
