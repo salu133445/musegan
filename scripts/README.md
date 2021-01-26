@@ -5,6 +5,7 @@ We provide several shell scripts for easy managing the experiments.
 | File                   | Description                                                |
 |------------------------|------------------------------------------------------------|
 | `download_data.sh`     | Download the training data                                 |
+| `generate_data.sh`     | Generate data from a sest of midi files                    |
 | `process_data.sh`      | Save the training data to shared memory                    |
 | `download_models.sh`   | Download the pretrained models                             |
 | `setup_exp.sh`         | Set up a new experiment with default settings              |
@@ -24,6 +25,16 @@ We provide several shell scripts for easy managing the experiments.
 
 This command will download the training data to the default data directory
 (`./data/`).
+
+## Generate a dataset from a set of midi files
+
+```sh
+./scripts/generate_data.sh "./music_dir/"
+```
+
+This command will generate training data from a given directory (`"./music_dir/"`) 
+by looking for all the files in that directory that end wih `.mid` and converting
+them to a five track pianoroll dataset.
 
 ## Save the training data to shared memory
 
