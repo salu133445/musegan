@@ -5,7 +5,7 @@ We provide several shell scripts for easy managing the experiments.
 | File                   | Description                                                |
 |------------------------|------------------------------------------------------------|
 | `download_data.sh`     | Download the training data                                 |
-| `generate_data.sh`     | Generate data from a sest of midi files                    |
+| `generate_data.sh`     | Generate data from a set of midi files                     |
 | `process_data.sh`      | Save the training data to shared memory                    |
 | `download_models.sh`   | Download the pretrained models                             |
 | `setup_exp.sh`         | Set up a new experiment with default settings              |
