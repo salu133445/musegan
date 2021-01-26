@@ -81,7 +81,7 @@ trained model on the specified GPU (`"0"`).
 ```
 
 This command will look for the configuration and model parameter files in the
-given experiment directory (`"./exp/my_experiment/"`) and run inference from the
+given experiment directory (`"./exp/my_experiment/"`) and run interpolation from the
 trained model on the specified GPU (`"0"`).
 
 ## Run an experiment (train + inference + interpolation)
