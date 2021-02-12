@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script download the pretrained models.
+# This script downloads the pretrained models.
 # Usage: download_models.sh
 #
 # Make sure `gdown` is installed, otherwise install it by `pip install gdown`.
