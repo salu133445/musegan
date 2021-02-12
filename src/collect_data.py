@@ -1,12 +1,11 @@
 """Collect training data from MIDI files."""
 import argparse
-import os
 from pathlib import Path
 
 import numpy as np
 from pypianoroll import Multitrack, Track
 
-family_name = [
+FAMILY_NAMES = [
     "drum",
     "bass",
     "guitar",
@@ -14,7 +13,7 @@ family_name = [
     "piano",
 ]
 
-family_thres = [
+FAMILY_THRESHOLDS = [
     (2, 24),  # drum
     (1, 96),  # bass
     (2, 156),  # guitar
@@ -23,22 +22,31 @@ family_thres = [
 ]
 
 
-def parse():
+def parse_arguments():
+    """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        description="Convert midi files into training set"
+        description="Collect training data from MIDI files"
     )
-    parser.add_argument("dir", help="directory containing .mid files")
+    parser.add_argument(
+        "-i",
+        "--input_dir",
+        type=Path,
+        required=True,
+        help="directory containing MIDI files",
+    )
+    parser.add_argument(
+        "-o",
+        "--output_filename",
+        type=Path,
+        required=True,
+        help="output filename",
+    )
     parser.add_argument(
         "-r",
         "--recursive",
-        dest="recursive",
         action="store_true",
-        help="search directory recursively",
+        help="whether to search directory recursively",
     )
-    parser.add_argument(
-        "--outfile", dest="out", default="data/train.npy", help="output file"
-    )
-
     return parser.parse_args()
 
 
@@ -74,52 +82,36 @@ def check_which_family(track):
     return instr_act
 
 
-def segment_quality(pianoroll, thres_pitch, thres_beats):
-    pitch_sum = sum(np.sum(pianoroll.pianoroll, axis=0) > 0)
-    beat_sum = sum(np.sum(pianoroll.pianoroll, axis=1) > 0)
+def segment_quality(pianoroll, threshold_pitch, threshold_beats):
+    pitch_sum = np.sum(np.sum(pianoroll.pianoroll, axis=0) > 0)
+    beat_sum = np.sum(np.sum(pianoroll.pianoroll, axis=1) > 0)
     return (
-        (pitch_sum >= thres_pitch) and (beat_sum >= thres_beats),
+        (pitch_sum >= threshold_pitch) and (beat_sum >= threshold_beats),
         (pitch_sum, beat_sum),
     )
 
 
 def main():
     """Main function."""
-
-
-if __name__ == "__main__":
     num_consecutive_bar = 4
-    resol = 12
+    resolution = 12
     down_sample = 2
-    cnt_total_segments = 0
-    cnt_augmented = 0
+    count_total_segments = 0
     ok_segment_list = []
     hop_size = num_consecutive_bar / 4
-    args = parse()
-    recursive = args.recursive
-    dir = args.dir
+    args = parse_arguments()
 
-    if not os.path.isdir(dir):
-        raise argparse.ArgumentTypeError("dir must be a directory")
-    outfile = args.out
-    if not outfile.endswith(".npy") and not outfile.endswith(".npz"):
-        outfile += ".npy"
-    try:
-        outdir = os.path.split(outfile)[0]
-        if outdir != "" and not os.path.exists(outdir):
-            os.makedirs(outdir)
-        open(outfile, "w").close()
-    except Exception as e:
-        raise argparse.ArgumentTypeError("outfile is not valid")
+    if args.recursive:
+        filenames = args.input_dir.rglob("*.mid")
+    else:
+        filenames = args.input_dir.glob("*.mid")
 
-    for file in (
-        Path(dir).rglob("*.mid") if recursive else Path(dir).glob("*.mid")
-    ):
-        print(f"Processing {file}")
-        multitrack = Multitrack(file)
+    for filename in filenames:
+        print(f"Processing {filename}")
+        multitrack = Multitrack(filename)
         downbeat = multitrack.downbeat
 
-        num_bar = len(downbeat) // resol
+        num_bar = len(downbeat) // resolution
         hop_iter = 0
 
         song_ok_segments = []
@@ -128,16 +120,16 @@ if __name__ == "__main__":
                 hop_iter -= 1
                 continue
 
-            st = bidx * resol
-            ed = st + num_consecutive_bar * resol
+            st = bidx * resolution
+            ed = st + num_consecutive_bar * resolution
 
             best_instr = [
-                Track(pianoroll=np.zeros((num_consecutive_bar * resol, 128)))
+                Track(
+                    pianoroll=np.zeros((num_consecutive_bar * resolution, 128))
+                )
             ] * 5
             best_score = [-1] * 5
-            second_act = [False] * 5
-            second_instr = [None] * 5
-            for tidx, track in enumerate(multitrack.tracks):
+            for track in multitrack.tracks:
                 tmp_map = check_which_family(track)
                 in_family = np.where(tmp_map)[0]
 
@@ -148,12 +140,12 @@ if __name__ == "__main__":
                 tmp_pianoroll = track[st:ed:down_sample]
                 is_ok, score = segment_quality(
                     tmp_pianoroll,
-                    family_thres[family][0],
-                    family_thres[family][1],
+                    FAMILY_THRESHOLDS[family][0],
+                    FAMILY_THRESHOLDS[family][1],
                 )
 
                 if is_ok and sum(score) > best_score[family]:
-                    track.name = family_name[family]
+                    track.name = FAMILY_NAMES[family]
                     best_instr[family] = track[st:ed:down_sample]
                     best_score[family] = sum(score)
 
@@ -162,26 +154,28 @@ if __name__ == "__main__":
                 Multitrack(tracks=best_instr, beat_resolution=12)
             )
 
-        cnt_ok_segment = len(song_ok_segments)
-        if cnt_ok_segment > 6:
-            seed = (6, cnt_ok_segment // 2)
-            if cnt_ok_segment > 11:
-                seed = (11, cnt_ok_segment // 3)
-            if cnt_ok_segment > 15:
-                seed = (15, cnt_ok_segment // 4)
+        count_ok_segment = len(song_ok_segments)
+        if count_ok_segment > 6:
+            seed = (6, count_ok_segment // 2)
+            if count_ok_segment > 11:
+                seed = (11, count_ok_segment // 3)
+            if count_ok_segment > 15:
+                seed = (15, count_ok_segment // 4)
 
-            rand_idx = np.random.permutation(cnt_ok_segment)[: max(seed)]
+            rand_idx = np.random.permutation(count_ok_segment)[: max(seed)]
             song_ok_segments = [song_ok_segments[ridx] for ridx in rand_idx]
             ok_segment_list.extend(song_ok_segments)
-            cnt_ok_segment = len(rand_idx)
+            count_ok_segment = len(rand_idx)
         else:
             ok_segment_list.extend(song_ok_segments)
 
-        cnt_total_segments += len(song_ok_segments)
-        print(f"current: {cnt_ok_segment} | cumulative: {cnt_total_segments}")
+        count_total_segments += len(song_ok_segments)
+        print(
+            f"current: {count_ok_segment} | cumulative: {count_total_segments}"
+        )
 
     print("-" * 30)
-    print(cnt_total_segments)
+    print(count_total_segments)
     num_item = len(ok_segment_list)
     compiled_list = []
     for lidx in range(num_item):
@@ -193,17 +187,23 @@ if __name__ == "__main__":
 
         pianoroll_compiled = np.reshape(
             np.concatenate(pianorolls, axis=2)[:, 24:108, :],
-            (num_consecutive_bar, resol, 84, 5),
+            (num_consecutive_bar, resolution, 84, 5),
         )
         pianoroll_compiled = pianoroll_compiled[np.newaxis, :] > 0
         compiled_list.append(pianoroll_compiled.astype(bool))
 
     result = np.concatenate(compiled_list, axis=0)
     print(f"output shape: {result.shape}")
-    if outfile.endswith(".npz"):
+    if args.outfile.endswith(".npz"):
         np.savez_compressed(
-            outfile, nonzero=np.array(result.nonzero()), shape=result.shape
+            args.outfile,
+            nonzero=np.array(result.nonzero()),
+            shape=result.shape,
         )
     else:
-        np.save(outfile, result)
-    print(f"saved to {outfile}")
+        np.save(args.outfile, result)
+    print(f"Successfully saved training data to : {args.outfile}")
+
+
+if __name__ == "__main__":
+    main()

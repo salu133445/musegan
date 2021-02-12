@@ -85,6 +85,7 @@ We provide several shell scripts for easy managing the experiments. (See
      # Train the model
      ./scripts/run_train.sh "./exp/my_experiment/" "0"
      ```
+
    or run the experiment (training + inference + interpolation):
 
      ```sh
@@ -92,13 +93,13 @@ We provide several shell scripts for easy managing the experiments. (See
      ./scripts/run_exp.sh "./exp/my_experiment/" "0"
      ```
 
-### Generate a dataset
+### Collect training data
 
-Run the following command to generate a dataset from midi files.
+Run the following command to collect training data from MIDI files.
 
   ```sh
-  # Generate dataset
-  ./scripts/generate_data.sh "./music_dir/"
+  # Collect training data
+  ./scripts/collect_data.sh "./midi_dir/" "data/train.npy"
   ```
 
 ### Use pretrained models
