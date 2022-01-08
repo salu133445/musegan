@@ -165,38 +165,45 @@ downloaded from the following links.
 - [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
   sample generated results at different steps
 
-## Papers
+Citing
+------
 
-__Convolutional Generative Adversarial Networks with Binary Neurons for
-Polyphonic Music Generation__<br>
-Hao-Wen Dong and Yi-Hsuan Yang<br>
-in _Proceedings of the 19th International Society for Music Information
-Retrieval Conference_ (ISMIR), 2018.<br>
-[[website](https://salu133445.github.io/bmusegan)]
-[[arxiv](https://arxiv.org/abs/1804.09399)]
-[[paper](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf)]
-[[slides(long)](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf)]
-[[slides(short)](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf)]
-[[poster](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf)]
-[[code](https://github.com/salu133445/bmusegan)]
+Please cite the following paper if you use the code provided in this repository.
 
-__MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
-Music Generation and Accompaniment__<br>
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang,
-(\*equal contribution)<br>
-in _Proceedings of the 32nd AAAI Conference on Artificial Intelligence_
-(AAAI), 2018.<br>
-[[website](https://salu133445.github.io/musegan)]
-[[arxiv](http://arxiv.org/abs/1709.06298)]
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang, "MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
+Music Generation and Accompaniment," _Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018. (\*equal contribution)
+<br>
+[[homepage](https://salu133445.github.io/musegan)]
+[[arXiv](http://arxiv.org/abs/1709.06298)]
 [[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
 [[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
 [[code](https://github.com/salu133445/musegan)]
 
-__MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating
-Multi-track Piano-rolls__<br>
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang
-(\*equal contribution)<br>
-in _Late-Breaking Demos of the 18th International Society for Music Information
-Retrieval Conference_ (ISMIR), 2017. (two-page extended abstract)<br>
+## Papers
+
+__MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment__<br>
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018.<br>
+[[homepage](https://salu133445.github.io/musegan)]
+[[arXiv](http://arxiv.org/abs/1709.06298)]
+[[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
+[[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
+[[code](https://github.com/salu133445/musegan)]
+
+__Convolutional Generative Adversarial Networks with Binary Neurons for Polyphonic Music Generation__<br>
+Hao-Wen Dong and Yi-Hsuan Yang<br>
+_Proceedings of the 19th International Society for Music Information Retrieval Conference (ISMIR)_, 2018.<br>
+[[homepage](https://salu133445.github.io/bmusegan)]
+[[video](https://youtu.be/r9C2Q2oR9Ik)]
+[[paper](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf)]
+[[slides](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-slides.pdf)]
+[[slides (long)](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmac2018-slides.pdf)]
+[[poster](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-poster.pdf)]
+[[arXiv](https://arxiv.org/abs/1804.09399)]
+[[code](https://github.com/salu133445/bmusegan)]
+
+__MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
+Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_Late-Breaking Demos of the 18th International Society for Music Information Retrieval Conference (ISMIR)_, 2017.<br>
 [[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
 [[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
