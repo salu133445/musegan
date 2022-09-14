@@ -13,7 +13,11 @@ strings tracks.
 Sample results are available
 [here](https://salu133445.github.io/musegan/results).
 
-> Looking for a PyTorch version? Check out [this repository](https://github.com/salu133445/ismir2019tutorial).
+## Important Notes
+
+- The latest implementation is based on the network architectures presented in BinaryMuseGAN, where the temporal structure is handled by 3D convolutional layers. The advantage of this design is its smaller network size, while the disadvantage is its reduced controllability, e.g., capability of feeding different latent variables for different measures or tracks.
+- The original code we used for running the experiments in the paper can be found in the `v1` folder.
+- Looking for a PyTorch version? Check out [this repository](https://github.com/salu133445/ismir2019tutorial).
 
 ## Prerequisites
 
