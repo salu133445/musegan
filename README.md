@@ -1,8 +1,8 @@
 # MuseGAN
 
 [MuseGAN](https://salu133445.github.io/musegan/) is a project on music
-generation. In a nutshell, we aim to generate polyphonic music of multiple
-tracks (instruments). The proposed models are able to generate music either from
+generation with aim to generate polyphonic music of multiple
+tracks (instruments). The proposed models generate music either from
 scratch, or by accompanying a track given a priori by the user.
 
 We train the model with training data collected from
