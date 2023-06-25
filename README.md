@@ -31,7 +31,7 @@ Sample results are available
 
   ```sh
   # Install the dependencies
-  pipenv install
+  pip install --user pipenv
   # Activate the virtual environment
   pipenv shell
   ```
