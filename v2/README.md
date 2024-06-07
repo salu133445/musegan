@@ -46,11 +46,11 @@ _Synth Pad_. Audio samples are available
   The array will be reshaped to (-1, `num_bar`, `num_timestep`, `num_pitch`,
   `num_track`). These variables are defined in `config.py`.
 
-  - [`lastfm_alternative_5b_phrase.npy`](https://drive.google.com/uc?export=download&id=1QKKWJ9t7K8nwYRD_AbNQDUie4xSiv1ph) (2.1 GB)
+  - [`lastfm_alternative_5b_phrase.npy`](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/Ec_eveGhL41KsuVq57_2Ny4BI1qJdXyqpzANYXJf0AFMkw?e=e1w3I9) (2.1 GB)
     contains 12,444 four-bar phrases from 2,074 songs with _alternative_ tags.
     The shape is (2074, 6, 4, 96, 84, 5). The five tracks are _Drums_, _Piano_,
     _Guitar_, _Bass_ and _Strings_.
-  - [`lastfm_alternative_8b_phrase.npy`](https://drive.google.com/uc?export=download&id=1f9NKbhIxIbedHR370sc_hF9730985Xre) (3.6 GB)
+  - [`lastfm_alternative_8b_phrase.npy`](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/EaU8PfWeoxREuSoNaeLrDwIBKEYLtp_ozUOFW9CIcpOV3A?e=zH3KT1) (3.6 GB)
     contains 13,746 four-bar phrases from 2,291 songs with _alternative_ tags.
     The shape is (2291, 6, 4, 96, 84, 8). The eight tracks are _Drums_, _Piano_,
     _Guitar_, _Bass_, _Ensemble_, _Reed_, _Synth Lead_ and _Synth Pad_.
@@ -90,8 +90,7 @@ python main.py
 - Hao-Wen Dong and Yi-Hsuan Yang,
   "Convolutional Generative Adversarial Networks with Binary Neurons for
   Polyphonic Music Generation,"
-  to appear at _International Society for Music Information Retrieval Conference_
-  (ISMIR), 2018.
+  _International Society for Music Information Retrieval Conference (ISMIR)_, 2018.
   [[website](https://salu133445.github.io/bmusegan/)]
   [[arxiv](https://arxiv.org/abs/1804.09399)]
   [[slides](https://salu133445.github.io/bmusegan/pdf/bmusegan-tmacw2018-slides.pdf)]
@@ -99,7 +98,7 @@ python main.py
 - Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
   "MuseGAN: Multi-track Sequential Generative Adversarial Networks for
   Symbolic Music Generation and Accompaniment,"
-  in _AAAI Conference on Artificial Intelligence_ (AAAI), 2018.
+  _AAAI Conference on Artificial Intelligence (AAAI)_, 2018.
   [[website](https://salu133445.github.io/musegan/)]
   [[arxiv](http://arxiv.org/abs/1709.06298)]
   [[slides](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-slides.pdf)]
@@ -107,8 +106,7 @@ python main.py
 - Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang,
   "MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating
   Multi-track Piano-rolls,"
-  in _ISMIR Late-Breaking and Demo Session_, 2017.
-  (non-peer reviewed two-page extended abstract)
+  _ISMIR Late-Breaking and Demos_, 2017.
   [[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
   [[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
 
