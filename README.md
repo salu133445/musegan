@@ -57,7 +57,7 @@ Sample results are available
 ```
 
 You can also download the training data manually
-([train_x_lpd_5_phr.npz](https://docs.google.com/uc?export=download&id=14rrC5bSQkB9VYWrvt2IhsCjOKYrguk3S)).
+([train_x_lpd_5_phr.npz](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/EZLHzG70AUlLrq3dOPLno3YBORq8ISaJf4UOCbdnKS_CgA?e=fxDPVK)).
 
 > As pianoroll matrices are generally sparse, we store only the indices of
 nonzero elements and the array shape into a npz file to save space, and later
@@ -116,7 +116,7 @@ Run the following command to collect training data from MIDI files.
    ```
 
    You can also download the pretrained models manually
-   ([pretrained_models.tar.gz](https://docs.google.com/uc?export=download&id=19RYAbj_utCDMpU7PurkjsH4e_Vy8H-Uy)).
+   ([pretrained_models.tar.gz](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/Ea2kDl2YokNIiZ_OXxzgclYBX0Tk-awE2kDlm2HO9ofqPg)).
 
 2. You can either perform inference from a trained model:
 
@@ -164,9 +164,9 @@ m.write('./test.mid')
 Some sample results can be found in `./exp/` directory. More samples can be
 downloaded from the following links.
 
-- [`sample_results.tar.gz`](https://docs.google.com/uc?export=download&id=1BsNtc8_mpLK5l2F5jncIkHbTcJqtZu2w) (54.7 MB):
+- [`sample_results.tar.gz`](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/EedDKNyGHshHkIwBk_QghdYBrrzg-KOQFnj6zGLW3o-sOQ?e=ixlAwG) (54.7 MB):
   sample inference and interpolation results
-- [`training_samples.tar.gz`](https://docs.google.com/uc?export=download&id=1pZk0YCElcHHSBfhbV8j_zaRr1zhEQUzN) (18.7 MB):
+- [`training_samples.tar.gz`](https://ucsdcloud-my.sharepoint.com/:u:/g/personal/h3dong_ucsd_edu/ES96MN0l3xZLvJ3FW7TbV7IBFsFQY-IZhgf9IbRNyR9RIA?e=GpQv4o) (18.7 MB):
   sample generated results at different steps
 
 Citing
@@ -174,8 +174,8 @@ Citing
 
 Please cite the following paper if you use the code provided in this repository.
 
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang, "MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
-Music Generation and Accompaniment," _Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018. (\*equal contribution)
+Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang, "MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic
+Music Generation and Accompaniment," _AAAI Conference on Artificial Intelligence (AAAI)_, 2018. (\*equal contribution)
 <br>
 [[homepage](https://salu133445.github.io/musegan)]
 [[arXiv](http://arxiv.org/abs/1709.06298)]
@@ -186,8 +186,8 @@ Music Generation and Accompaniment," _Proceedings of the 32nd AAAI Conference on
 ## Papers
 
 __MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment__<br>
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
-_Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 2018.<br>
+Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_AAAI Conference on Artificial Intelligence (AAAI)_, 2018.<br>
 [[homepage](https://salu133445.github.io/musegan)]
 [[arXiv](http://arxiv.org/abs/1709.06298)]
 [[paper](https://salu133445.github.io/musegan/pdf/musegan-aaai2018-paper.pdf)]
@@ -196,7 +196,7 @@ _Proceedings of the 32nd AAAI Conference on Artificial Intelligence (AAAI)_, 201
 
 __Convolutional Generative Adversarial Networks with Binary Neurons for Polyphonic Music Generation__<br>
 Hao-Wen Dong and Yi-Hsuan Yang<br>
-_Proceedings of the 19th International Society for Music Information Retrieval Conference (ISMIR)_, 2018.<br>
+_International Society for Music Information Retrieval Conference (ISMIR)_, 2018.<br>
 [[homepage](https://salu133445.github.io/bmusegan)]
 [[video](https://youtu.be/r9C2Q2oR9Ik)]
 [[paper](https://salu133445.github.io/bmusegan/pdf/bmusegan-ismir2018-paper.pdf)]
@@ -207,7 +207,7 @@ _Proceedings of the 19th International Society for Music Information Retrieval C
 [[code](https://github.com/salu133445/bmusegan)]
 
 __MuseGAN: Demonstration of a Convolutional GAN Based Model for Generating Multi-track Piano-rolls__<br>
-Hao-Wen Dong,\* Wen-Yi Hsiao,\* Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
-_Late-Breaking Demos of the 18th International Society for Music Information Retrieval Conference (ISMIR)_, 2017.<br>
+Hao-Wen Dong\*, Wen-Yi Hsiao\*, Li-Chia Yang and Yi-Hsuan Yang (\*equal contribution)<br>
+_ISMIR Late-Breaking Demos_, 2017.<br>
 [[paper](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-paper.pdf)]
 [[poster](https://salu133445.github.io/musegan/pdf/musegan-ismir2017-lbd-poster.pdf)]
