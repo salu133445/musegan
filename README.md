@@ -1,4 +1,5 @@
 # MuseGAN
+<a href="https://replicate.ai/salu133445/musegan"><img src="https://img.shields.io/static/v1?label=Replicate&message=Demo and Docker Image&color=darkgreen" height=20></a>
 
 [MuseGAN](https://salu133445.github.io/musegan/) is a project on music
 generation. In a nutshell, we aim to generate polyphonic music of multiple
